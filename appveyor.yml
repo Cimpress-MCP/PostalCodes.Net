@@ -1,7 +1,7 @@
 version: build_number_{build}
 skip_tags: true
 init:
-- ps: "$v = [regex]::match($env:APPVEYOR_REPO_BRANCH,'release/(.*)').Groups[1].Value\nWrite-Host \"On branch $($env:APPVEYOR_REPO_BRANCH)\"\nIF($v) { \n   $env:VERSION_FROM_BRANCH = \"$($v).$($env:APPVEYOR_BUILD_NUMBER)\"\n} else {\n   $env:VERSION_FROM_BRANCH = \"0.0.$($env:APPVEYOR_BUILD_NUMBER)\"\n}\nWrite-Host \"Set version to $($env:VERSION_FROM_BRANCH)\""
+- ps: "$v = [regex]::match($env:APPVEYOR_REPO_BRANCH,'release/(.*)').Groups[1].Value\nWrite-Host \"On branch $($env:APPVEYOR_REPO_BRANCH)\"\nIF($v) { \n   $env:VERSION_FROM_BRANCH = \"$($v).$($env:APPVEYOR_BUILD_NUMBER)\"\n} else {\n   $env:VERSION_FROM_BRANCH = \"0.0.0.$($env:APPVEYOR_BUILD_NUMBER)\"\n}\nWrite-Host \"Set version to $($env:VERSION_FROM_BRANCH)\""
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -24,7 +24,7 @@ deploy:
   on:
     branch: /release/.*/
 - provider: GitHub
-  release: 
+  release: $(VERSION_FROM_BRANCH)
   auth_token:
     secure: WU3IlQqOmPsEQ5Gsmj9MMBMdwNynLhxuBBK5C1SiPBygO78NcehvQw92TOfDkEq0
   artifact: Dlls
