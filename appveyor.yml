@@ -2,11 +2,11 @@ version: 1.0.{build}
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}'
+  assembly_version: $(VERSION_FROM_BRANCH)
+  assembly_file_version: $(VERSION_FROM_BRANCH)
+  assembly_informational_version: $(VERSION_FROM_BRANCH)
 before_build:
-- ps: "$v = [regex]::match($env:APPVEYOR_REPO_BRANCH,'release/(.*)').Groups[1].Value\nIF($v) {            \n    $env:VERSION_FROM_BRANCH = \"$($v).$($env:APPVEYOR_BUILD_NUMBER)\"\n} else {            \n    $env:VERSION_FROM_BRANCH = \"0.0.$($env:APPVEYOR_BUILD_NUMBER)\"  \n}"
+- ps: "$v = [regex]::match($env:APPVEYOR_REPO_BRANCH,'release/(.*)').Groups[1].Value IF($v) { $env:VERSION_FROM_BRANCH = \"$($v).$($env:APPVEYOR_BUILD_NUMBER)\" } else { $env:VERSION_FROM_BRANCH = \"0.0.$($env:APPVEYOR_BUILD_NUMBER)\" }"
 build:
   verbosity: minimal
 artifacts:
