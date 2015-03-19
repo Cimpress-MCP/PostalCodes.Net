@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
 
 namespace PostalCodes
 {
@@ -18,15 +20,22 @@ namespace PostalCodes
 
             try
             {
-                normalizedCountryCode = NormalizeToIso(countryCode);
+				normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
             }
             catch (InvalidOperationException)
             {
                 return false;
             }
 
-            return CountryCodes.ValidCountryCodes.Contains(normalizedCountryCode);
-        }
+			var country = Iso3166Countries.Countries.FirstOrDefault(a => a.Alpha2Code == normalizedCountryCode);
+			if (country == default(Iso3166Country)) {
+				return false;
+			}
+
+			return country.Status != Iso3166CountryCodeStatus.NotUsed
+			&& country.Status != Iso3166CountryCodeStatus.Unassigned
+			&& country.Status != Iso3166CountryCodeStatus.UserAssigned;
+		}
 
         /// <summary>
         /// Gets the normalized country code based on ISO 3166-1 alpha-2 standards
@@ -35,9 +44,9 @@ namespace PostalCodes
         /// <returns>Normalized country code</returns>
         public string GetNormalizedCountryCode(string countryCode)
         {
-            var normalizedCountryCode = NormalizeToIso(countryCode);
+			var normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
             
-            if (!CountryCodes.ValidCountryCodes.Contains(normalizedCountryCode))
+			if (!Iso3166Countries.Countries.Any(a => a.Alpha2Code == normalizedCountryCode))
             {
                 throw new InvalidOperationException(string.Format("The specified country code is not valid: {0}", countryCode));
             }
@@ -45,7 +54,7 @@ namespace PostalCodes
             return normalizedCountryCode;
         }
 
-        private static string NormalizeToIso(string countryCode)
+        private static string NormalizeToIso3166p1Alpha2(string countryCode)
         {
             if (countryCode == null)
             {
@@ -60,18 +69,15 @@ namespace PostalCodes
             }
 
             countryCode = countryCode.ToUpperInvariant();
+			var isoCountry = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
+			if (isoCountry != default(Iso3166Country)) {
+				if (isoCountry.NewCountryCodes.Length > 0) {
+					return isoCountry.NewCountryCodes[0];
+				}
+				return isoCountry.Alpha2Code;
+			}
 
-            switch (countryCode)
-            {
-                // 'AN' split into 3 country codes - CW, SX, and BQ
-                // For clients that still use 'AN', assume its CW (the largest of the 3) instead
-                case "AN":
-                    return "CW";
-                case "UK":
-                    return "GB";
-                default:
-                    return countryCode;
-            }
+			throw new InvalidOperationException("Unknown");
         }
     }
 }

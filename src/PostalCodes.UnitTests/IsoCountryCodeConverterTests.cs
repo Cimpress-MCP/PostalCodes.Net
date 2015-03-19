@@ -3,9 +3,9 @@ using NUnit.Framework;
 
 namespace PostalCodes.UnitTests
 {
-    internal class IsoToVistaprintCountryCodeConverterTests
+	internal class IsoCountryCodeConverterTests
     {
-        private static readonly IsoToVistaprintCountryCodeConverter IsoConverter = new IsoToVistaprintCountryCodeConverter();
+		private static readonly IsoCountryCodeConverter IsoConverter = new IsoCountryCodeConverter();
 
         [Test]
         [TestCase("GB", "UK")]
@@ -15,7 +15,7 @@ namespace PostalCodes.UnitTests
         public void GetVistaprintCountryCode_VPSpecificCountryCode_ReturnsVistaprintCountryCode(string input,
                                                                                                 string output)
         {
-            Assert.AreEqual(output, IsoConverter.GetVistaprintCountryCode(input));
+			Assert.AreEqual(output, IsoConverter.GetIso3166p3Code(input));
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace PostalCodes.UnitTests
         [TestCase("DE")]
         public void GetVistaprintCountryCode_NonVPSpecificCountryCode_ReturnsSameCountryCode(string input)
         {
-            Assert.AreEqual(input, IsoConverter.GetVistaprintCountryCode(input));
+			Assert.AreEqual(input, IsoConverter.GetIso3166p3Code(input));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace PostalCodes.UnitTests
         [TestCase("ZU")]
         public void GetVistaprintCountryCode_NonIsoCountryCode_ThrowsException(string input)
         {
-            Assert.Throws<InvalidOperationException>(() => IsoConverter.GetVistaprintCountryCode(input));
+			Assert.Throws<InvalidOperationException>(() => IsoConverter.GetIso3166p3Code(input));
         }
     }
 }
