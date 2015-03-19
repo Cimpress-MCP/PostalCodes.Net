@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/Cimpress-MCP/PostalCodes.Net/wiki</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>Copyright 2015</copyright>
-    <tags>Postal Codes, Zip Code</tags>
+    <tags>PostalCode, ZipCode, PostalCodes, ZipCodes, postal-code, postal-codes, zip-code, zip-codes</tags>
     <dependencies/>
 	<summary>Library for managing postal codes for .NET</summary>
 	<description>Library that provides zip code validation, formatting and simple arithmetic</description>
