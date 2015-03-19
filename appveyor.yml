@@ -1,0 +1,18 @@
+version: 1.0.{build}
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+build:
+  verbosity: minimal
+artifacts:
+- path: src\PostalCodes\bin\*\*.nupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: DK9YLl9zwAwoGGPvu+Sf25PN9lLuiIUJgJ/hXXfJiTUNr5FVSIDuio5/Ncl2suLY
+  skip_symbols: false
+  on:
+    branch: master

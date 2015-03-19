@@ -12,3 +12,6 @@ reports
 *.DotSettings
 _Resharper*
 *-report.xml
+src/PostalCodes.Documentation/Help/
+*.GhostDoc.xml
+*.log

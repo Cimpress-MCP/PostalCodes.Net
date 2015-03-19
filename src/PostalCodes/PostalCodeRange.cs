@@ -3,14 +3,30 @@ using System.Collections.Generic;
 
 namespace PostalCodes
 {
+    /// <summary>
+    /// Class PostalCodeRange.
+    /// </summary>
     public class PostalCodeRange : IEquatable<PostalCodeRange>, IComparable<PostalCodeRange>, IComparable
     {
-        private static readonly Lazy<PostalCodeRange> LazyDefault = new Lazy<PostalCodeRange>(() => new PostalCodeRange(null, null)); 
+        /// <summary>
+        /// The lazy default
+        /// </summary>
+        private static readonly Lazy<PostalCodeRange> LazyDefault = new Lazy<PostalCodeRange>(() => new PostalCodeRange(null, null));
+        /// <summary>
+        /// Gets the default.
+        /// </summary>
+        /// <value>The default.</value>
         public static PostalCodeRange Default
         {
             get { return LazyDefault.Value; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostalCodeRange"/> class.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <exception cref="System.ArgumentException"></exception>
         public PostalCodeRange(PostalCode start, PostalCode end)
         {
             if (end != null && start != null && start > end)
@@ -22,34 +38,66 @@ namespace PostalCodes
             End = end;
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is indefinite.
+        /// </summary>
+        /// <value><c>true</c> if this instance is indefinite; otherwise, <c>false</c>.</value>
         public bool IsIndefinite
         {
             get { return !StartDefined || !EndDefined; }
         }
-        
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is default.
+        /// </summary>
+        /// <value><c>true</c> if this instance is default; otherwise, <c>false</c>.</value>
         public bool IsDefault
         {
             get { return !StartDefined && !EndDefined; }
         }
 
+        /// <summary>
+        /// Gets the start.
+        /// </summary>
+        /// <value>The start.</value>
         public PostalCode Start { get; private set; }
+        /// <summary>
+        /// Gets the end.
+        /// </summary>
+        /// <value>The end.</value>
         public PostalCode End { get; private set; }
 
+        /// <summary>
+        /// Gets the predecessor postal code.
+        /// </summary>
+        /// <value>The predecessor postal code.</value>
         public PostalCode PredecessorPostalCode
         {
             get { return StartDefined ? Start.Predecessor : null; }
         }
 
+        /// <summary>
+        /// Gets the successor postal code.
+        /// </summary>
+        /// <value>The successor postal code.</value>
         public PostalCode SuccessorPostalCode
         {
             get { return EndDefined ? End.Successor : null; }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [start defined].
+        /// </summary>
+        /// <value><c>true</c> if [start defined]; otherwise, <c>false</c>.</value>
         public bool StartDefined
         {
             get { return Start != null; }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [end defined].
+        /// </summary>
+        /// <value><c>true</c> if [end defined]; otherwise, <c>false</c>.</value>
         public bool EndDefined
         {
             get { return End != null; }
@@ -57,6 +105,11 @@ namespace PostalCodes
 
         #region IComparable Members
 
+        /// <summary>
+        /// Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
+        /// </summary>
+        /// <param name="obj">An object to compare with this instance.</param>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="obj" /> in the sort order. Zero This instance occurs in the same position in the sort order as <paramref name="obj" />. Greater than zero This instance follows <paramref name="obj" /> in the sort order.</returns>
         int IComparable.CompareTo(object obj)
         {
             return CompareTo(obj as PostalCodeRange);
@@ -71,8 +124,8 @@ namespace PostalCodes
         /// where there is no overlap or a partial intersection, the one with the higher start is
         /// preferred.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.</returns>
         public int CompareTo(PostalCodeRange other)
         {
             // prefer (evaluate as smaller) the higher start
@@ -108,6 +161,11 @@ namespace PostalCodes
 
         #region IEquatable<PostalCodeRange> Members
 
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
         public bool Equals(PostalCodeRange other)
         {
             if (other == null)
@@ -123,6 +181,10 @@ namespace PostalCodes
 
         #endregion
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             if (IsDefault)
@@ -140,11 +202,20 @@ namespace PostalCodes
             return "<" + Start + "-" + End + ">";
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
             return (StartDefined ? Start.GetHashCode() * 467 : 0) + (EndDefined ? End.GetHashCode() * 487 : 0);
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(obj, null))
@@ -162,21 +233,45 @@ namespace PostalCodes
             return Equals(obj as PostalCodeRange);
         }
 
+        /// <summary>
+        /// Implements the &lt;.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator <(PostalCodeRange left, PostalCodeRange right)
         {
             return left.CompareTo(right) < 0;
         }
 
+        /// <summary>
+        /// Implements the &lt;=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator <=(PostalCodeRange left, PostalCodeRange right)
         {
             return left.CompareTo(right) <= 0;
         }
 
+        /// <summary>
+        /// Implements the &gt;.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator >(PostalCodeRange left, PostalCodeRange right)
         {
             return left.CompareTo(right) > 0;
         }
 
+        /// <summary>
+        /// Implements the &gt;=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator >=(PostalCodeRange left, PostalCodeRange right)
         {
             return left.CompareTo(right) >= 0;
@@ -184,17 +279,35 @@ namespace PostalCodes
 
         #region Set Operations
 
+        /// <summary>
+        /// Ares the adjacent.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool AreAdjacent(PostalCodeRange left, PostalCodeRange right)
         {
             return PostalCode.AreAdjacent(left.Start, right.End) 
                 || PostalCode.AreAdjacent(left.End, right.Start);
         }
 
+        /// <summary>
+        /// Intersectses the range.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool IntersectsRange(PostalCodeRange left, PostalCodeRange right)
         {
             return Contains(left, right.Start) || Contains(left, right.End) || Contains(right, left.Start) || Contains(right, left.End);
         }
 
+        /// <summary>
+        /// Ares the coincident.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool AreCoincident(PostalCodeRange left, PostalCodeRange right)
         {
             if (left == null || right == null)
@@ -208,11 +321,23 @@ namespace PostalCodes
             return IntersectsRange(left, right);
         }
 
+        /// <summary>
+        /// Ares the overlapping.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool AreOverlapping(PostalCodeRange left, PostalCodeRange right)
         {
             return Contains(left, right) || Contains(right, left) || AreCoincident(left, right);
         }
 
+        /// <summary>
+        /// Determines whether [contains] [the specified range].
+        /// </summary>
+        /// <param name="range">The range.</param>
+        /// <param name="specificCode">The specific code.</param>
+        /// <returns><c>true</c> if [contains] [the specified range]; otherwise, <c>false</c>.</returns>
         public static bool Contains(PostalCodeRange range, PostalCode specificCode)
         {
             if (specificCode == null)
@@ -223,6 +348,12 @@ namespace PostalCodes
                    (((range.Start <= specificCode) || (range.End == null)) && (specificCode <= range.End));
         }
 
+        /// <summary>
+        /// Determines whether [contains] [the specified outer].
+        /// </summary>
+        /// <param name="outer">The outer.</param>
+        /// <param name="inner">The inner.</param>
+        /// <returns><c>true</c> if [contains] [the specified outer]; otherwise, <c>false</c>.</returns>
         public static bool Contains(PostalCodeRange outer, PostalCodeRange inner)
         {
             if (outer == null || inner == null)
@@ -240,6 +371,14 @@ namespace PostalCodes
             return outer.Start.CompareTo(inner.Start) <= 0 && outer.End.CompareTo(inner.End) >= 0;
         }
 
+        /// <summary>
+        /// Resects the specified range.
+        /// </summary>
+        /// <param name="range">The range.</param>
+        /// <param name="toResect">To resect.</param>
+        /// <returns>IEnumerable&lt;PostalCodeRange&gt;.</returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// </exception>
         public static IEnumerable<PostalCodeRange> Resect(PostalCodeRange range, PostalCodeRange toResect)
         {
             if (Equals(toResect, range))
@@ -281,6 +420,13 @@ namespace PostalCodes
             }
         }
 
+        /// <summary>
+        /// Combines the with check.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>PostalCodeRange.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public static PostalCodeRange CombineWithCheck(PostalCodeRange left, PostalCodeRange right)
         {
             if (!(PostalCode.AreAdjacent(left.Start, right.End) || PostalCode.AreAdjacent(right.Start, left.End))
@@ -292,6 +438,12 @@ namespace PostalCodes
             return Combine(left, right);
         }
 
+        /// <summary>
+        /// Combines the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>PostalCodeRange.</returns>
         public static PostalCodeRange Combine(PostalCodeRange left, PostalCodeRange right)
         {
             var newStart = left.Start < right.Start ? left.Start : right.Start;
