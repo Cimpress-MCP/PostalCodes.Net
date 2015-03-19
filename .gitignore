@@ -1,0 +1,14 @@
+bin/
+obj/
+lib
+publish/
+nuget-packages/
+packages/
+target
+output
+reports
+*.suo
+*.user
+*.DotSettings
+_Resharper*
+*-report.xml

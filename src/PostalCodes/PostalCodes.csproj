@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9137EA82-76BB-4E15-8F6D-1158FCED77D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PostalCodes</RootNamespace>
+    <AssemblyName>PostalCodes</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PostalCodes.Net.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Country.cs" />
+    <Compile Include="CountryCodes.cs" />
+    <Compile Include="CountryFactory.cs" />
+    <Compile Include="CountryPostalCode.cs" />
+    <Compile Include="CountrySpecificPostalCodes\MTPostalCode.cs" />
+    <Compile Include="IIsoCountryCodeValidator.cs" />
+    <Compile Include="CountrySpecificPostalCodes\CAPostalCode.cs" />
+    <Compile Include="CountrySpecificPostalCodes\NLPostalCode.cs" />
+    <Compile Include="IPostalCodeInputNormalizer.cs" />
+    <Compile Include="IsoCountryCodeValidator.cs" />
+    <Compile Include="IsoToVistaprintCountryCodeConverter.cs" />
+    <Compile Include="NumericPostalCode.cs" />
+    <Compile Include="CountrySpecificPostalCodes\PTPostalCode.cs" />
+    <Compile Include="PostalCode.cs" />
+    <Compile Include="PostalCodeException.cs" />
+    <Compile Include="PostalCodeFactory.cs" />
+    <Compile Include="PostalCodeInputNormalizer.cs" />
+    <Compile Include="PostalCodeOutputNormalizer.cs" />
+    <Compile Include="PostalCodeRange.cs" />
+    <Compile Include="PostalCodeStringComparer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CountrySpecificPostalCodes\GBPostalCode.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+	<Exec WorkingDirectory="$(TargetDir)" Command="$(SolutionDir).nuget\NuGet.exe pack $(ProjectPath)" />
+  </Target>
+</Project>
