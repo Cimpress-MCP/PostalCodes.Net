@@ -1,0 +1,58 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Declare files that will always have CRLF line endings on checkout.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.config text eol=crlf
+*.cs text eol=crlf
+*.csproj text eol=crlf
+*.csv text eol=crlf
+*.datasource text eol=crlf
+*.diagram text eol=crlf
+*.dim text eol=crlf
+*.disco text eol=crlf
+*.edmx text eol=crlf
+*.feature text eol=crlf
+*.html text eol=crlf
+*.jlt text eol=crlf
+*.map text eol=crlf
+*.pp text eol=crlf
+*.properties text eol=crlf
+*.ps text eol=crlf
+*.ps1 text eol=crlf
+*.py text eol=crlf
+*.rb text eol=crlf
+*.rdl text eol=crlf
+*.resx text eol=crlf
+*.settings text eol=crlf
+*.sln text eol=crlf
+*.sql text eol=crlf
+*.tt text eol=crlf
+*.txt text eol=crlf
+*.vb text eol=crlf
+*.vbproj text eol=crlf
+*.wsdl text eol=crlf
+*.wxi text eol=crlf
+*.wxs text eol=crlf
+*.xaml text eol=crlf
+*.xml text eol=crlf
+*.xslt text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.bmp binary
+*.cd binary
+*.chm binary
+*.dat binary
+*.dll binary
+*.exe binary
+*.fnt binary
+*.gif binary
+*.ico binary
+*.jpg binary
+*.pdf binary
+*.png binary
+*.psd binary
+*.rpt binary
+*.ttf binary
+*.wav binary
