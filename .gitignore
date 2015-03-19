@@ -2,7 +2,8 @@ bin/
 obj/
 lib
 publish/
-nuget-packages
+nuget-packages/
+packages/
 target
 output
 reports
