@@ -2,8 +2,17 @@
 
 namespace PostalCodes
 {
+    /// <summary>
+    /// Class IsoToVistaprintCountryCodeConverter.
+    /// </summary>
     public class IsoToVistaprintCountryCodeConverter
     {
+        /// <summary>
+        /// Gets the vistaprint country code.
+        /// </summary>
+        /// <param name="countryCode">The country code.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public string GetVistaprintCountryCode(string countryCode)
         {
             if (!CountryCodes.ValidCountryCodes.Contains(countryCode))
@@ -14,6 +23,11 @@ namespace PostalCodes
             return IsoToVistaprint(countryCode);
         }
 
+        /// <summary>
+        /// Isoes to vistaprint.
+        /// </summary>
+        /// <param name="countryCode">The country code.</param>
+        /// <returns>System.String.</returns>
         private string IsoToVistaprint(string countryCode)
         {
             switch (countryCode)

@@ -1,7 +1,17 @@
 namespace PostalCodes
 {
+    /// <summary>
+    /// Class PostalCodeOutputNormalizer.
+    /// </summary>
     public class PostalCodeOutputNormalizer
     {
+        /// <summary>
+        /// Normalizes the specified country.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <param name="start">if set to <c>true</c> [start].</param>
+        /// <returns>System.String.</returns>
         public string Normalize(string country, string postalCode, bool start)
         {
             if (country == "GB")

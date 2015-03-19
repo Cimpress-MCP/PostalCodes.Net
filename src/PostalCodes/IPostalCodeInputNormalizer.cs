@@ -1,5 +1,8 @@
 namespace PostalCodes
 {
+    /// <summary>
+    /// Interface IPostalCodeInputNormalizer
+    /// </summary>
     public interface IPostalCodeInputNormalizer
     {
         /// <summary>

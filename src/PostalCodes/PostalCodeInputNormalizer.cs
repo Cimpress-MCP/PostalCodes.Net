@@ -1,25 +1,58 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO.Pipes;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PostalCodes
 {
+    /// <summary>
+    /// Class PostalCodeInputNormalizer.
+    /// </summary>
     public class PostalCodeInputNormalizer : IPostalCodeInputNormalizer
     {
+        /// <summary>
+        /// The great britain
+        /// </summary>
         private static readonly Regex GreatBritain = new Regex("^[A-Z]{1,2}[0-9R][0-9A-Z]?[0-9]$", RegexOptions.Compiled);
+        /// <summary>
+        /// The great britain seven
+        /// </summary>
         private static readonly Regex GreatBritainSeven = new Regex("^[A-Z]{1,2}[0-9R][0-9A-Z]?[0-9][ABD-HJLNP-UW-Z]{2}$", RegexOptions.Compiled);
+        /// <summary>
+        /// The portugal without extension
+        /// </summary>
         private static readonly Regex PortugalWithoutExtension = new Regex("^[0-9]{1,4}$", RegexOptions.Compiled);
+        /// <summary>
+        /// The portugal
+        /// </summary>
         private static readonly Regex Portugal = new Regex("^[0-9]{7}$", RegexOptions.Compiled);
+        /// <summary>
+        /// The russia without extension
+        /// </summary>
         private static readonly Regex RussiaWithoutExtension = new Regex("^[0-9]{1,3}$", RegexOptions.Compiled);
+        /// <summary>
+        /// The russia
+        /// </summary>
         private static readonly Regex Russia = new Regex("^[0-9]{6}$", RegexOptions.Compiled);
+        /// <summary>
+        /// The canada
+        /// </summary>
         private static readonly Regex Canada = new Regex("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$", RegexOptions.Compiled);
+        /// <summary>
+        /// The barbados
+        /// </summary>
         private static readonly Regex Barbados = new Regex("^(BB)?[0-9]{5}$", RegexOptions.Compiled);
+        /// <summary>
+        /// The malta
+        /// </summary>
         private static readonly Regex Malta = new Regex("^[A-Z]{3}[0-9]{4}$", RegexOptions.Compiled);
 
+        /// <summary>
+        /// Normalizes postal codes for a given country for use in later comparisons; whether the postal code
+        /// should be normalized to be the start or end of a range can be specified.
+        /// </summary>
+        /// <param name="country">Normalizes postal codes based on country</param>
+        /// <param name="postalCode">Postal code to be normalized</param>
+        /// <param name="start">Specifies whether postal code is start or end range</param>
+        /// <returns>Normalized postal code depending on country</returns>
         public string Normalize(Country country, string postalCode, bool start)
         {
             postalCode = postalCode.Replace(" ", "").Replace("-", "").ToUpperInvariant();
@@ -85,6 +118,14 @@ namespace PostalCodes
             }
         }
 
+        /// <summary>
+        /// Normalizes the portugal.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <param name="start">if set to <c>true</c> [start].</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         private static string NormalizePortugal(string country, string postalCode, bool start)
         {
             // First see if the we need to add 000/999 to the range.
@@ -105,6 +146,14 @@ namespace PostalCodes
             return postalCode;
         }
 
+        /// <summary>
+        /// Normalizes the russia.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <param name="start">if set to <c>true</c> [start].</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         private static string NormalizeRussia(string country, string postalCode, bool start)
         {
             // First see if we need to add 000/999 to the range.
@@ -125,6 +174,13 @@ namespace PostalCodes
             return postalCode;
         }
 
+        /// <summary>
+        /// Normalizes the great britain.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         private static string NormalizeGreatBritain(string country, string postalCode)
         {
             if (!GreatBritain.Match(postalCode).Success)
@@ -134,6 +190,13 @@ namespace PostalCodes
             return postalCode;
         }
 
+        /// <summary>
+        /// Normalizes the canada.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         private static string NormalizeCanada(string country, string postalCode)
         {
             // Check if postal code follows alphabet/number/alphabet/number/alphabet/number format.
@@ -145,6 +208,13 @@ namespace PostalCodes
             return postalCode;
         }
 
+        /// <summary>
+        /// Normalizes the barbados.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         private static string NormalizeBarbados(string country, string postalCode)
         {
             if (!Barbados.Match(postalCode).Success)
@@ -154,6 +224,13 @@ namespace PostalCodes
             return postalCode.StartsWith("BB") ? postalCode.Substring(2) : postalCode;
         }
 
+        /// <summary>
+        /// Normalizes the malta.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         private static string NormalizeMalta(string country, string postalCode)
         {
             if (!Malta.Match(postalCode).Success)
@@ -163,6 +240,15 @@ namespace PostalCodes
             return postalCode;
         }
 
+        /// <summary>
+        /// Normalizes the digits.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="postalCode">The postal code.</param>
+        /// <param name="digits">The digits.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// </exception>
         private static string NormalizeDigits(string country, string postalCode, int digits)
         {
             var intPostalCode = -1;
@@ -250,6 +336,12 @@ namespace PostalCodes
         }
 
         // <returns> false if the GB postalCodeA is not the same format as postalCodeB
+        /// <summary>
+        /// Checks if gb postal code formats match.
+        /// </summary>
+        /// <param name="quotePostalCode">The quote postal code.</param>
+        /// <param name="startPostalCodeRange">The start postal code range.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool CheckIfGBPostalCodeFormatsMatch(string quotePostalCode, string startPostalCodeRange)
         {
             var quotePostalCodeLength = quotePostalCode.Length;
