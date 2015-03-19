@@ -1,6 +1,7 @@
 version: $(VERSION_FROM_BRANCH)
+skip_tags: true
 init:
-- ps: "$v = [regex]::match($env:APPVEYOR_REPO_BRANCH,'release/(.*)').Groups[1].Value; Write-Host \"On branch $($env:APPVEYOR_REPO_BRANCH)\"; IF($v) { $env:VERSION_FROM_BRANCH = \"$($v).$($env:APPVEYOR_BUILD_NUMBER)\" } else {  $env:VERSION_FROM_BRANCH = \"0.0.$($env:APPVEYOR_BUILD_NUMBER)\" }; Write-Host \"Set version to $($env:VERSION_FROM_BRANCH)\""
+- ps: "$v = [regex]::match($env:APPVEYOR_REPO_BRANCH,'release/(.*)').Groups[1].Value\nWrite-Host \"On branch $($env:APPVEYOR_REPO_BRANCH)\"\nIF($v) { \n   $env:VERSION_FROM_BRANCH = \"$($v).$($env:APPVEYOR_BUILD_NUMBER)\"\n} else {\n   $env:VERSION_FROM_BRANCH = \"0.0.$($env:APPVEYOR_BUILD_NUMBER)\"\n}\nWrite-Host \"Set version to $($env:VERSION_FROM_BRANCH)\""
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -12,3 +13,20 @@ build:
 artifacts:
 - path: src\PostalCodes\bin\*\*.nupkg
   name: NuGet
+- path: src\PostalCodes\bin\*\*.dll
+  name: Dlls
+deploy:
+- provider: NuGet
+  api_key:
+    secure: DK9YLl9zwAwoGGPvu+Sf25PN9lLuiIUJgJ/hXXfJiTUNr5FVSIDuio5/Ncl2suLY
+  skip_symbols: true
+  artifact: NuGet
+  on:
+    branch: /release/.*/
+- provider: GitHub
+  release: 
+  auth_token:
+    secure: WU3IlQqOmPsEQ5Gsmj9MMBMdwNynLhxuBBK5C1SiPBygO78NcehvQw92TOfDkEq0
+  artifact: Dlls
+  on:
+    branch: /release/.*/
