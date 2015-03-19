@@ -5,6 +5,8 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+before_build:
+- ps: "$v = [regex]::match($env:APPVEYOR_REPO_BRANCH,'release/(.*)').Groups[1].Value\nIF($v) {            \n    $env:VERSION_FROM_BRANCH = \"$($v).$($env:APPVEYOR_BUILD_NUMBER)\"\n} else {            \n    $env:VERSION_FROM_BRANCH = \"0.0.$($env:APPVEYOR_BUILD_NUMBER)\"  \n}"
 build:
   verbosity: minimal
 artifacts:
@@ -15,4 +17,4 @@ deploy:
     secure: DK9YLl9zwAwoGGPvu+Sf25PN9lLuiIUJgJ/hXXfJiTUNr5FVSIDuio5/Ncl2suLY
   skip_symbols: false
   on:
-    branch: master
+    branch: /release/.*/
