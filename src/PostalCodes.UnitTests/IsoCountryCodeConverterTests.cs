@@ -12,8 +12,7 @@ namespace PostalCodes.UnitTests
         [TestCase("BQ", "AN")]
         [TestCase("SX", "AN")]
         [TestCase("CW", "AN")]
-        public void GetVistaprintCountryCode_VPSpecificCountryCode_ReturnsVistaprintCountryCode(string input,
-                                                                                                string output)
+		public void GetIso3166p3Code_WithIso3166p1Code_ReturnsIso3166p3Code(string input, string output)
         {
 			Assert.AreEqual(output, IsoConverter.GetIso3166p3Code(input));
         }
@@ -23,7 +22,7 @@ namespace PostalCodes.UnitTests
         [TestCase("BM")]
         [TestCase("CA")]
         [TestCase("DE")]
-        public void GetVistaprintCountryCode_NonVPSpecificCountryCode_ReturnsSameCountryCode(string input)
+		public void GetIso3166p3Code_WithIso3166p1Code_ReturnsIso3166p1Code(string input)
         {
 			Assert.AreEqual(input, IsoConverter.GetIso3166p3Code(input));
         }
@@ -33,7 +32,7 @@ namespace PostalCodes.UnitTests
         [TestCase("KJ")]
         [TestCase("IY")]
         [TestCase("ZU")]
-        public void GetVistaprintCountryCode_NonIsoCountryCode_ThrowsException(string input)
+		public void GetIso3166p3Code_WithUnassignedUserDefinedOrNotUsedCode_ThrowsInvalidOperationException(string input)
         {
 			Assert.Throws<InvalidOperationException>(() => IsoConverter.GetIso3166p3Code(input));
         }

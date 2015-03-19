@@ -4,16 +4,15 @@ using System.Linq;
 namespace PostalCodes
 {
     /// <summary>
-    /// Class IsoToVistaprintCountryCodeConverter.
+    /// ISO 3166 country code converter
     /// </summary>
     public class IsoCountryCodeConverter
     {
         /// <summary>
-        /// Gets the vistaprint country code.
+		/// Gets the iso3166-3 country code (if any).
         /// </summary>
-        /// <param name="countryCode">The country code.</param>
-        /// <returns>System.String.</returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <returns>The iso3166p3 code.</returns>
+        /// <param name="countryCode">Country code.</param>
         public string GetIso3166p3Code(string countryCode)
         {
 			var oldCode = Iso3166Countries.Countries.FirstOrDefault (a => a.NewCountryCodes.Contains (countryCode.ToUpperInvariant ()));
@@ -26,7 +25,9 @@ namespace PostalCodes
 				}
 			}
 
-			if (oldCode.Status == Iso3166CountryCodeStatus.NotUsed || oldCode.Status == Iso3166CountryCodeStatus.Unassigned) 
+			if (oldCode.Status == Iso3166CountryCodeStatus.NotUsed 
+				|| oldCode.Status == Iso3166CountryCodeStatus.Unassigned
+				|| oldCode.Status == Iso3166CountryCodeStatus.UserAssigned) 
 			{
 				throw new InvalidOperationException (string.Format ("The specified country code is not valid: {0}", countryCode));
 			}
