@@ -66,9 +66,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
   </PropertyGroup>
-  <ItemGroup>
-   
-  </ItemGroup>
   <PropertyGroup>
     <SHFBROOT Condition=" '$(SHFBROOT)' == '' ">$(MSBuildThisFileDirectory)..\..\packages\EWSoftware.SHFB.2014.11.22.0\Tools\</SHFBROOT>
   </PropertyGroup>
