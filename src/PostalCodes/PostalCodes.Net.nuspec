@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Rafał Nowosielski, Ivan Stanishev, Brendan Shea</authors>
+    <owners>Rafał Nowosielski</owners>
+    <licenseUrl>https://github.com/Cimpress-MCP/PostalCodes.Net/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Cimpress-MCP/PostalCodes.Net/wiki</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright 2015</copyright>
+    <tags>PostalCode, ZipCode, PostalCodes, ZipCodes, postal-code, postal-codes, zip-code, zip-codes</tags>
+    <dependencies/>
+	<summary>Library for managing postal codes for .NET</summary>
+	<description>Library that provides zip code validation, formatting and simple arithmetic</description>
+	<language>en-US</language>
+  </metadata>
+</package>

@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostalCodes", "src\PostalCodes\PostalCodes.csproj", "{9137EA82-76BB-4E15-8F6D-1158FCED77D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostalCodes.UnitTests", "src\PostalCodes.UnitTests\PostalCodes.UnitTests.csproj", "{D0E4B450-CBAD-4B01-97FF-3BA8E9AE1539}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E5514235-6147-4E81-97EA-EFF98B9635E6}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "PostalCodes.Documentation", "src\PostalCodes.Documentation\PostalCodes.Documentation.shfbproj", "{F4BAE2A2-656D-4413-B09E-091406584EA3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0E4B450-CBAD-4B01-97FF-3BA8E9AE1539} = {D0E4B450-CBAD-4B01-97FF-3BA8E9AE1539}
+		{9137EA82-76BB-4E15-8F6D-1158FCED77D9} = {9137EA82-76BB-4E15-8F6D-1158FCED77D9}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9137EA82-76BB-4E15-8F6D-1158FCED77D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9137EA82-76BB-4E15-8F6D-1158FCED77D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9137EA82-76BB-4E15-8F6D-1158FCED77D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9137EA82-76BB-4E15-8F6D-1158FCED77D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0E4B450-CBAD-4B01-97FF-3BA8E9AE1539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0E4B450-CBAD-4B01-97FF-3BA8E9AE1539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0E4B450-CBAD-4B01-97FF-3BA8E9AE1539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0E4B450-CBAD-4B01-97FF-3BA8E9AE1539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4BAE2A2-656D-4413-B09E-091406584EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4BAE2A2-656D-4413-B09E-091406584EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4BAE2A2-656D-4413-B09E-091406584EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4BAE2A2-656D-4413-B09E-091406584EA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
