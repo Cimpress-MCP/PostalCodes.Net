@@ -9,3 +9,18 @@ This package follows the git-flow branching model:
 * Develop features of a ```feature/*``` branch.
 * Create pull request to a ```master``` branch.
 * Once ```master``` is branched into ```release/<major>.<minor>.<patch>``` an automatic job builds and if successful publishes the NuGet package.
+
+## Prerequisites ##
+
+If you want to open the solution file in Visual Studio, you may need the Sandcastle Help File Builder Visual Studio extension available in the bundle [here](https://github.com/EWSoftware/SHFB/releases)
+
+## Building ##
+
+In order to build the project you can use plain msbuild
+
+```
+> nuget restore
+> msbuild
+```
+
+
