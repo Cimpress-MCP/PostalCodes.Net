@@ -1,4 +1,4 @@
-![Build Status](https://ci.appveyor.com/api/projects/status/3yy3dok9mnsld6d8/branch/develop)
+![Build Status](https://ci.appveyor.com/api/projects/status/3yy3dok9mnsld6d8/branch/master)
 
 # PostalCodes.Net
 Library for managing postal codes for .NET
