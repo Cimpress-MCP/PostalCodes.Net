@@ -9,6 +9,7 @@ This package follows the git-flow branching model:
 * Develop features of a ```feature/*``` branch.
 * Create pull request to a ```master``` branch.
 * Once ```master``` is branched into ```release/<major>.<minor>.<patch>``` an automatic job builds and if successful publishes the NuGet package.
+* After successful build the [artifact](https://www.nuget.org/packages/PostalCodes/) will be available via NuGet or directly from [GitHub Releases](https://github.com/Cimpress-MCP/PostalCodes.Net/releases)
 
 ## Prerequisites ##
 
@@ -22,5 +23,4 @@ In order to build the project you can use plain msbuild
 > nuget restore
 > msbuild
 ```
-
 
