@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using PostalCodes.GenericPostalCodes;
 
 namespace PostalCodes.UnitTests
 {
@@ -8,8 +9,8 @@ namespace PostalCodes.UnitTests
         [Test]
         public void PostalCode_OperatorLessThanGreaterThan()
         {
-            var p1 = new PostalCode("1000");
-            var p2 = new PostalCode("1001");
+			var p1 = new DefaultPostalCode("1000");
+			var p2 = new DefaultPostalCode("1001");
             Assert.IsTrue(p1 < p2);
             Assert.IsFalse(p2 < p1);
 
@@ -31,9 +32,9 @@ namespace PostalCodes.UnitTests
         [Test]
         public void PostalCode_Equals()
         {
-            var p1 = new PostalCode("1000"); 
-            var p11 = new PostalCode("1000");
-            var p2 = new PostalCode("1001");
+            var p1 = new DefaultPostalCode("1000"); 
+			var p11 = new DefaultPostalCode("1000");
+			var p2 = new DefaultPostalCode("1001");
 
             Assert.IsFalse(p1.Equals((object)p2));
             Assert.IsFalse(p2.Equals((object)p1));

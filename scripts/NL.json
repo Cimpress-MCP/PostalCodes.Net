@@ -1,0 +1,22 @@
+{
+	"CountryName" : "Netherlands",
+	"CountryCodeAlpha2" : "NL",
+
+	"WhiteSpaceCharacters" : " -",
+
+	"Formats" : [
+			{
+				"Name" : "NL : 9999 ZZ",
+				"RegexDefault" : "^[0-9]{4}[A-Z]{2}$",
+				"RegexShort" : "^[0-9]{4}$",
+				"OutputDefault" : "xxxx xx",
+				"OutputShort" : "xxxx",
+
+				"LeftPaddingCharacter" : "0",
+
+				"AutoConvertToShort" : "true",
+				"ShortExpansionAsLowestInRange" : "AA",
+				"ShortExpansionAsHighestInRange" : "ZZ"
+			}
+		]
+}

@@ -1,0 +1,14 @@
+{
+	"CountryName" : "Canada",
+	"CountryCodeAlpha2" : "CA",
+
+	"WhiteSpaceCharacters" : " -",
+
+	"Formats" : [
+			{
+				"Name" : "CA : A0A 0A0",
+				"RegexDefault" : "^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$",
+				"OutputDefault" : "xxx xxx"
+			}
+		]
+}

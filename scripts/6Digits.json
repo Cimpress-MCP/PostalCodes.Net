@@ -1,0 +1,20 @@
+{
+	"CountryName" : "N/A",
+	"CountryCodeAlpha2" : "N/A",
+
+	"WhiteSpaceCharacters" : " -",
+
+	"Formats" : [
+			{
+				"Name" : "6-Digits - 999999",
+				"RegexDefault" : "^[0-9]{6}$",
+				"OutputDefault" : "xxxxxx",
+				
+				"LeftPaddingCharacter" : "0",
+				
+				"AutoConvertToShort" : "false",
+				"ShortExpansionAsLowestInRange" : "0",
+				"ShortExpansionAsHighestInRange" : "9"
+			}
+		]
+}
