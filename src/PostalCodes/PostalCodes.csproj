@@ -60,7 +60,6 @@
     <Compile Include="Iso3166Country.cs" />
     <Compile Include="Iso3166Countries.cs" />
     <Compile Include="Iso3166CountryCodeStatus.cs" />
-    <Compile Include="Generated\GBPostalCode.gen.cs" />
     <Compile Include="PostalCodeFormat.cs" />
     <Compile Include="GenericPostalCodes\AlphaNumericPostalCode.cs" />
     <Compile Include="Generated\*.gen.cs" />
