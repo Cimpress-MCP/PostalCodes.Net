@@ -110,15 +110,15 @@
     <Compile Include="Generated\BBPostalCode.gen.cs" />
     <Compile Include="Generated\RUPostalCode.gen.cs" />
   </ItemGroup>
- <ItemGroup>
+  <ItemGroup>
     <Folder Include="Generated\" />
     <Folder Include="GenericPostalCodes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
-    <Exec WorkingDirectory="$(SolutionDir)" Command=".nuget\NuGet.exe restore" />
+    <Exec WorkingDirectory="$(SolutionDir)" Condition=" '$(OS)' != 'Unix' " Command=".nuget\NuGet.exe restore" />
   </Target>
   <Target Name="AfterBuild">
-    <Exec WorkingDirectory="$(TargetDir)" Command="$(SolutionDir).nuget\NuGet.exe pack $(ProjectPath)" />
+    <Exec WorkingDirectory="$(TargetDir)" Condition=" '$(OS)' != 'Unix' " Command="$(SolutionDir).nuget\NuGet.exe pack $(ProjectPath)" />
   </Target>
 </Project>

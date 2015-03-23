@@ -6,6 +6,7 @@ namespace PostalCodes.UnitTests
     [TestFixture]
     internal class CountryTests
     {
+		#pragma warning disable 0414
         private static readonly object[] DataSourceForEqualOperator =
         {
             new object[] {"BG", "BG",  true}, 
@@ -21,6 +22,7 @@ namespace PostalCodes.UnitTests
             var cp2 = new Country(country2);
             Assert.AreEqual(expectedResult, cp1 == cp2);
         }
+		#pragma warning restore 0414
 
         [Test, TestCaseSource("DataSourceForEqualOperator")]
         public void Country_Equals_ReturnsCorrectResult(string country1, string country2, bool expectedResult)
