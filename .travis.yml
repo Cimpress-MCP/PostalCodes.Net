@@ -3,6 +3,10 @@ solution: PostalCodes.sln
 install:
   - nuget restore PostalCodes.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+  - nuget install coveralls.io -Version 4.5.3522 -OuptutDirectory testcoverage
+  - nuget install OpenCover -Version 1.1.86 -OuptutDiretory testcoverage
 script:
   - xbuild /p:Configuration=Release PostalCodes.sln
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
+  - mono ./testcoverage/OpenCover.4.5.3522/OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe" -targetargs:"/noshadow /domain:single  ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll" -output:coverage.xml
+  - mono ./packages/coveralls.io.1.1.86/tools/coveralls.net.exe --opencover coverage.xml
