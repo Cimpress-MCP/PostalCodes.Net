@@ -1,0 +1,8 @@
+language: csharp
+solution: PostalCodes.sln
+install:
+  - nuget restore PostalCodes.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release PostalCodes.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
