@@ -57,8 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IsoCountryCodeConverterTests.cs" />
     <Compile Include="DefaultPostalCodeTests.cs" />
-    <Compile Include="Generated\RUPostalCodeTests.gen.cs" />
-    <Compile Include="Generated\BBPostalCodeTests.gen.cs" />
+    <Compile Include="Generated\*.gen.cs" />
     <Compile Include="CountrySpecificPostalCodes\PTPostalCodeManualTests.cs" />
     <Compile Include="CountrySpecificPostalCodes\NLPostalCodeManualTests.cs" />
     <Compile Include="CountrySpecificPostalCodes\MTPostalCodeManualTests.cs" />

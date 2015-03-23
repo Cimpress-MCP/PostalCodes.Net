@@ -8,8 +8,7 @@
 			{
 				"Name" : "BB : 99999",
 				"RegexDefault" : "^[B]{0,2}[0-9]{5}$",
-				"OutputDefault" : "xxxxx",
-				"IgnoreLeftSubstring" : "BB"
+				"OutputDefault" : "xxxxx"
 			}		
 		],
 

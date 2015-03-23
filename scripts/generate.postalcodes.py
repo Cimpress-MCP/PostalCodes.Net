@@ -5,28 +5,31 @@ from pprint import pprint
 scriptPath = os.path.dirname(os.path.realpath(__file__)) + "/"
 allGeneratedPostalCodeClasses = {}
 
+def off(spaces):
+    return " " * 4 * spaces
+
+def endl():
+    return "\r\n"
+
 def getPostalCodeFormatTemplate(fmt):
-    offset = "\t\t\t"
-    r = offset + "new PostalCodeFormat {\n"
-    r = r + offset + "\tName = \"" + fmt["Name"] + "\",\n"
-    r = r + offset + "\tRegexDefault = new Regex(\"" + fmt["RegexDefault"] + "\", RegexOptions.Compiled),\n"
+    r = off(3) + "new PostalCodeFormat {" + endl()
+    r = r + off(4) + "Name = \"" + fmt["Name"] + "\"," + endl()
+    r = r + off(4) + "RegexDefault = new Regex(\"" + fmt["RegexDefault"] + "\", RegexOptions.Compiled)," + endl()
     if "RegexShort" in fmt:
-        r = r + offset + "\tRegexShort = new Regex(\"" + fmt["RegexShort"] + "\", RegexOptions.Compiled),\n"
+        r = r + off(4) + "RegexShort = new Regex(\"" + fmt["RegexShort"] + "\", RegexOptions.Compiled)," + endl()
     if "OutputDefault" in fmt:
-        r = r + offset + "\tOutputDefault = \"" + fmt["OutputDefault"] + "\",\n"
+        r = r + off(4) + "OutputDefault = \"" + fmt["OutputDefault"] + "\"," + endl()
     if "OutputShort" in fmt:
-        r = r + offset + "\tOutputShort = \"" + fmt["OutputShort"] + "\",\n"
+        r = r + off(4) + "OutputShort = \"" + fmt["OutputShort"] + "\"," + endl()
     if "AutoConvertToShort" in fmt:
-        r = r + offset + "\tAutoConvertToShort = " + fmt["AutoConvertToShort"] + ",\n"
+        r = r + off(4) + "AutoConvertToShort = " + fmt["AutoConvertToShort"] + "," + endl()
     if "ShortExpansionAsLowestInRange" in fmt:
-        r = r + offset + "\tShortExpansionAsLowestInRange = \"" + fmt["ShortExpansionAsLowestInRange"] + "\",\n"
+        r = r + off(4) + "ShortExpansionAsLowestInRange = \"" + fmt["ShortExpansionAsLowestInRange"] + "\"," + endl()
     if "ShortExpansionAsHighestInRange" in fmt:
-        r = r + offset + "\tShortExpansionAsHighestInRange = \"" + fmt["ShortExpansionAsHighestInRange"] + "\",\n"
+        r = r + off(4) + "ShortExpansionAsHighestInRange = \"" + fmt["ShortExpansionAsHighestInRange"] + "\"," + endl()
     if "LeftPaddingCharacter" in fmt:
-        r = r + offset + "\tLeftPaddingCharacter = \"" + fmt["LeftPaddingCharacter"] + "\",\n"
-    if "IgnoreLeftSubstring" in fmt:
-        r = r + offset + "\tIgnoreLeftSubstring = \"" + fmt["IgnoreLeftSubstring"] + "\",\n"
-    r = r + offset + "}";
+        r = r + off(4) + "LeftPaddingCharacter = \"" + fmt["LeftPaddingCharacter"] + "\"," + endl()
+    r = r + off(3) + "}";
     return r;
 
 def loadJsonData(fileName):
@@ -50,42 +53,40 @@ def generateUnitTestFile(countryCode, testData):
 
     template = template.replace("@@CountryCode@@", countryCode)
 
-    offset = "\t\t"
-
     if "Predecessor" in testData:
         testCases = ""
         for code,prevCode in testData["Predecessor"].iteritems():
-            testCases = offset + "[TestCase(\"" + code + "\",\"" + prevCode + "\")]\r\n"
+            testCases = off(2) + "[TestCase(\"" + code + "\",\"" + prevCode + "\")]" + endl()
         template = template.replace("@@testsPredecessor@@", testCases[:-2])
 
     if "Successor" in testData:
         testCases = ""
         for code,nextCode in testData["Successor"].iteritems():
-            testCases = offset + "[TestCase(\"" + code + "\",\"" + nextCode + "\")]\r\n"
+            testCases = off(2) + "[TestCase(\"" + code + "\",\"" + nextCode + "\")]" + endl()
         template = template.replace("@@testsSuccessor@@", testCases[:-2])
 
     if "Min" in testData:
         testCases = ""
         for code in testData["Min"]:
-            testCases = offset + "[TestCase(\"" + code + "\")]\r\n"
+            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsMin@@", testCases[:-2])
 
     if "Max" in testData:
         testCases = ""
         for code in testData["Max"]:
-            testCases = offset + "[TestCase(\"" + code + "\")]\r\n"
+            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsMax@@", testCases[:-2])
 
     if "Valid" in testData:
         testCases = ""
         for code in testData["Valid"]:
-            testCases = offset + "[TestCase(\"" + code + "\")]\r\n"
+            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsValid@@", testCases[:-2])
 
     if "Invalid" in testData:
         testCases = ""
         for code in testData["Invalid"]:
-            testCases = offset + "[TestCase(\"" + code + "\")]\r\n"
+            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsInvalid@@", testCases[:-2])
 
     path = scriptPath + "../src/PostalCodes.UnitTests/Generated/" + countryCode + "PostalCodeTests.gen.cs"
@@ -100,7 +101,7 @@ def generateCountryPostalCodeWithData(countryCode, data):
 
     formats = getPostalCodeFormatTemplate(data["Formats"][0])
     for i in range(1, len(data["Formats"])):
-        formats = formats + ",\n" + getPostalCodeFormatTemplate(data["Formats"][i])
+        formats = formats + "," + endl() + getPostalCodeFormatTemplate(data["Formats"][i])
 
 
     template = template.replace("@@CountryCode@@", data["CountryCodeAlpha2"])
@@ -160,10 +161,9 @@ for countryCode in countries:
     generateCountryPostalCode(countryCode)
 
 cases = "";
-offset = "\t\t\t"
 for countryCode, className in allGeneratedPostalCodeClasses.iteritems():
-    cases = cases + offset + "\tcase \"" + countryCode + "\":\r\n"
-    cases = cases + offset + "\t\treturn new " + className + "(postalCode);\r\n"
+    cases = cases + off(4) + "case \"" + countryCode + "\":" + endl()
+    cases = cases + off(5) + "return new " + className + "(postalCode);" + endl()
 generatePostalCodeFactory(cases)
 
 print ""

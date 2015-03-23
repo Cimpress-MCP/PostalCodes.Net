@@ -60,12 +60,6 @@ namespace PostalCodes
 		/// </summary>
 		/// <value>The pad left character.</value>
 		public string LeftPaddingCharacter { get; internal set;}
-
-		/// <summary>
-		/// Gets or sets the ignore first characters.
-		/// </summary>
-		/// <value>The ignore first characters.</value>
-		public string IgnoreLeftSubstring { get; internal set; }
 	}
 }
 

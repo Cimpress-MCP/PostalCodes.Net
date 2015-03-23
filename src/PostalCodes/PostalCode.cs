@@ -360,18 +360,12 @@ namespace PostalCodes
 				if (fmt.RegexDefault.IsMatch (postalCode)) {
 					_currentFormatType = FormatType.Default;
 					_currentFormat = fmt;
-					if (fmt.IgnoreLeftSubstring != null && postalCode.StartsWith(fmt.IgnoreLeftSubstring)) {
-						outPaddedPostalCode = postalCode.Substring (fmt.IgnoreLeftSubstring.Length);
-					}
 					return;
 				}
 				if (fmt.RegexShort != null) {
 					if (fmt.RegexShort.IsMatch (postalCode)) {
 						_currentFormatType = FormatType.Short;
 						_currentFormat = fmt;
-						if (fmt.IgnoreLeftSubstring != null && postalCode.StartsWith(fmt.IgnoreLeftSubstring)) {
-							outPaddedPostalCode = postalCode.Substring (fmt.IgnoreLeftSubstring.Length);
-						}
 						return;
 					}
 				}
@@ -394,9 +388,6 @@ namespace PostalCodes
 					_currentFormatType = FormatType.Default;
 					_currentFormat = fmt;
 					outPaddedPostalCode = paddedPostalCode;
-					if (fmt.IgnoreLeftSubstring != null && postalCode.StartsWith(fmt.IgnoreLeftSubstring)) {
-						outPaddedPostalCode = paddedPostalCode.Substring (fmt.IgnoreLeftSubstring.Length);
-					}
 					return;
 				}
 				if (fmt.RegexShort != null) {
@@ -404,9 +395,6 @@ namespace PostalCodes
 						_currentFormatType = FormatType.Short;
 						_currentFormat = fmt;
 						outPaddedPostalCode = paddedPostalCode;
-						if (fmt.IgnoreLeftSubstring != null && postalCode.StartsWith(fmt.IgnoreLeftSubstring)) {
-							outPaddedPostalCode = paddedPostalCode.Substring (fmt.IgnoreLeftSubstring.Length);
-						}
 						return;
 					}
 				}
@@ -415,7 +403,12 @@ namespace PostalCodes
 			throw new ArgumentException ("The input postal code doesn't match any format");
 		}
 
-		private string ClearWhiteSpaces(string code) {
+		/// <summary>
+		/// Clears the white spaces.
+		/// </summary>
+		/// <returns>The white spaces.</returns>
+		/// <param name="code">Code.</param>
+		protected virtual string ClearWhiteSpaces(string code) {
 			var normalized = code;
 			foreach (var c in _whiteSpaceCharacters.ToCharArray()) {
 				normalized = normalized.Replace (c + "", "");
@@ -423,7 +416,11 @@ namespace PostalCodes
 			return normalized;
 		}
 
-		private string Normalize(string code)
+		/// <summary>
+		/// Normalize the specified code.
+		/// </summary>
+		/// <param name="code">Code.</param>
+		protected virtual string Normalize(string code)
 		{
 			var normalized = code;
 			if (_currentFormat.RegexDefault.IsMatch (normalized)) {

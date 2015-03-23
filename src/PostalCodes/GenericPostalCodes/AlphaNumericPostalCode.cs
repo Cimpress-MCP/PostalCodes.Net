@@ -23,7 +23,7 @@ namespace PostalCodes.GenericPostalCodes
 		/// <returns>The succesor or predecessor.</returns>
 		/// <param name="postalCode">Postal code.</param>
 		/// <param name="getSuccessor">If set to <c>true</c> get successor.</param>
-		protected static string GenerateSuccesorOrPredecessor(string postalCode, bool getSuccessor)
+		protected string GenerateSuccesorOrPredecessor(string postalCode, bool getSuccessor)
         {
             var nextTriggerNumber = getSuccessor ? '9' : '0';
             var nextTriggerLetter = getSuccessor ? 'Z' : 'A';
