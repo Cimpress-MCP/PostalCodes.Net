@@ -69,5 +69,5 @@
   <PropertyGroup>
     <SHFBROOT Condition=" '$(SHFBROOT)' == '' ">$(MSBuildThisFileDirectory)..\..\packages\EWSoftware.SHFB.2014.11.22.0\Tools\</SHFBROOT>
   </PropertyGroup>
-  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+  <Import Condition=" '$(OS)' != 'Unix' "  Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
 </Project>
