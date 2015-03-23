@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/Cimpress-MCP/PostalCodes.Net.svg?branch=master)](https://travis-ci.org/Cimpress-MCP/PostalCodes.Net)
-[![Build Status](https://ci.appveyor.com/api/projects/status/3yy3dok9mnsld6d8/branch/master)](https://ci.appveyor.com/project/rnowosielski/postalcodes-net-u1ews/history)
+[![Build status](https://ci.appveyor.com/api/projects/status/3yy3dok9mnsld6d8?svg=true)](https://ci.appveyor.com/project/rnowosielski/postalcodes-net-u1ews)
+
 
 # PostalCodes.Net
 Library for managing postal codes for .NET
