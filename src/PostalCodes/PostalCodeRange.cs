@@ -12,7 +12,8 @@ namespace PostalCodes
         /// The lazy default
         /// </summary>
         private static readonly Lazy<PostalCodeRange> LazyDefault = new Lazy<PostalCodeRange>(() => new PostalCodeRange(null, null));
-        /// <summary>
+        
+		/// <summary>
         /// Gets the default.
         /// </summary>
         /// <value>The default.</value>
@@ -29,9 +30,16 @@ namespace PostalCodes
         /// <exception cref="System.ArgumentException"></exception>
         public PostalCodeRange(PostalCode start, PostalCode end)
         {
+			if (start != null && end != null && start.GetType() != end.GetType()) {
+				throw new ArgumentException(String.Format(
+					"The star and the end of the range are from incompatible types ('{0}' & '{1}')",
+					start.GetType(), end.GetType()));
+			}
+
             if (end != null && start != null && start > end)
             {
-                throw new ArgumentException(String.Format("PostalCodeRange end ({0}) can't be before start ({1})", end, start));
+                throw new ArgumentException(String.Format(
+					"PostalCodeRange end ({0}) can't be before start ({1})", end, start));
             }
 
             Start = start;
@@ -61,6 +69,7 @@ namespace PostalCodes
         /// </summary>
         /// <value>The start.</value>
         public PostalCode Start { get; private set; }
+
         /// <summary>
         /// Gets the end.
         /// </summary>

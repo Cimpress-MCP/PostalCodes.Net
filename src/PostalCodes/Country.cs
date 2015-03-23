@@ -6,27 +6,6 @@
     public sealed class Country
     {
         /// <summary>
-        /// The canada
-        /// </summary>
-        public static readonly Country Canada = new Country("CA");
-        /// <summary>
-        /// The great britain
-        /// </summary>
-        public static readonly Country GreatBritain = new Country("GB");
-        /// <summary>
-        /// The portugal
-        /// </summary>
-        public static readonly Country Portugal = new Country("PT");
-        /// <summary>
-        /// The netherlands
-        /// </summary>
-        public static readonly Country Netherlands = new Country("NL");
-        /// <summary>
-        /// The malta
-        /// </summary>
-        public static readonly Country Malta = new Country("MT");
-
-        /// <summary>
         /// The _backing code
         /// </summary>
         private readonly string _backingCode;

@@ -1,0 +1,56 @@
+using System;
+using NUnit.Framework;
+
+namespace PostalCodes.UnitTests.Generated
+{
+    [TestFixture]
+    internal class @@CountryCode@@PostalCodeTests
+    {
+
+@@testsPredecessor@@
+        public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
+        {
+            var code = new @@CountryCode@@PostalCode(postalCode);
+            Assert.AreEqual(postalCodePredecessor, code.Predecessor.ToString());
+        }
+
+@@testsSuccessor@@
+        public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
+        {
+            var code = new @@CountryCode@@PostalCode(postalCode);
+            Assert.AreEqual(postalCodeSuccessor, code.Successor.ToString());
+        }
+
+@@testsMin@@
+        public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
+        {
+            Assert.IsNull((new @@CountryCode@@PostalCode(postalCode)).Predecessor);
+        }
+
+@@testsMax@@
+        public void Successor_LastInRange_ReturnsNull(string postalCode)
+        {
+            Assert.IsNull((new @@CountryCode@@PostalCode(postalCode)).Successor);
+        }
+
+@@testsInvalid@@
+        public void InvalidCode_ThrowsArgumentException(string postalCode)
+        {
+            Assert.Throws<ArgumentException>(() => new @@CountryCode@@PostalCode(postalCode));
+        }
+
+@@testsValid@@
+        public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new @@CountryCode@@PostalCode(code)).Predecessor;
+            Assert.IsTrue(x.GetType() == typeof(@@CountryCode@@PostalCode));
+        }
+
+@@testsValid@@
+        public void Successor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new @@CountryCode@@PostalCode(code)).Successor;
+            Assert.IsTrue(x.GetType() == typeof(@@CountryCode@@PostalCode));
+        }
+    }
+}
