@@ -18,11 +18,27 @@ If you want to open the solution file in Visual Studio, you may need the Sandcas
 
 ## Building ##
 
+The following snippets assume your working directory is in the root of the repository
+
+```
+> git clone https://github.com/Cimpress-MCP/PostalCodes.Net.git
+> cd PostalCodes.Net
+```
+
+### On Windows
+
 In order to build the project you can use plain msbuild
 
 ```
 > nuget restore
 > msbuild
+```
+
+### On Mac
+
+```
+> nuget restore
+> xbuild
 ```
 
 ##Reading the docs
