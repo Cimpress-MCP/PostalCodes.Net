@@ -15,3 +15,4 @@ _Resharper*
 src/PostalCodes.Documentation/Help/
 *.GhostDoc.xml
 *.log
+*.userprefs
