@@ -24,3 +24,22 @@ In order to build the project you can use plain msbuild
 > msbuild
 ```
 
+##Reading the docs
+
+### On Windows
+
+[Microsoft Compiled HTML Help](http://en.wikipedia.org/wiki/Microsoft_Compiled_HTML_Help) is supported by default on Windows.
+
+### On Mac
+
+One alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/wiki/Microsoft_Compiled_HTML_Help) on a Mac is [iChm](https://code.google.com/p/ichm/) or [Chmox](http://chmox.sourceforge.net)
+
+##Usages
+
+### Creating postal code objects
+
+```
+var country = CountryFactory.Instance.CreateCountry("PL");
+var postalCodeFactory = PostalCodeFactory.Instance.CreatePostalCode(
+	country, "44-100")	
+```
