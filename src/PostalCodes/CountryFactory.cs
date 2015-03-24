@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace PostalCodes
 {
@@ -8,7 +8,7 @@ namespace PostalCodes
     /// </summary>
     public class CountryFactory
     {
-        private static readonly Dictionary<string, Country> Countries = new Dictionary<string, Country>();
+        private static readonly ConcurrentDictionary<string, Country> Countries = new ConcurrentDictionary<string, Country>();
 
         private static readonly Lazy<CountryFactory> LazyFactory =
             new Lazy<CountryFactory>(
@@ -36,29 +36,8 @@ namespace PostalCodes
         /// <returns>A Country object</returns>
         public Country CreateCountry(string countryCode)
         {
-            lock (Countries)
-            {
-                Country result;
-                if (Countries.TryGetValue(countryCode, out result))
-                {
-                    return result;
-                }
-            }
-
             var normalizedCountryCode = CountryCodeValidator.GetNormalizedCountryCode(countryCode);
-            
-            lock (Countries)
-            {
-                Country result;
-                if (Countries.TryGetValue(normalizedCountryCode, out result))
-                {
-                    return result;
-                }
-
-                var country = new Country(normalizedCountryCode);
-                Countries.Add(country.Code, country);
-                return country;
-            }
+            return Countries.GetOrAdd(normalizedCountryCode, key => new Country(normalizedCountryCode));
         }
     }
 }
