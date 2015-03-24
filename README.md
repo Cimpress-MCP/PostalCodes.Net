@@ -62,6 +62,6 @@ One alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/w
 
 ```
 var country = CountryFactory.Instance.CreateCountry("PL");
-var postalCodeFactory = PostalCodeFactory.Instance.CreatePostalCode(
-	country, "44-100")	
+var postalCode = PostalCodeFactory.Instance.CreatePostalCode(
+	country, "44-100");
 ```
