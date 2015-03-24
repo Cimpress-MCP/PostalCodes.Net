@@ -13,6 +13,7 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: Sh4wPynnKbHkZVqPYJppDLXy/iS+StbderDJLG5tEMrhW7yAYf3oyXP+PgbI9900
 build:
+  parallel: true
   verbosity: normal
 test_script:
 - cmd:
