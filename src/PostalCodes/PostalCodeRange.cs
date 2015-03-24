@@ -32,7 +32,7 @@ namespace PostalCodes
         {
             if (start != null && end != null && start.GetType() != end.GetType()) {
                 throw new ArgumentException(String.Format(
-                    "The star and the end of the range are from incompatible types ('{0}' & '{1}')",
+                    "The start and the end of the range are from incompatible types ('{0}' & '{1}')",
                     start.GetType(), end.GetType()));
             }
 
@@ -182,10 +182,7 @@ namespace PostalCodes
                 return false;
             }
 
-            var eqStart = ((Start != null) && Start.Equals(other.Start)) || ((Start == null) && (other.Start == null));
-            var eqEnd = ((End != null) && End.Equals(other.End)) || ((End == null) && (other.End == null));
-
-            return eqStart && eqEnd;
+            return Start == other.Start && End == other.End;
         }
 
         #endregion
@@ -227,18 +224,6 @@ namespace PostalCodes
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(obj, null))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (GetType() != obj.GetType())
-            {
-                return false;
-            }
             return Equals(obj as PostalCodeRange);
         }
 
