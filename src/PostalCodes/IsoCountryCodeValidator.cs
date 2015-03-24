@@ -52,12 +52,6 @@ namespace PostalCodes
             }
 
             countryCode = countryCode.Trim();
-
-            if (countryCode.Length != 2)
-            {
-                throw new InvalidOperationException("Country code must contain exactly two characters.");
-            }
-
             countryCode = countryCode.ToUpperInvariant();
             var isoCountry = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
             if (isoCountry == default(Iso3166Country))
