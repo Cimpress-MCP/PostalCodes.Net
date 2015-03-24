@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
 {
     [TestFixture]
-	internal class MTPostalCodeManualTests
+    internal class MTPostalCodeManualTests
     {
         [TestCase("PLA123")]
         [TestCase("PL1234")]

@@ -20,22 +20,22 @@ namespace PostalCodes
 
             try
             {
-				normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
+                normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
             }
             catch (InvalidOperationException)
             {
                 return false;
             }
 
-			var country = Iso3166Countries.Countries.FirstOrDefault(a => a.Alpha2Code == normalizedCountryCode);
-			if (country == default(Iso3166Country)) {
-				return false;
-			}
+            var country = Iso3166Countries.Countries.FirstOrDefault(a => a.Alpha2Code == normalizedCountryCode);
+            if (country == default(Iso3166Country)) {
+                return false;
+            }
 
-			return country.Status != Iso3166CountryCodeStatus.NotUsed
-			&& country.Status != Iso3166CountryCodeStatus.Unassigned
-			&& country.Status != Iso3166CountryCodeStatus.UserAssigned;
-		}
+            return country.Status != Iso3166CountryCodeStatus.NotUsed
+            && country.Status != Iso3166CountryCodeStatus.Unassigned
+            && country.Status != Iso3166CountryCodeStatus.UserAssigned;
+        }
 
         /// <summary>
         /// Gets the normalized country code based on ISO 3166-1 alpha-2 standards
@@ -44,9 +44,9 @@ namespace PostalCodes
         /// <returns>Normalized country code</returns>
         public string GetNormalizedCountryCode(string countryCode)
         {
-			var normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
+            var normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
             
-			if (!Iso3166Countries.Countries.Any(a => a.Alpha2Code == normalizedCountryCode))
+            if (!Iso3166Countries.Countries.Any(a => a.Alpha2Code == normalizedCountryCode))
             {
                 throw new InvalidOperationException(string.Format("The specified country code is not valid: {0}", countryCode));
             }
@@ -69,15 +69,15 @@ namespace PostalCodes
             }
 
             countryCode = countryCode.ToUpperInvariant();
-			var isoCountry = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
-			if (isoCountry != default(Iso3166Country)) {
-				if (isoCountry.NewCountryCodes.Length > 0) {
-					return isoCountry.NewCountryCodes[0];
-				}
-				return isoCountry.Alpha2Code;
-			}
+            var isoCountry = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
+            if (isoCountry != default(Iso3166Country)) {
+                if (isoCountry.NewCountryCodes.Length > 0) {
+                    return isoCountry.NewCountryCodes[0];
+                }
+                return isoCountry.Alpha2Code;
+            }
 
-			throw new InvalidOperationException("Unknown");
+            throw new InvalidOperationException("Unknown");
         }
     }
 }

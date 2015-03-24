@@ -8,7 +8,7 @@ namespace PostalCodes
         private readonly int MaxPostalCodeInt;
         private readonly int PostalCodeLength;
 
-		public NumericPostalCode(PostalCodeFormat[] formats, string postalCode) : base(formats, postalCode)
+        public NumericPostalCode(PostalCodeFormat[] formats, string postalCode) : base(formats, postalCode)
         {
         }
 
@@ -16,8 +16,8 @@ namespace PostalCodes
         {
             get
             {
-				var prev = GenerateSuccesorOrPredecessor (GetInternalValue (), false);
-				return (prev == null) ? null : new NumericPostalCode (prev.Value, PostalCodeString.Length, MaxPostalCodeInt);
+                var prev = GenerateSuccesorOrPredecessor (GetInternalValue (), false);
+                return (prev == null) ? null : new NumericPostalCode (prev.Value, PostalCodeString.Length, MaxPostalCodeInt);
             }
         }
 
@@ -25,22 +25,22 @@ namespace PostalCodes
         {
             get
             {
-				var next = GenerateSuccesorOrPredecessor (GetInternalValue (), true);
-				return (next == null) ? null : new NumericPostalCode (next.Value, PostalCodeString.Length, MaxPostalCodeInt);
+                var next = GenerateSuccesorOrPredecessor (GetInternalValue (), true);
+                return (next == null) ? null : new NumericPostalCode (next.Value, PostalCodeString.Length, MaxPostalCodeInt);
             }
         }
 
-		protected int GetInternalValue() {
-			return PostalCodeInt;
-		}
+        protected int GetInternalValue() {
+            return PostalCodeInt;
+        }
 
-		protected int? GenerateSuccesorOrPredecessor(int postalCode, bool getSuccesor) {
-			if (getSuccesor) {
-				return PostalCodeInt >= MaxPostalCodeInt ? null : PostalCodeInt + 1;
-			} else {
-				return PostalCodeInt <= 0 ? null : PostalCodeInt - 1;
-			}
-		}
+        protected int? GenerateSuccesorOrPredecessor(int postalCode, bool getSuccesor) {
+            if (getSuccesor) {
+                return PostalCodeInt >= MaxPostalCodeInt ? null : PostalCodeInt + 1;
+            } else {
+                return PostalCodeInt <= 0 ? null : PostalCodeInt - 1;
+            }
+        }
 
         public override int CompareTo(PostalCode other)
         {
