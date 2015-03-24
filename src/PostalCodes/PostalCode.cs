@@ -164,7 +164,7 @@ namespace PostalCodes
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            return this == obj as PostalCode;
+            return Equals(obj as PostalCode);
         }
 
         /// <summary>
@@ -202,13 +202,9 @@ namespace PostalCodes
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(PostalCode left, PostalCode right)
         {
-            if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
+            if (ReferenceEquals(left, null))
             {
-                return true;
-            }
-            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
-            {
-                return false;
+                return ReferenceEquals(right, null);
             }
             return left.Equals(right);
         }
