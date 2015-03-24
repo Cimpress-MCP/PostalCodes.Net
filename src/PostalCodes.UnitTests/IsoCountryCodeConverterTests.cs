@@ -28,6 +28,14 @@ namespace PostalCodes.UnitTests
         }
 
         [Test]
+        [TestCase("gb")]
+        [TestCase("us")]
+        public void GetIso3166p3Code_WithLowerCaseIso31661p1Code_ThrowsInvalidOperationException(string input)
+        {
+            Assert.Throws<InvalidOperationException>(() => IsoConverter.GetIso3166p3Code(input));
+        }
+
+        [Test]
         [TestCase("IH")]
         [TestCase("KJ")]
         [TestCase("IY")]
