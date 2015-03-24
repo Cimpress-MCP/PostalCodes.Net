@@ -4,6 +4,7 @@ install:
   - nuget restore PostalCodes.sln
 script:
   - xbuild /p:Configuration=Release PostalCodes.sln
+  - rm packages/OpenCover.4.5.3723/log4net.config 
   - mono ./packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
   - mono ./packages/OpenCover.4.5.3723/OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"packages/NUnit.Runners.2.6.4/tools/nunit-console.exe" -targetargs:"/noshadow /domain:single  ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll" -output:coverage.xml
   - REPO_COMMIT_AUTHOR=$(git show -s --pretty=format:"%cn")

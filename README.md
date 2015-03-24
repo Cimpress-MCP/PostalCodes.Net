@@ -1,5 +1,9 @@
-[![Build Status](https://travis-ci.org/Cimpress-MCP/PostalCodes.Net.svg?branch=master)](https://travis-ci.org/Cimpress-MCP/PostalCodes.Net)
-[![Build status](https://ci.appveyor.com/api/projects/status/3yy3dok9mnsld6d8?svg=true)](https://ci.appveyor.com/project/rnowosielski/postalcodes-net-u1ews)
+[![Build Status](https://img.shields.io/travis/Cimpress-MCP/PostalCodes.Net/master.svg)](https://travis-ci.org/Cimpress-MCP/PostalCodes.Net)
+[![Build status](https://img.shields.io/appveyor/ci/rnowosielski/postalcodes-net-u1ews/master.svg)](https://ci.appveyor.com/project/rnowosielski/postalcodes-net-u1ews)
+[![Coverage Status](https://img.shields.io/coveralls/rnowosielski/PostalCodes.Net/master.svg)](https://coveralls.io/r/rnowosielski/PostalCodes.Net?branch=master)
+[![Nuget Package](https://img.shields.io/nuget/dt/PostalCodes.svg)](http://www.nuget.org/packages/PostalCodes/)
+[![Nuget Package](https://img.shields.io/nuget/v/PostalCodes.svg)](http://www.nuget.org/packages/PostalCodes/)
+[![PostalCodes Release](https://img.shields.io/github/release/Cimpress-MCP/PostalCodes.Net.svg)](https://github.com/Cimpress-MCP/PostalCodes.Net/releases)
 
 
 # PostalCodes.Net
