@@ -167,5 +167,5 @@ for countryCode, className in allGeneratedPostalCodeClasses.iteritems():
 generatePostalCodeFactory(cases)
 
 print ""
-print "!!! Please make sure the generated files are added to the csproj file."
+print "All generated *.gen.cs files are added in the csproj file with wildcard."
 print ""

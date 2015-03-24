@@ -1,0 +1,36 @@
+{
+	"CountryName" : "Poland",
+	"CountryCodeAlpha2" : "PL",
+	"WhiteSpaceCharacters" : " -",
+	"Formats" : [
+			{
+				"Name" : "PL : 99-999",
+				"RegexDefault" : "^[0-9]{2}-[0-9]{3}$",
+				"OutputDefault" : "xx-xxx"
+			},
+			{
+				"Name" : "PL : 99999",
+				"RegexDefault" : "^[0-9]{5}$",
+				"OutputDefault" : "xxxxx"
+			}		
+		],
+
+	"TestData" : {
+		"Max" : [ "99999", "99-999" ],
+		"Min" : [ "00000", "00-000" ],
+		"Valid" : ["44100", "44-100"],
+		"Invalid" : [ "44f00", "e4410", "44-100d", "c44-100", "b44100", "44100a" ],
+		"Predecessor" : {
+			"44-100" : "44-099",
+			"00-001" : "00-000",
+			"44100" : "44-099",
+			"00-001" : "00000"
+		},
+		"Successor" : {
+			"44-100" : "44-101",
+			"00-001" : "00-002",
+			"44100" : "44-101",
+			"00-001" : "00002"
+		}
+	}
+}

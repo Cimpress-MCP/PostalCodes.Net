@@ -11,16 +11,23 @@ namespace PostalCodes.UnitTests.Generated
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new @@CountryCode@@PostalCode(postalCode);
-            Assert.AreEqual(postalCodePredecessor, code.Predecessor.ToString());
+            var codePredecessor = new @@CountryCode@@PostalCode(postalCodePredecessor);
+            Assert.AreEqual(codePredecessor, code.Predecessor);
+            Assert.AreEqual(codePredecessor.ToString(), code.Predecessor.ToString());
+            Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
 @@testsSuccessor@@
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new @@CountryCode@@PostalCode(postalCode);
-            Assert.AreEqual(postalCodeSuccessor, code.Successor.ToString());
-        }
+            var codeSuccessor = new @@CountryCode@@PostalCode(postalCodeSuccessor);
+            Assert.AreEqual(codeSuccessor, code.Successor);
+            Assert.AreEqual(codeSuccessor.ToString(), code.Successor.ToString());
+            Assert.AreEqual(codeSuccessor.ToHumanReadableString(), code.Successor.ToHumanReadableString());
 
+        }
+        
 @@testsMin@@
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
