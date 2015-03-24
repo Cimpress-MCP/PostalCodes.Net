@@ -1,16 +1,33 @@
 ﻿using System;
+using System.Linq;
 
 namespace PostalCodes
 {
     /// <summary>
     /// Class PostalCode.
     /// </summary>
-    public class PostalCode : IComparable<PostalCode>, IEquatable<PostalCode>, IComparable
+    public abstract class PostalCode : IComparable<PostalCode>, IEquatable<PostalCode>, IComparable
     {
+        /// <summary>
+        /// Format type.
+        /// </summary>
+        protected enum FormatType {
+            /// <summary>
+            /// The default.
+            /// </summary>
+            Default,
+
+            /// <summary>
+            /// The short.
+            /// </summary>
+            Short
+        }
+
         /// <summary>
         /// The _backing postal code
         /// </summary>
         private readonly string _backingPostalCode;
+        
         /// <summary>
         /// Gets the postal code string.
         /// </summary>
@@ -21,12 +38,58 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PostalCode"/> class.
+        /// The current format.
         /// </summary>
-        /// <param name="postalCode">The postal code.</param>
-        internal PostalCode(string postalCode)
+        protected PostalCodeFormat _currentFormat = null;
+
+        /// <summary>
+        /// The type of the current format.
+        /// </summary>
+        protected FormatType _currentFormatType = FormatType.Default;
+
+        /// <summary>
+        /// The white space characters.
+        /// </summary>
+        protected string _whiteSpaceCharacters = " -";
+
+        /// <summary>
+        /// The name of the country.
+        /// </summary>
+        protected string _countryName = "Default";
+
+        /// <summary>
+        /// The allow convert to short.
+        /// </summary>
+        protected bool _allowConvertToShort = true;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostalCodes.PostalCode"/> class.
+        /// </summary>
+        /// <param name="formats">Formats.</param>
+        /// <param name="postalCode">Postal code.</param>
+        internal PostalCode(PostalCodeFormat[] formats, string postalCode)
+            : this(formats, postalCode, true) {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostalCodes.PostalCode"/> class.
+        /// </summary>
+        /// <param name="formats">Formats.</param>
+        /// <param name="postalCode">Postal code.</param>
+        /// <param name="allowConvertToShort">If set to <c>true</c> allow convert to short format.</param>
+        internal PostalCode(PostalCodeFormat[] formats, string postalCode, bool allowConvertToShort)
         {
-            _backingPostalCode = postalCode;
+            _allowConvertToShort = allowConvertToShort;
+
+            var nonWhiteSpaceCode = ClearWhiteSpaces (postalCode);
+
+            string paddedPostalCode;
+            SetMatchingFormat(formats, nonWhiteSpaceCode, out paddedPostalCode);
+            if (paddedPostalCode != null) {
+                nonWhiteSpaceCode = paddedPostalCode;
+            }
+
+            _backingPostalCode = Normalize(nonWhiteSpaceCode);
         }
 
         /// <summary>
@@ -61,19 +124,13 @@ namespace PostalCodes
         /// Gets the predecessor implementation.
         /// </summary>
         /// <value>The predecessor implementation.</value>
-        protected virtual PostalCode PredecessorImpl
-        {
-            get { return null; }
-        }
-
+        protected abstract PostalCode PredecessorImpl { get; }
+        
         /// <summary>
         /// Gets the successor implementation.
         /// </summary>
         /// <value>The successor implementation.</value>
-        protected virtual PostalCode SuccessorImpl
-        {
-            get { return null; }
-        }
+        protected abstract PostalCode SuccessorImpl { get; }
 
         #region Implementation of IComparable<in PostalCode>
 
@@ -240,6 +297,27 @@ namespace PostalCodes
         }
 
         /// <summary>
+        /// To the human readable string.
+        /// </summary>
+        /// <returns>The human readable string.</returns>
+        public virtual string ToHumanReadableString() 
+        {
+            return ToString ();
+        }
+
+        /// <summary>
+        /// Expands the postal code as lowest in range.
+        /// </summary>
+        /// <returns>The postal code as lowest in range.</returns>
+        public abstract PostalCode ExpandPostalCodeAsLowestInRange();
+
+        /// <summary>
+        /// Expands the postal code as highest in range.
+        /// </summary>
+        /// <returns>The postal code as highest in range.</returns>
+        public abstract PostalCode ExpandPostalCodeAsHighestInRange();
+
+        /// <summary>
         /// Ares the adjacent.
         /// </summary>
         /// <param name="left">The left.</param>
@@ -255,32 +333,117 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets the next alphanumeric.
+        /// To the human readable string.
+        /// Each 'x' will be replaced by postal code char, the rest will be preserved.
+        /// Example: Code: A123, Format x x-xx => Result: A 1-23
         /// </summary>
-        /// <param name="postalCode">The postal code.</param>
-        /// <param name="getSuccessor">if set to <c>true</c> [get successor].</param>
-        /// <param name="expectedLength">The expected length.</param>
-        /// <param name="firstPossible">The first possible.</param>
-        /// <param name="lastPossible">The last possible.</param>
-        /// <returns>System.String.</returns>
-        protected static string GetNextAlphanumeric(string postalCode, bool getSuccessor, int expectedLength, string firstPossible, string lastPossible)
+        /// <returns>The human readable string.</returns>
+        /// <param name="outputFormat">Output format. </param>
+        protected virtual string ToHumanReadableString(string outputFormat) {
+            var result = "";
+
+            var normalized = PostalCodeString;
+            var normalizedIndex = 0;
+            for (var i = 0; i < outputFormat.Length && normalizedIndex < PostalCodeString.Length; i++) 
+            {
+                result += outputFormat [i] == 'x' ? normalized [normalizedIndex++] : outputFormat [i];
+            }
+
+            return result;
+        }
+
+        private void SetMatchingFormat(PostalCodeFormat[] formats, string postalCode, out string outPaddedPostalCode) {
+
+            outPaddedPostalCode = null;
+
+            foreach (var fmt in formats) {
+                if (fmt.RegexDefault.IsMatch (postalCode)) {
+                    _currentFormatType = FormatType.Default;
+                    _currentFormat = fmt;
+                    return;
+                }
+                if (fmt.RegexShort != null) {
+                    if (fmt.RegexShort.IsMatch (postalCode)) {
+                        _currentFormatType = FormatType.Short;
+                        _currentFormat = fmt;
+                        return;
+                    }
+                }
+            }
+
+            // Let's give it a try by left padding...
+            foreach (var fmt in formats) {
+                if (fmt.LeftPaddingCharacter == null) {
+                    continue;
+                }
+
+                var expectedLength = fmt.OutputDefault.ToCharArray ().Count (a => a == 'x');
+                if (expectedLength < postalCode.Length) {
+                    continue;
+                }
+
+                var paddedPostalCode = postalCode.PadLeft (expectedLength, fmt.LeftPaddingCharacter[0]);
+
+                if (fmt.RegexDefault.IsMatch (paddedPostalCode)) {
+                    _currentFormatType = FormatType.Default;
+                    _currentFormat = fmt;
+                    outPaddedPostalCode = paddedPostalCode;
+                    return;
+                }
+                if (fmt.RegexShort != null) {
+                    if (fmt.RegexShort.IsMatch (paddedPostalCode)) {
+                        _currentFormatType = FormatType.Short;
+                        _currentFormat = fmt;
+                        outPaddedPostalCode = paddedPostalCode;
+                        return;
+                    }
+                }
+            }
+
+            throw new ArgumentException ("The input postal code doesn't match any format");
+        }
+
+        /// <summary>
+        /// Clears the white spaces.
+        /// </summary>
+        /// <returns>The white spaces.</returns>
+        /// <param name="code">Code.</param>
+        protected virtual string ClearWhiteSpaces(string code) {
+            var normalized = code;
+            foreach (var c in _whiteSpaceCharacters.ToCharArray()) {
+                normalized = normalized.Replace (c + "", "");
+            }
+            return normalized;
+        }
+
+        /// <summary>
+        /// Normalize the specified code.
+        /// </summary>
+        /// <param name="code">Code.</param>
+        protected virtual string Normalize(string code)
         {
-            var nextTriggerNumber = getSuccessor ? '9' : '0';
-            var nextTriggerLetter = getSuccessor ? 'Z' : 'A';
+            var normalized = code;
+            if (_currentFormat.RegexDefault.IsMatch (normalized)) {
 
-            var radix = expectedLength - 1;
-            while (radix >= 0 && (postalCode[radix] == nextTriggerNumber || postalCode[radix] == nextTriggerLetter))
-            {
-                --radix;
+                if (_allowConvertToShort && _currentFormat.AutoConvertToShort) {
+                        var charsInShortFormat = 0;
+                    for (var j = 0; j < _currentFormat.OutputShort.Length; j++) {
+                        if (_currentFormat.OutputShort [j] == 'x') {
+                            charsInShortFormat++;
+                        }
+                    }
+                    normalized = normalized.Substring (0, charsInShortFormat);
+                }
+                return normalized;
             }
 
-            if (radix < 0)
-            {
-                return null;
+            if (_currentFormat.RegexShort != null) {
+                if (_currentFormat.RegexShort.IsMatch (normalized)) {
+                    return normalized;
+                }
             }
 
-            var newChar = (char) (postalCode[radix] + (getSuccessor ? 1 : -1));
-            return postalCode.Substring(0, radix) + newChar + (getSuccessor ? firstPossible : lastPossible).Substring(radix + 1);
+            throw new ArgumentException (string.Format ("Failed to normalize postal code '{0}'", code));
         }
     }
 }

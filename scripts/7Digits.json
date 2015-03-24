@@ -1,0 +1,20 @@
+{
+	"CountryName" : "N/A",
+	"CountryCodeAlpha2" : "N/A",
+
+	"WhiteSpaceCharacters" : " -",
+
+	"Formats" : [
+			{
+				"Name" : "7-Digits - 9999999",
+				"RegexDefault" : "^[0-9]{7}$",
+				"OutputDefault" : "xxxxxxx",
+				
+				"LeftPaddingCharacter" : "0",
+				
+				"AutoConvertToShort" : "false",
+				"ShortExpansionAsLowestInRange" : "0",
+				"ShortExpansionAsHighestInRange" : "9"
+			}
+		]
+}

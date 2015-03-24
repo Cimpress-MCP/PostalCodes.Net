@@ -6,7 +6,7 @@ namespace PostalCodes.Contracts.UnitTests
     [TestFixture]
     internal class CountryPostalCodeTests
     {
-		#pragma warning disable 0414
+        #pragma warning disable 0414
         private static readonly object[] DataSourceForEqualOperator =
         {
             new object[] {"BG", "1000", "BG", "1000", true}, new object[] {"BG", "1000", "BG", null, false},
@@ -23,7 +23,7 @@ namespace PostalCodes.Contracts.UnitTests
             new object[] {"US", null, "BG", null, 1}, new object[] {"BG", null, "GB", null, -1}, new object[] {"BG", null, "BG", null, 0},
             new object[] {"US", null, "BG", null, 1}, new object[] {"US", "1000", "US", null, 1}, new object[] {"US", null, "US", "1000", -1},
         };
-		#pragma warning restore 0414
+        #pragma warning restore 0414
 
         [Test, TestCaseSource("DataSourceForEqualOperator")]
         public void OperatorEquals(string country1, string code1, string country2, string code2, bool expectedResult)
