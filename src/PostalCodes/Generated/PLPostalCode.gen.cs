@@ -10,7 +10,7 @@ namespace PostalCodes
 
         public PLPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
         {
-            _countryName = "PL";
+            _countryName = "Poland";
         }
 
         private PLPostalCode(PostalCode other) : base(_formats, other.ToString()) {}
@@ -97,13 +97,14 @@ namespace PostalCodes
 
         private static PostalCodeFormat[] _formats = new [] {
             new PostalCodeFormat {
-                Name = "5-Digits - 99999",
+                Name = "PL : 99-999",
+                RegexDefault = new Regex("^[0-9]{2}-[0-9]{3}$", RegexOptions.Compiled),
+                OutputDefault = "xx-xxx",
+            },
+            new PostalCodeFormat {
+                Name = "PL : 99999",
                 RegexDefault = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
                 OutputDefault = "xxxxx",
-                AutoConvertToShort = false,
-                ShortExpansionAsLowestInRange = "0",
-                ShortExpansionAsHighestInRange = "9",
-                LeftPaddingCharacter = "0",
             }
         };
     }

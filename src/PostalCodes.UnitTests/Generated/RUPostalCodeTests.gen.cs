@@ -11,16 +11,24 @@ namespace PostalCodes.UnitTests.Generated
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new RUPostalCode(postalCode);
-            Assert.AreEqual(postalCodePredecessor, code.Predecessor.ToString());
+            var codePredecessor = new RUPostalCode(postalCodePredecessor);
+            Assert.AreEqual(codePredecessor, code.Predecessor);
+            Assert.AreEqual(codePredecessor.ToString(), code.Predecessor.ToString());
+            Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
         [TestCase("123456","123457")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new RUPostalCode(postalCode);
-            Assert.AreEqual(postalCodeSuccessor, code.Successor.ToString());
-        }
+            var codeSuccessor = new RUPostalCode(postalCodeSuccessor);
+            Assert.AreEqual(codeSuccessor, code.Successor);
+            Assert.AreEqual(codeSuccessor.ToString(), code.Successor.ToString());
+            Assert.AreEqual(codeSuccessor.ToHumanReadableString(), code.Successor.ToHumanReadableString());
 
+        }
+        
+        [TestCase("000000")]
         [TestCase("000000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
@@ -28,11 +36,13 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("999999")]
+        [TestCase("999999")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new RUPostalCode(postalCode)).Successor);
         }
 
+        [TestCase("x1231s")]
         [TestCase("1231sd")]
         public void InvalidCode_ThrowsArgumentException(string postalCode)
         {
