@@ -7,6 +7,8 @@ namespace PostalCodes.UnitTests.Generated
     internal class PLPostalCodeTests
     {
 
+        [TestCase("44-100","44-099")]
+        [TestCase("00-001","00000")]
         [TestCase("44100","44-099")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
@@ -17,6 +19,8 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
+        [TestCase("44-100","44-101")]
+        [TestCase("00-001","00002")]
         [TestCase("44100","44-101")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
@@ -28,24 +32,32 @@ namespace PostalCodes.UnitTests.Generated
 
         }
         
+        [TestCase("00000")]
         [TestCase("00-000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new PLPostalCode(postalCode)).Predecessor);
         }
 
+        [TestCase("99999")]
         [TestCase("99-999")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new PLPostalCode(postalCode)).Successor);
         }
 
+        [TestCase("44f00")]
+        [TestCase("e4410")]
+        [TestCase("44-100d")]
+        [TestCase("c44-100")]
+        [TestCase("b44100")]
         [TestCase("44100a")]
         public void InvalidCode_ThrowsArgumentException(string postalCode)
         {
             Assert.Throws<ArgumentException>(() => new PLPostalCode(postalCode));
         }
 
+        [TestCase("44100")]
         [TestCase("44-100")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
@@ -53,6 +65,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.IsTrue(x.GetType() == typeof(PLPostalCode));
         }
 
+        [TestCase("44100")]
         [TestCase("44-100")]
         public void Successor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {

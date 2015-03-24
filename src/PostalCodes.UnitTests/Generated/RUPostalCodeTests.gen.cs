@@ -29,17 +29,20 @@ namespace PostalCodes.UnitTests.Generated
         }
         
         [TestCase("000000")]
+        [TestCase("000000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new RUPostalCode(postalCode)).Predecessor);
         }
 
         [TestCase("999999")]
+        [TestCase("999999")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new RUPostalCode(postalCode)).Successor);
         }
 
+        [TestCase("x1231s")]
         [TestCase("1231sd")]
         public void InvalidCode_ThrowsArgumentException(string postalCode)
         {

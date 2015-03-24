@@ -56,37 +56,38 @@ def generateUnitTestFile(countryCode, testData):
     if "Predecessor" in testData:
         testCases = ""
         for code,prevCode in testData["Predecessor"].iteritems():
-            testCases = off(2) + "[TestCase(\"" + code + "\",\"" + prevCode + "\")]" + endl()
+            testCases += off(2) + "[TestCase(\"" + code + "\",\"" + prevCode + "\")]" + endl()
         template = template.replace("@@testsPredecessor@@", testCases[:-2])
 
     if "Successor" in testData:
         testCases = ""
         for code,nextCode in testData["Successor"].iteritems():
-            testCases = off(2) + "[TestCase(\"" + code + "\",\"" + nextCode + "\")]" + endl()
+            testCases += off(2) + "[TestCase(\"" + code + "\",\"" + nextCode + "\")]" + endl()
+            
         template = template.replace("@@testsSuccessor@@", testCases[:-2])
 
     if "Min" in testData:
         testCases = ""
         for code in testData["Min"]:
-            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
+            testCases += off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsMin@@", testCases[:-2])
 
     if "Max" in testData:
         testCases = ""
         for code in testData["Max"]:
-            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
+            testCases += off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsMax@@", testCases[:-2])
 
     if "Valid" in testData:
         testCases = ""
         for code in testData["Valid"]:
-            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
+            testCases += off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsValid@@", testCases[:-2])
 
     if "Invalid" in testData:
         testCases = ""
         for code in testData["Invalid"]:
-            testCases = off(2) + "[TestCase(\"" + code + "\")]" + endl()
+            testCases += off(2) + "[TestCase(\"" + code + "\")]" + endl()
         template = template.replace("@@testsInvalid@@", testCases[:-2])
 
     path = scriptPath + "../src/PostalCodes.UnitTests/Generated/" + countryCode + "PostalCodeTests.gen.cs"

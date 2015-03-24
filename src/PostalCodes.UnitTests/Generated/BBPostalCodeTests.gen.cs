@@ -7,6 +7,7 @@ namespace PostalCodes.UnitTests.Generated
     internal class BBPostalCodeTests
     {
 
+        [TestCase("12345","12344")]
         [TestCase("BB 12345","12344")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
@@ -17,6 +18,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
+        [TestCase("12345","12346")]
         [TestCase("BB 12345","12346")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
@@ -28,24 +30,28 @@ namespace PostalCodes.UnitTests.Generated
 
         }
         
+        [TestCase("BB00000")]
         [TestCase("00000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new BBPostalCode(postalCode)).Predecessor);
         }
 
+        [TestCase("BB99999")]
         [TestCase("99999")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new BBPostalCode(postalCode)).Successor);
         }
 
+        [TestCase("x1231s")]
         [TestCase("1231sd")]
         public void InvalidCode_ThrowsArgumentException(string postalCode)
         {
             Assert.Throws<ArgumentException>(() => new BBPostalCode(postalCode));
         }
 
+        [TestCase("BB12345")]
         [TestCase("12345")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
@@ -53,6 +59,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.IsTrue(x.GetType() == typeof(BBPostalCode));
         }
 
+        [TestCase("BB12345")]
         [TestCase("12345")]
         public void Successor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
