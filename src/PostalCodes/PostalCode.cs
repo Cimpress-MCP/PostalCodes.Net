@@ -426,12 +426,7 @@ namespace PostalCodes
             if (_currentFormat.RegexDefault.IsMatch (normalized)) {
 
                 if (_allowConvertToShort && _currentFormat.AutoConvertToShort) {
-                        var charsInShortFormat = 0;
-                    for (var j = 0; j < _currentFormat.OutputShort.Length; j++) {
-                        if (_currentFormat.OutputShort [j] == 'x') {
-                            charsInShortFormat++;
-                        }
-                    }
+                    var charsInShortFormat = _currentFormat.OutputShort.Count(c => c == 'x');
                     normalized = normalized.Substring (0, charsInShortFormat);
                 }
                 return normalized;

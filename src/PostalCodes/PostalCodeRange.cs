@@ -32,7 +32,7 @@ namespace PostalCodes
         {
             if (start != null && end != null && start.GetType() != end.GetType()) {
                 throw new ArgumentException(String.Format(
-                    "The star and the end of the range are from incompatible types ('{0}' & '{1}')",
+                    "The start and the end of the range are from incompatible types ('{0}' & '{1}')",
                     start.GetType(), end.GetType()));
             }
 
