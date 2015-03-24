@@ -1,0 +1,20 @@
+{
+	"CountryName" : "N/A",
+	"CountryCodeAlpha2" : "N/A",
+
+	"WhiteSpaceCharacters" : " -",
+
+	"Formats" : [
+			{
+				"Name" : "4-Digits - 9999",
+				"RegexDefault" : "^[0-9]{4}$",
+				"OutputDefault" : "xxxx",
+				
+				"LeftPaddingCharacter" : "0",
+				
+				"AutoConvertToShort" : "false",
+				"ShortExpansionAsLowestInRange" : "0",
+				"ShortExpansionAsHighestInRange" : "9"
+			}
+		]
+}

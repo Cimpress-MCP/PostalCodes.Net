@@ -1,0 +1,14 @@
+{
+	"CountryName" : "Malta",
+	"CountryCodeAlpha2" : "MT",
+
+	"WhiteSpaceCharacters" : " -",
+
+	"Formats" : [
+			{
+				"Name" : "MA : A0A 0A0",
+				"RegexDefault" : "^[A-Z]{3}[0-9]{4}$",
+				"OutputDefault" : "xxx xxx"
+			}
+		]
+}

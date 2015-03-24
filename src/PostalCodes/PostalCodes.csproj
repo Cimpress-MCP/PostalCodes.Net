@@ -51,27 +51,27 @@
     <Compile Include="Country.cs" />
     <Compile Include="CountryFactory.cs" />
     <Compile Include="CountryPostalCode.cs" />
-    <Compile Include="CountrySpecificPostalCodes\MTPostalCode.cs" />
     <Compile Include="IIsoCountryCodeValidator.cs" />
-    <Compile Include="CountrySpecificPostalCodes\CAPostalCode.cs" />
-    <Compile Include="CountrySpecificPostalCodes\NLPostalCode.cs" />
-    <Compile Include="IPostalCodeInputNormalizer.cs" />
     <Compile Include="IsoCountryCodeValidator.cs" />
-    <Compile Include="NumericPostalCode.cs" />
-    <Compile Include="CountrySpecificPostalCodes\PTPostalCode.cs" />
     <Compile Include="PostalCode.cs" />
-    <Compile Include="PostalCodeException.cs" />
-    <Compile Include="PostalCodeFactory.cs" />
     <Compile Include="PostalCodeInputNormalizer.cs" />
-    <Compile Include="PostalCodeOutputNormalizer.cs" />
     <Compile Include="PostalCodeRange.cs" />
     <Compile Include="PostalCodeStringComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CountrySpecificPostalCodes\GBPostalCode.cs" />
     <Compile Include="IsoCountryCodeConverter.cs" />
     <Compile Include="Iso3166Country.cs" />
     <Compile Include="Iso3166Countries.cs" />
     <Compile Include="Iso3166CountryCodeStatus.cs" />
+    <Compile Include="PostalCodeFormat.cs" />
+    <Compile Include="GenericPostalCodes\AlphaNumericPostalCode.cs" />
+    <Compile Include="Generated\*.gen.cs" />
+    <Compile Include="GenericPostalCodes\DefaultPostalCode.cs" />
+    <Compile Include="Extensions\BBPostalCode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Generated\" />
+    <Folder Include="GenericPostalCodes\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

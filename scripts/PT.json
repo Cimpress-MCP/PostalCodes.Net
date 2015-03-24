@@ -1,0 +1,23 @@
+{
+	"CountryName" : "Portugal",
+	"CountryCodeAlpha2" : "PT",
+
+	"WhiteSpaceCharacters" : " -",
+
+	"Formats" : [
+			{
+				"Name" : "PT : 9999 999",
+				"RegexDefault" : "^[0-9]{7}$",
+				"OutputDefault" : "xxxx xxx",
+				
+				"RegexShort" : "^[0-9]{4}$",
+				"OutputShort" : "xxxx",
+
+				"LeftPaddingCharacter" : "0",
+				
+				"AutoConvertToShort" : "false",
+				"ShortExpansionAsLowestInRange" : "000",
+				"ShortExpansionAsHighestInRange" : "999"
+			}
+		]
+}
