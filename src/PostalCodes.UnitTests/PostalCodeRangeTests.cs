@@ -155,14 +155,14 @@ namespace PostalCodes.UnitTests
         }
 
         [Test]
-        public void IsAllPostalCodes_AllPostalCodes_ReturnsTrue()
+        public void IsIndefinite_Indefinite_ReturnsTrue()
         {
             var range = PostalCodeRange.Default;
             Assert.IsTrue(range.IsIndefinite);
         }
 
         [Test]
-        public void IsAllPostalCodes_NotAllPostalCodes_ReturnsFalse()
+        public void IsIndefinite_NotIndefinite_ReturnsFalse()
         {
             var range = MakeRange("34", "35");
             Assert.IsFalse(range.IsIndefinite);
