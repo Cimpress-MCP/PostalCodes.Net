@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 
 namespace PostalCodes
@@ -33,8 +32,8 @@ namespace PostalCodes
             }
 
             return country.Status != Iso3166CountryCodeStatus.NotUsed
-            && country.Status != Iso3166CountryCodeStatus.Unassigned
-            && country.Status != Iso3166CountryCodeStatus.UserAssigned;
+                && country.Status != Iso3166CountryCodeStatus.Unassigned
+                && country.Status != Iso3166CountryCodeStatus.UserAssigned;
         }
 
         /// <summary>
