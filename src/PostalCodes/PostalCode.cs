@@ -408,7 +408,7 @@ namespace PostalCodes
         /// </summary>
         /// <returns>The white spaces.</returns>
         /// <param name="code">Code.</param>
-        protected virtual string ClearWhiteSpaces(string code) {
+        protected string ClearWhiteSpaces(string code) {
             var normalized = code;
             foreach (var c in _whiteSpaceCharacters.ToCharArray()) {
                 normalized = normalized.Replace (c + "", "");
