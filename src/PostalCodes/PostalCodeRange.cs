@@ -227,18 +227,6 @@ namespace PostalCodes
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(obj, null))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (GetType() != obj.GetType())
-            {
-                return false;
-            }
             return Equals(obj as PostalCodeRange);
         }
 
