@@ -11,11 +11,11 @@ namespace PostalCodes
         /// <summary>
         /// Gets the iso3166-3 country code (if any).
         /// </summary>
-        /// <returns>The iso3166p3 code.</returns>
         /// <param name="countryCode">Country code.</param>
+        /// <returns>The iso3166p3 code.</returns>
         public string GetIso3166p3Code(string countryCode)
         {
-            var oldCode = Iso3166Countries.Countries.FirstOrDefault (a => a.NewCountryCodes.Contains (countryCode.ToUpperInvariant ()));
+            var oldCode = Iso3166Countries.Countries.FirstOrDefault (a => a.NewCountryCodes.Contains (countryCode));
             if (oldCode == default(Iso3166Country)) 
             {
                 oldCode = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
