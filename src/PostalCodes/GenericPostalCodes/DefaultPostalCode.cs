@@ -43,9 +43,8 @@ namespace PostalCodes.GenericPostalCodes
             if (_currentFormatType == FormatType.Short) {
                 if (_currentFormat.ShortExpansionAsLowestInRange != null) {
                     return new DefaultPostalCode (ToString () + _currentFormat.ShortExpansionAsLowestInRange);
-                } else {
-                    throw new ArgumentException ("Requested short postal code expansion but no expansion provided (lowest)");
                 }
+                throw new ArgumentException ("Requested short postal code expansion but no expansion provided (lowest)");
             }
 
             return new PTPostalCode(ToString());
@@ -56,15 +55,15 @@ namespace PostalCodes.GenericPostalCodes
             if (_currentFormatType == FormatType.Short) {
                 if (_currentFormat.ShortExpansionAsHighestInRange != null) {
                     return new DefaultPostalCode (ToString () + _currentFormat.ShortExpansionAsHighestInRange);
-                } else {
-                    throw new ArgumentException ("Requested short postal code expansion but no expansion provided (highest)");
                 }
+                throw new ArgumentException ("Requested short postal code expansion but no expansion provided (highest)");
             }
 
             return new PTPostalCode(ToString());
         }
 
-        private static PostalCodeFormat[] _formats = new PostalCodeFormat[] {
+        private static readonly PostalCodeFormat[] _formats =
+        {
             new PostalCodeFormat {
                 Name = "Default Alpha Numeric Format",
                 OutputDefault = "xxxxxxxx",
