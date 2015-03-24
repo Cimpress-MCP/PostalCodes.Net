@@ -14,11 +14,11 @@ namespace PostalCodes
             new Lazy<CountryFactory>(
                 () => new CountryFactory(new IsoCountryCodeValidator()));
 
-        private readonly IIsoCountryCodeValidator CountryCodeValidator;
+        private readonly IIsoCountryCodeValidator _countryCodeValidator;
 
         internal CountryFactory(IIsoCountryCodeValidator countryCodeValidator)
         {
-            CountryCodeValidator = countryCodeValidator;
+            _countryCodeValidator = countryCodeValidator;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace PostalCodes
         /// <returns>A Country object</returns>
         public Country CreateCountry(string countryCode)
         {
-            var normalizedCountryCode = CountryCodeValidator.GetNormalizedCountryCode(countryCode);
+            var normalizedCountryCode = _countryCodeValidator.GetNormalizedCountryCode(countryCode);
             return Countries.GetOrAdd(normalizedCountryCode, key => new Country(normalizedCountryCode));
         }
     }
