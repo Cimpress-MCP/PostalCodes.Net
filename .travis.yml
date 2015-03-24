@@ -2,6 +2,7 @@ language: csharp
 solution: PostalCodes.sln
 install:
   - nuget restore PostalCodes.sln
+  - path="$PWD"
   - sudo apt-get install gtk-sharp2
   - curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg > /tmp/mono.cecil.0.9.5.4.nupkg.zip
   - unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
@@ -13,7 +14,7 @@ install:
   - ./configure
   - make
   - sudo make install
-  - cd ../../csMACnz/Coveralls.net-Samples
+  - cd "$path"
 script:
   - xbuild /p:Configuration=Release PostalCodes.sln
   - mono ./packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
