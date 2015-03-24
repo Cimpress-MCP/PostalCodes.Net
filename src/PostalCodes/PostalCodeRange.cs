@@ -182,10 +182,7 @@ namespace PostalCodes
                 return false;
             }
 
-            var eqStart = ((Start != null) && Start.Equals(other.Start)) || ((Start == null) && (other.Start == null));
-            var eqEnd = ((End != null) && End.Equals(other.End)) || ((End == null) && (other.End == null));
-
-            return eqStart && eqEnd;
+            return Start == other.Start && End == other.End;
         }
 
         #endregion
