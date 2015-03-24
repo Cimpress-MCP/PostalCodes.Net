@@ -3,7 +3,7 @@
 namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
 {
     [TestFixture]
-	internal class GBPostalCodeManualTests
+    internal class GBPostalCodeManualTests
     {
         [Test]
         [TestCase("AA9A 9", "AA9A8")]

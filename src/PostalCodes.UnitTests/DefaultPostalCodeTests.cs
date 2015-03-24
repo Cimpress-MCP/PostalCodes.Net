@@ -28,42 +28,42 @@ namespace PostalCodes.UnitTests
         [TestCase("3452", "3453")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
-			Assert.AreEqual(postalCodeSuccessor, (new DefaultPostalCode(postalCode)).Successor.ToString());
+            Assert.AreEqual(postalCodeSuccessor, (new DefaultPostalCode(postalCode)).Successor.ToString());
         }
         
         [Test]
         [TestCase("00000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
-			Assert.IsNull((new DefaultPostalCode(postalCode)).Predecessor);
+            Assert.IsNull((new DefaultPostalCode(postalCode)).Predecessor);
         }
 
         [Test]
         [TestCase("99999")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)
         {
-			Assert.IsNull((new DefaultPostalCode(postalCode)).Successor);
+            Assert.IsNull((new DefaultPostalCode(postalCode)).Successor);
         }
 
         [Test]
         [TestCase("999x99")]
         public void Constructor_InvalidNumber_ThrowsFormatException(string postalCode)
         {
-			Assert.Throws<ArgumentException>( () => new DefaultPostalCode(postalCode));
+            Assert.Throws<ArgumentException>( () => new DefaultPostalCode(postalCode));
         }
 
         [Test]
         public void Predecessor_ValidInput_ReturnsNumericPostalCodeObject()
         {
-			var x = (new DefaultPostalCode("444")).Predecessor;
-			Assert.IsTrue(x.GetType() == typeof(DefaultPostalCode));
+            var x = (new DefaultPostalCode("444")).Predecessor;
+            Assert.IsTrue(x.GetType() == typeof(DefaultPostalCode));
         }
 
         [Test]
         public void Successor_ValidInput_ReturnsNumericPostalCodeObject()
         {
-			var x = (new DefaultPostalCode("444")).Successor;
-			Assert.IsTrue(x.GetType() == typeof(DefaultPostalCode));
+            var x = (new DefaultPostalCode("444")).Successor;
+            Assert.IsTrue(x.GetType() == typeof(DefaultPostalCode));
         }
     }
 }

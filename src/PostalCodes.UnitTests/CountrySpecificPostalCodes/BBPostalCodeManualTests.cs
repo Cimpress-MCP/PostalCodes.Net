@@ -6,14 +6,14 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
     internal class BBPostalCodeManualTests
     {
         [TestCase("BB12345", "12344")]
-		[TestCase("12345", "12344")]
-		public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
+        [TestCase("12345", "12344")]
+        public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             Assert.AreEqual(postalCodePredecessor, (new BBPostalCode(postalCode)).Predecessor.ToString());
         }
 
-		[TestCase("BB12345", "12346")]
-		[TestCase("12345", "12346")]
+        [TestCase("BB12345", "12346")]
+        [TestCase("12345", "12346")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             Assert.AreEqual(postalCodeSuccessor, (new BBPostalCode(postalCode)).Successor.ToString());

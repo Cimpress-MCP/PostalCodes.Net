@@ -3,7 +3,7 @@
 namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
 {
     [TestFixture]
-	internal class NLPostalCodeManualTests
+    internal class NLPostalCodeManualTests
     {
         [Test]
         [TestCase("9992 ZZ", "9991")]

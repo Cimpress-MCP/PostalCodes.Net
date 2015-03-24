@@ -3,7 +3,7 @@
 namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
 {
     [TestFixture]
-	internal class CAPostalCodeManualTests
+    internal class CAPostalCodeManualTests
     {
         [Test]
         [TestCase("A0A0A1", "A0A0A0")]        
