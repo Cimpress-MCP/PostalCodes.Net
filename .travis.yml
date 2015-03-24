@@ -4,10 +4,4 @@ install:
   - nuget restore PostalCodes.sln
 script:
   - xbuild /p:Configuration=Release PostalCodes.sln
-  - rm packages/OpenCover.4.5.3723/log4net.config 
   - mono ./packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
-  - mono ./packages/OpenCover.4.5.3723/OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"packages/NUnit.Runners.2.6.4/tools/nunit-console.exe" -targetargs:"/noshadow /domain:single  ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll" -output:coverage.xml
-  - REPO_COMMIT_AUTHOR=$(git show -s --pretty=format:"%cn")
-  - REPO_COMMIT_AUTHOR_EMAIL=$(git show -s --pretty=format:"%ce")
-  - REPO_COMMIT_MESSAGE=$(git show -s --pretty=format:"%s")
-  - mono ./packages/coveralls.net.0.5.0/csmacnz.Coveralls.exe --opencover -i coverage.xml --repoToken $COVERALLS_REPO_TOKEN --commitId $TRAVIS_COMMIT --commitBranch $TRAVIS_BRANCH --commitAuthor "$REPO_COMMIT_AUTHOR" --commitEmail "$REPO_COMMIT_AUTHOR_EMAIL" --commitMessage "$REPO_COMMIT_MESSAGE" --jobId $TRAVIS_JOB_ID  --serviceName travis-ci  --useRelativePaths
