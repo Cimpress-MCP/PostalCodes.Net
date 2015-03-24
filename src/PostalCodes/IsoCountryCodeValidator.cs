@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 
 namespace PostalCodes
@@ -16,25 +15,19 @@ namespace PostalCodes
         /// <returns>True if the provided country code is valid</returns>
         public bool Validate(string countryCode)
         {
-            string normalizedCountryCode;
-
+            Iso3166Country country;
             try
             {
-                normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
+                country = GetIso3166Country(countryCode);
             }
             catch (InvalidOperationException)
             {
                 return false;
             }
 
-            var country = Iso3166Countries.Countries.FirstOrDefault(a => a.Alpha2Code == normalizedCountryCode);
-            if (country == default(Iso3166Country)) {
-                return false;
-            }
-
             return country.Status != Iso3166CountryCodeStatus.NotUsed
-            && country.Status != Iso3166CountryCodeStatus.Unassigned
-            && country.Status != Iso3166CountryCodeStatus.UserAssigned;
+                && country.Status != Iso3166CountryCodeStatus.Unassigned
+                && country.Status != Iso3166CountryCodeStatus.UserAssigned;
         }
 
         /// <summary>
@@ -44,17 +37,14 @@ namespace PostalCodes
         /// <returns>Normalized country code</returns>
         public string GetNormalizedCountryCode(string countryCode)
         {
-            var normalizedCountryCode = NormalizeToIso3166p1Alpha2(countryCode);
-            
-            if (!Iso3166Countries.Countries.Any(a => a.Alpha2Code == normalizedCountryCode))
-            {
-                throw new InvalidOperationException(string.Format("The specified country code is not valid: {0}", countryCode));
+            var isoCountry = GetIso3166Country(countryCode);
+            if (isoCountry.NewCountryCodes.Length > 0) {
+                return isoCountry.NewCountryCodes[0];
             }
-
-            return normalizedCountryCode;
+            return isoCountry.Alpha2Code;
         }
 
-        private static string NormalizeToIso3166p1Alpha2(string countryCode)
+        private static Iso3166Country GetIso3166Country(string countryCode)
         {
             if (countryCode == null)
             {
@@ -62,22 +52,14 @@ namespace PostalCodes
             }
 
             countryCode = countryCode.Trim();
-
-            if (countryCode.Length != 2)
-            {
-                throw new InvalidOperationException("Country code must contain exactly two characters.");
-            }
-
             countryCode = countryCode.ToUpperInvariant();
             var isoCountry = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
-            if (isoCountry != default(Iso3166Country)) {
-                if (isoCountry.NewCountryCodes.Length > 0) {
-                    return isoCountry.NewCountryCodes[0];
-                }
-                return isoCountry.Alpha2Code;
+            if (isoCountry == default(Iso3166Country))
+            {
+                throw new InvalidOperationException(string.Format("The specified country code is not valid: {0}", countryCode));
             }
 
-            throw new InvalidOperationException("Unknown");
+            return isoCountry;
         }
     }
 }

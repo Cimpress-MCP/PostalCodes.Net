@@ -41,7 +41,6 @@ namespace PostalCodes.UnitTests
         }
 
         [Test]
-        [TestCase(null, "Country code must not be null.")]
         [TestCase("", "Country code must contain exactly two characters.")]
         [TestCase("U", "Country code must contain exactly two characters.")]
         [TestCase("USA", "Country code must contain exactly two characters.")]
@@ -53,7 +52,7 @@ namespace PostalCodes.UnitTests
         [Test]
         [TestCase("UK", "GB")]
         [TestCase("AN", "CW")]
-        public void GetNormalizedCountryCode_VPSpecificCountryCode_ReturnsIsoCountryCode(string input, string output)
+        public void GetNormalizedCountryCode_NonStandardCountryCode_ReturnsIsoCountryCode(string input, string output)
         {
             Assert.AreEqual(output, IsoValidator.GetNormalizedCountryCode(input));
         }

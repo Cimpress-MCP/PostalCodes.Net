@@ -19,13 +19,10 @@ namespace PostalCodes
             if (oldCode == default(Iso3166Country)) 
             {
                 oldCode = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
-                if (oldCode == default(Iso3166Country)) 
-                {
-                    throw new InvalidOperationException (string.Format ("The specified country code is not valid: {0}", countryCode));
-                }
             }
 
-            if (oldCode.Status == Iso3166CountryCodeStatus.NotUsed 
+            if (oldCode == default(Iso3166Country)
+                || oldCode.Status == Iso3166CountryCodeStatus.NotUsed
                 || oldCode.Status == Iso3166CountryCodeStatus.Unassigned
                 || oldCode.Status == Iso3166CountryCodeStatus.UserAssigned) 
             {

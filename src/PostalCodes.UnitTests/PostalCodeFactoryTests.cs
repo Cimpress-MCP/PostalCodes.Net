@@ -17,8 +17,8 @@ namespace PostalCodes.UnitTests
         {
             var postalCodeFactory = new PostalCodeFactory();
             var postalCodeObject = postalCodeFactory.CreatePostalCode(new Country(country), postalCode);
-            
-            Assert.AreEqual(objectTypeName, postalCodeObject.GetType().ToString().Split('.').Last());
+
+            Assert.AreEqual(objectTypeName, postalCodeObject.GetType().Name);
             Assert.AreEqual(normalizedPostalCode, postalCodeObject.ToString());
         }
 
