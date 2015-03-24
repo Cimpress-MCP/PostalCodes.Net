@@ -16,6 +16,8 @@ build:
   verbosity: normal
 test_script:
 - cmd:
+    ECHO ON
+
     .\packages\OpenCover.4.5.3723\OpenCover.Console.exe -register:user -target:"packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -register:user "-targetargs:""src\PostalCodes.UnitTests\bin\Release\PostalCodes.UnitTests.dll"" /noshadow" -filter:"+[PostalCodes*]*" -output:opencoverCoverage.xml
 
     .\packages\coveralls.net.0.5.0\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken "%COVERALLS_REPO_TOKEN%" --commitId "%APPVEYOR_REPO_COMMIT%" --commitBranch "%APPVEYOR_REPO_BRANCH%" --commitAuthor "%APPVEYOR_REPO_COMMIT_AUTHOR%" --commitEmail "%APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL%" --commitMessage "%APPVEYOR_REPO_COMMIT_MESSAGE%" --jobId "%APPVEYOR_JOB_ID%"
