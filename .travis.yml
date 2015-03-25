@@ -1,9 +1,11 @@
 language: csharp
 solution: PostalCodes.sln
 install:
-  - nuget restore PostalCodes.sln
+- nuget restore PostalCodes.sln
 script:
-  - xbuild /p:Configuration=Release PostalCodes.sln
-  - mono ./packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
+- xbuild /p:Configuration=Release PostalCodes.sln
+- mono ./packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
 notifications:
-  hipchat: $HIPCHAT_ROOM
+  hipchat:
+    rooms:
+      secure: SJckuAH2lrgqC2ZbQ0upbqar+hf6o4+r4QfO1b+iNC8+lfwVdKZyGvzasPw6XAu3WW/mvDrSy8MEtmWc4doPlfIDMwB4NKq9W89jp+qMcHyebM/w8vyZoS9nociJSkDdoNV/xl/k1mSb9Hxx8XmDwJDacLRpkzElgXt13NERStw=
