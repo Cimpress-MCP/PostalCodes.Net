@@ -11,7 +11,7 @@ assembly_info:
   assembly_informational_version: $(VERSION_FROM_BRANCH)
 environment:
   COVERALLS_REPO_TOKEN:
-    secure: Sh4wPynnKbHkZVqPYJppDLXy/iS+StbderDJLG5tEMrhW7yAYf3oyXP+PgbI9900
+    secure: qjY74qfU6R9CZnQA3JyIf9d/WxZBuVF2ysEapYlNnoUW2L7uMgsVDwmOWMHekof2
 build:
   parallel: true
   verbosity: normal
