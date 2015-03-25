@@ -6,9 +6,24 @@
 
 	"Formats" : [
 			{
-				"Name" : "MA : A0A 0A0",
+				"Name" : "MA : AAA 1234",
 				"RegexDefault" : "^[A-Z]{3}[0-9]{4}$",
-				"OutputDefault" : "xxx xxx"
+				"OutputDefault" : "xxx xxxx"
 			}
-		]
+		],
+
+	"TestData" : {
+		"Max" : [ "ZZZ9999" ],
+		"Min" : [ "AAA0000" ],
+		"Valid" : ["ABC1234", "SHD4783"],
+		"Invalid" : [ "ABCABC", "123ABCD" ],
+		"Predecessor" : {
+			"AAA1000" : "AAA0999",
+			"ZZZ0000" : "ZZY9999"
+		},
+		"Successor" : {
+			"ZZY9999" : "ZZZ0000",
+			"ABC1234" : "ABC1235"
+		}
+	}
 }

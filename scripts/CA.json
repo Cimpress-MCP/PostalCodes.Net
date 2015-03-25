@@ -10,5 +10,20 @@
 				"RegexDefault" : "^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$",
 				"OutputDefault" : "xxx xxx"
 			}
-		]
+		],
+
+	"TestData" : {
+		"Max" : [ "Z9Z9Z9" ],
+		"Min" : [ "A0A0A0" ],
+		"Valid" : ["A4B5X5", "A4B5A5"],
+		"Invalid" : [ "123AAA", "12A5AA" ],
+		"Predecessor" : {
+			"A9A9A9" : "A9A9A8",
+			"B6C3A0" : "B6C2Z9"
+		},
+		"Successor" : {
+			"A9A9A9" : "A9A9B0",
+			"A1B2C3" : "A1B2C4"
+		}
+	}
 }

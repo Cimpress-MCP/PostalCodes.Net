@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace PostalCodes.GenericPostalCodes
+﻿namespace PostalCodes.GenericPostalCodes
 {
     internal abstract class AlphaNumericPostalCode : PostalCode
     {

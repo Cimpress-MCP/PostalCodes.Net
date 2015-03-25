@@ -1,9 +1,11 @@
-﻿namespace PostalCodes
+﻿using System;
+
+namespace PostalCodes
 {
     /// <summary>
     /// Representation of a country
     /// </summary>
-    public sealed class Country
+    public sealed class Country : IEquatable<Country>
     {
         /// <summary>
         /// The _backing code
@@ -47,20 +49,21 @@
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            var other = obj as Country;
+            return Equals(obj as Country);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="PostalCodes.Country" /> is equal to this instance.
+        /// </summary>
+        /// <param name="other">The country to compare with the current instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="PostalCodes.Country" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        public bool Equals(Country other)
+        {
             if (other == null)
             {
                 return false;
             }
-            if (Code == null && other.Code == null)
-            {
-                return true;
-            }
-            if (Code == null || other.Code == null)
-            {
-                return false;
-            }
-            return Code.Equals(other.Code);
+            return string.Equals(Code, other.Code);
         }
 
         /// <summary>
@@ -71,13 +74,9 @@
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(Country left, Country right)
         {
-            if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
+            if (ReferenceEquals(left, null))
             {
-                return true;
-            }
-            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
-            {
-                return false;
+                return ReferenceEquals(right, null);
             }
             return left.Equals(right);
         }

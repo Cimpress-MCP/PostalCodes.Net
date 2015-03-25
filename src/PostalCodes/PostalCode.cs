@@ -83,8 +83,7 @@ namespace PostalCodes
 
             var nonWhiteSpaceCode = ClearWhiteSpaces (postalCode);
 
-            string paddedPostalCode;
-            SetMatchingFormat(formats, nonWhiteSpaceCode, out paddedPostalCode);
+            string paddedPostalCode = SetMatchingFormat(formats, nonWhiteSpaceCode);
             if (paddedPostalCode != null) {
                 nonWhiteSpaceCode = paddedPostalCode;
             }
@@ -165,7 +164,7 @@ namespace PostalCodes
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            return this == obj as PostalCode;
+            return Equals(obj as PostalCode);
         }
 
         /// <summary>
@@ -203,13 +202,9 @@ namespace PostalCodes
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(PostalCode left, PostalCode right)
         {
-            if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
+            if (ReferenceEquals(left, null))
             {
-                return true;
-            }
-            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
-            {
-                return false;
+                return ReferenceEquals(right, null);
             }
             return left.Equals(right);
         }
@@ -352,21 +347,18 @@ namespace PostalCodes
             return result;
         }
 
-        private void SetMatchingFormat(PostalCodeFormat[] formats, string postalCode, out string outPaddedPostalCode) {
-
-            outPaddedPostalCode = null;
-
+        private string SetMatchingFormat(PostalCodeFormat[] formats, string postalCode) {
             foreach (var fmt in formats) {
                 if (fmt.RegexDefault.IsMatch (postalCode)) {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
-                    return;
+                    return null;
                 }
                 if (fmt.RegexShort != null) {
                     if (fmt.RegexShort.IsMatch (postalCode)) {
                         _currentFormatType = FormatType.Short;
                         _currentFormat = fmt;
-                        return;
+                        return null;
                     }
                 }
             }
@@ -387,15 +379,13 @@ namespace PostalCodes
                 if (fmt.RegexDefault.IsMatch (paddedPostalCode)) {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
-                    outPaddedPostalCode = paddedPostalCode;
-                    return;
+                    return paddedPostalCode;
                 }
                 if (fmt.RegexShort != null) {
                     if (fmt.RegexShort.IsMatch (paddedPostalCode)) {
                         _currentFormatType = FormatType.Short;
                         _currentFormat = fmt;
-                        outPaddedPostalCode = paddedPostalCode;
-                        return;
+                        return paddedPostalCode;
                     }
                 }
             }
@@ -408,7 +398,7 @@ namespace PostalCodes
         /// </summary>
         /// <returns>The white spaces.</returns>
         /// <param name="code">Code.</param>
-        protected virtual string ClearWhiteSpaces(string code) {
+        protected string ClearWhiteSpaces(string code) {
             var normalized = code;
             foreach (var c in _whiteSpaceCharacters.ToCharArray()) {
                 normalized = normalized.Replace (c + "", "");
@@ -426,12 +416,7 @@ namespace PostalCodes
             if (_currentFormat.RegexDefault.IsMatch (normalized)) {
 
                 if (_allowConvertToShort && _currentFormat.AutoConvertToShort) {
-                        var charsInShortFormat = 0;
-                    for (var j = 0; j < _currentFormat.OutputShort.Length; j++) {
-                        if (_currentFormat.OutputShort [j] == 'x') {
-                            charsInShortFormat++;
-                        }
-                    }
+                    var charsInShortFormat = _currentFormat.OutputShort.Count(c => c == 'x');
                     normalized = normalized.Substring (0, charsInShortFormat);
                 }
                 return normalized;
