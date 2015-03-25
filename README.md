@@ -1,6 +1,6 @@
 [![Build Status](https://img.shields.io/travis/Cimpress-MCP/PostalCodes.Net/master.svg)](https://travis-ci.org/Cimpress-MCP/PostalCodes.Net)
 [![Build status](https://img.shields.io/appveyor/ci/rnowosielski/postalcodes-net-u1ews/master.svg)](https://ci.appveyor.com/project/rnowosielski/postalcodes-net-u1ews)
-[![Coverage Status](https://img.shields.io/coveralls/rnowosielski/PostalCodes.Net/master.svg)](https://coveralls.io/r/rnowosielski/PostalCodes.Net?branch=master)
+[![Coverage Status](https://coveralls.io/repos/Cimpress-MCP/PostalCodes.Net/badge.svg?branch=master)](https://coveralls.io/r/Cimpress-MCP/PostalCodes.Net?branch=master)
 [![Nuget Package](https://img.shields.io/nuget/dt/PostalCodes.svg)](http://www.nuget.org/packages/PostalCodes/)
 [![Nuget Package](https://img.shields.io/nuget/v/PostalCodes.svg)](http://www.nuget.org/packages/PostalCodes/)
 [![PostalCodes Release](https://img.shields.io/github/release/Cimpress-MCP/PostalCodes.Net.svg)](https://github.com/Cimpress-MCP/PostalCodes.Net/releases)
