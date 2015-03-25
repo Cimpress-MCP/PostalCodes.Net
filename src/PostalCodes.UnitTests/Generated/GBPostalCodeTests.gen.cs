@@ -65,6 +65,21 @@ namespace PostalCodes.UnitTests.Generated
         [TestCase("Z699ZZ")]
         [TestCase("ZX99ZZ")]
         [TestCase("ZC999ZZ")]
+        public void Equals_WithNull_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new GBPostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(null);
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
+        
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new GBPostalCode(code)).Predecessor;

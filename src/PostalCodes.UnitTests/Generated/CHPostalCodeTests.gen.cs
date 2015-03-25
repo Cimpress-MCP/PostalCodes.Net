@@ -52,6 +52,17 @@ namespace PostalCodes.UnitTests.Generated
 
         [TestCase("1234")]
         [TestCase("5678")]
+        public void Equals_WithNull_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new CHPostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(null);
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
+        
+        [TestCase("1234")]
+        [TestCase("5678")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new CHPostalCode(code)).Predecessor;
