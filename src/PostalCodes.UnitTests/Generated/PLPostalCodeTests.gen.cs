@@ -59,6 +59,17 @@ namespace PostalCodes.UnitTests.Generated
 
         [TestCase("44100")]
         [TestCase("44-100")]
+        public void Equals_WithNull_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new PLPostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(null);
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
+        
+        [TestCase("44100")]
+        [TestCase("44-100")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new PLPostalCode(code)).Predecessor;

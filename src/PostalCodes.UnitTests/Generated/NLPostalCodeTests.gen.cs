@@ -51,6 +51,17 @@ namespace PostalCodes.UnitTests.Generated
 
         [TestCase("1235DF")]
         [TestCase("5983DH")]
+        public void Equals_WithNull_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new NLPostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(null);
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
+        
+        [TestCase("1235DF")]
+        [TestCase("5983DH")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new NLPostalCode(code)).Predecessor;

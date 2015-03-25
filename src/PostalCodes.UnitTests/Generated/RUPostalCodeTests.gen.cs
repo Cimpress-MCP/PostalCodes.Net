@@ -50,6 +50,16 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("123456")]
+        public void Equals_WithNull_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new RUPostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(null);
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
+        
+        [TestCase("123456")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new RUPostalCode(code)).Predecessor;
