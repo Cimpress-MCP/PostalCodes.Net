@@ -65,3 +65,6 @@ var country = CountryFactory.Instance.CreateCountry("PL");
 var postalCode = PostalCodeFactory.Instance.CreatePostalCode(
 	country, "44-100");
 ```
+
+in case of invalid postal code you will get an ```ArgumentException``` with the proper message explaining the reason for the failure.
+
