@@ -65,5 +65,21 @@
 				"ShortExpansionAsLowestInRange" : "AA",
 				"ShortExpansionAsHighestInRange" : "ZZ"
 			}
-		]
+		],
+
+
+	"TestData" : {
+		"Max" : [ "ZZ9Z9ZZ", "Z9Z9ZZ", "Z99ZZ", "Z999ZZ", "ZZ99ZZ", "ZZ999ZZ" ],
+		"Min" : [ "AA0A0AA", "A0A0AA", "A00AA", "A000AA", "AA00AA", "AA000AA" ],
+		"Valid" : [ "ZZ9A9ZZ", "A9Z9ZZ", "Z29ZZ", "Z699ZZ", "ZX99ZZ", "ZC999ZZ" ],
+		"Invalid" : [ "12345", "xxx123" ],
+		"Predecessor" : {
+			"ZZ9Z9ZZ" : "ZZ9Z8",
+			"Z999ZZ" : "Z998"
+		},
+		"Successor" : {
+			"Z989ZZ" : "Z990",
+			"ZZ0Z9" : "ZZ1A0"
+		}
+	}
 }

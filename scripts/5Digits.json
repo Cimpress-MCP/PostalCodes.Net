@@ -16,5 +16,23 @@
 				"ShortExpansionAsLowestInRange" : "0",
 				"ShortExpansionAsHighestInRange" : "9"
 			}
-		]
+		],
+
+	"TestData" : {
+		"Max" : [ "99999" ],
+		"Min" : [ "00000" ],
+		"Valid" : ["12234", "52678"],
+		"Invalid" : [ "122345", "1223s", "x12u3" ],
+		"Predecessor" : {
+			"11234" : "11233",
+			"82888" : "82887",
+			"00001" : "00000"
+		},
+		"Successor" : {
+			"14234" : "14235",
+			"44852" : "44853",
+			"99998"	: "99999"
+		}
+	}
+
 }

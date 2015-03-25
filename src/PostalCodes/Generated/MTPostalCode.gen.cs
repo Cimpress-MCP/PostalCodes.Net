@@ -97,9 +97,9 @@ namespace PostalCodes
 
         private static PostalCodeFormat[] _formats = new [] {
             new PostalCodeFormat {
-                Name = "MA : A0A 0A0",
+                Name = "MA : AAA 1234",
                 RegexDefault = new Regex("^[A-Z]{3}[0-9]{4}$", RegexOptions.Compiled),
-                OutputDefault = "xxx xxx",
+                OutputDefault = "xxx xxxx",
             }
         };
     }
