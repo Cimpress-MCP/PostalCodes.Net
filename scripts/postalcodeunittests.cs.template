@@ -55,6 +55,15 @@ namespace PostalCodes.UnitTests.Generated
             Assert.DoesNotThrow(equals);
             Assert.IsFalse(result);
         }
+@@testsValid@@
+        public void Equals_WithOtherObject_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new @@CountryCode@@PostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(new object());
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
         
 @@testsValid@@
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
@@ -69,5 +78,50 @@ namespace PostalCodes.UnitTests.Generated
             var x = (new @@CountryCode@@PostalCode(code)).Successor;
             Assert.IsTrue(x.GetType() == typeof(@@CountryCode@@PostalCode));
         }
+
+@@testsValid@@
+        public void ExpandPostalCodeAsHighestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new @@CountryCode@@PostalCode(code)).ExpandPostalCodeAsHighestInRange();
+            Assert.IsTrue(x.GetType() == typeof(@@CountryCode@@PostalCode));
+        }
+
+@@testsValid@@
+        public void ExpandPostalCodeAsLowestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new @@CountryCode@@PostalCode(code)).ExpandPostalCodeAsLowestInRange();
+            Assert.IsTrue(x.GetType() == typeof(@@CountryCode@@PostalCode));
+        }
+
+@@testsValid@@
+        public void GetHashCode_WithEqualObject_EqualHashes(string code)
+        {
+            var x = new @@CountryCode@@PostalCode(code);
+            var y = new @@CountryCode@@PostalCode(code);
+            Assert.IsTrue(x.GetHashCode() == y.GetHashCode());
+        }
+
+@@testsValid@@
+        public void AreAdjacent_WithAdjacentPostalCodes_ReturnsTrue(string code)
+        {
+            var x = new @@CountryCode@@PostalCode(code);
+            var xPred = x.Predecessor;
+            var xSucc = x.Successor;
+            Assert.IsTrue(PostalCode.AreAdjacent(x, xPred));
+            Assert.IsTrue(PostalCode.AreAdjacent(xPred, x));
+            Assert.IsTrue(PostalCode.AreAdjacent(x, xSucc));
+            Assert.IsTrue(PostalCode.AreAdjacent(xSucc, x));
+            Assert.IsFalse(PostalCode.AreAdjacent(xPred, xSucc));
+        }             
+
+@@testsValid@@
+        public void CreateThroughFactoryIsSuccessful(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("@@CountryCode@@");
+            var x = PostalCodeFactory.Instance.CreatePostalCode(country, code);
+            
+            Assert.IsTrue(x.GetType() == typeof(@@CountryCode@@PostalCode));
+        }             
+
     }
 }

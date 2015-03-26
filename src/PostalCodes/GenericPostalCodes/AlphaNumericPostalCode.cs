@@ -2,10 +2,7 @@
 {
     internal abstract class AlphaNumericPostalCode : PostalCode
     {
-        internal AlphaNumericPostalCode(PostalCodeFormat[] formats, string postalCode) : this(formats, postalCode, true) {}
-
         internal AlphaNumericPostalCode(PostalCodeFormat[] formats, string postalCode, bool allowConvertToShort) : base(formats, postalCode, allowConvertToShort) {}
-
 
         /// <summary>
         /// Gets the internal value.
@@ -13,6 +10,41 @@
         /// <returns>The internal value.</returns>
         protected string GetInternalValue() {
             return PostalCodeString;
+        }
+
+
+        /// <summary>
+        /// Gets the predecessor implementation.
+        /// </summary>
+        /// <value>The predecessor implementation.</value>
+        protected override PostalCode PredecessorImpl
+        {
+            get
+            {
+                var b = GenerateSuccesorOrPredecessor(GetInternalValue(), false);
+                if (b == null)
+                {
+                    return null;
+                }
+                return CreatePostalCode(b, _allowConvertToShort);
+            }
+        }
+
+        /// <summary>
+        /// Gets the successor implementation.
+        /// </summary>
+        /// <value>The successor implementation.</value>
+        protected override PostalCode SuccessorImpl
+        {
+            get
+            {
+                var b = GenerateSuccesorOrPredecessor(GetInternalValue(), true);
+                if (b == null)
+                {
+                    return null;
+                }
+                return CreatePostalCode(b, _allowConvertToShort);
+            }
         }
 
         /// <summary>

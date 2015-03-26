@@ -1,5 +1,4 @@
 using System;
-using PostalCodes;
 using PostalCodes.GenericPostalCodes;
 
 namespace PostalCodes
