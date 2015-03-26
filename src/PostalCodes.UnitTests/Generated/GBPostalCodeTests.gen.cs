@@ -73,6 +73,20 @@ namespace PostalCodes.UnitTests.Generated
             Assert.DoesNotThrow(equals);
             Assert.IsFalse(result);
         }
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
+        public void Equals_WithOtherObject_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new GBPostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(new object());
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
         
         [TestCase("ZZ9A9ZZ")]
         [TestCase("A9Z9ZZ")]
@@ -97,5 +111,75 @@ namespace PostalCodes.UnitTests.Generated
             var x = (new GBPostalCode(code)).Successor;
             Assert.IsTrue(x.GetType() == typeof(GBPostalCode));
         }
+
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
+        public void ExpandPostalCodeAsHighestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new GBPostalCode(code)).ExpandPostalCodeAsHighestInRange();
+            Assert.IsTrue(x.GetType() == typeof(GBPostalCode));
+        }
+
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
+        public void ExpandPostalCodeAsLowestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new GBPostalCode(code)).ExpandPostalCodeAsLowestInRange();
+            Assert.IsTrue(x.GetType() == typeof(GBPostalCode));
+        }
+
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
+        public void GetHashCode_WithEqualObject_EqualHashes(string code)
+        {
+            var x = new GBPostalCode(code);
+            var y = new GBPostalCode(code);
+            Assert.IsTrue(x.GetHashCode() == y.GetHashCode());
+        }
+
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
+        public void AreAdjacent_WithAdjacentPostalCodes_ReturnsTrue(string code)
+        {
+            var x = new GBPostalCode(code);
+            var xPred = x.Predecessor;
+            var xSucc = x.Successor;
+            Assert.IsTrue(PostalCode.AreAdjacent(x, xPred));
+            Assert.IsTrue(PostalCode.AreAdjacent(xPred, x));
+            Assert.IsTrue(PostalCode.AreAdjacent(x, xSucc));
+            Assert.IsTrue(PostalCode.AreAdjacent(xSucc, x));
+            Assert.IsFalse(PostalCode.AreAdjacent(xPred, xSucc));
+        }             
+
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
+        public void CreateThroughFactoryIsSuccessful(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("GB");
+            var x = PostalCodeFactory.Instance.CreatePostalCode(country, code);
+            
+            Assert.IsTrue(x.GetType() == typeof(GBPostalCode));
+        }             
+
     }
 }

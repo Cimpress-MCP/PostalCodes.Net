@@ -12,6 +12,7 @@ namespace PostalCodes
         /// Format type.
         /// </summary>
         protected enum FormatType {
+
             /// <summary>
             /// The default.
             /// </summary>
@@ -130,6 +131,14 @@ namespace PostalCodes
         /// </summary>
         /// <value>The successor implementation.</value>
         protected abstract PostalCode SuccessorImpl { get; }
+
+        /// <summary>
+        /// Creates new postal code
+        /// </summary>
+        /// <param name="code">The postal code to create</param>
+        /// <param name="allowConvertToShort">Shows wether converting to short format is allowed</param>
+        /// <returns></returns>
+        protected abstract PostalCode CreatePostalCode(string code, bool allowConvertToShort);
 
         #region Implementation of IComparable<in PostalCode>
 
@@ -295,22 +304,61 @@ namespace PostalCodes
         /// To the human readable string.
         /// </summary>
         /// <returns>The human readable string.</returns>
-        public virtual string ToHumanReadableString() 
+        public virtual string ToHumanReadableString()
         {
-            return ToString ();
+            var outputFormat = _currentFormat.OutputDefault;
+            if (_currentFormatType == FormatType.Short)
+            {
+                if (_currentFormat.OutputShort != null)
+                {
+                    outputFormat = _currentFormat.OutputShort;
+                }
+            }
+
+            return ToHumanReadableString(outputFormat);
         }
 
         /// <summary>
         /// Expands the postal code as lowest in range.
         /// </summary>
         /// <returns>The postal code as lowest in range.</returns>
-        public abstract PostalCode ExpandPostalCodeAsLowestInRange();
+        public PostalCode ExpandPostalCodeAsLowestInRange()
+        {
+            if (_currentFormatType == FormatType.Short)
+            {
+                if (_currentFormat.ShortExpansionAsLowestInRange != null)
+                {
+                    return CreatePostalCode(ToString() + _currentFormat.ShortExpansionAsLowestInRange, false);
+                }
+                else
+                {
+                    throw new ArgumentException("Requested short postal code expansion but no expansion provided (lowest)");
+                }
+            }
+
+            return CreatePostalCode(ToString(), _allowConvertToShort);
+        }
 
         /// <summary>
         /// Expands the postal code as highest in range.
         /// </summary>
         /// <returns>The postal code as highest in range.</returns>
-        public abstract PostalCode ExpandPostalCodeAsHighestInRange();
+        public PostalCode ExpandPostalCodeAsHighestInRange()
+        {
+            if (_currentFormatType == FormatType.Short)
+            {
+                if (_currentFormat.ShortExpansionAsHighestInRange != null)
+                {
+                    return CreatePostalCode(ToString() + _currentFormat.ShortExpansionAsHighestInRange, false);
+                }
+                else
+                {
+                    throw new ArgumentException("Requested short postal code expansion but no expansion provided (highest)");
+                }
+            }
+
+            return CreatePostalCode(ToString(), _allowConvertToShort);
+        }
 
         /// <summary>
         /// Ares the adjacent.

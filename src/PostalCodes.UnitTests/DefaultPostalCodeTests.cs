@@ -7,7 +7,6 @@ namespace PostalCodes.UnitTests
     [TestFixture]
     internal class DefaultPostalCodeTests
     {
-        [Test]
         [TestCase("0002", "0001")]
         [TestCase("0020", "0019")]
         [TestCase("0300", "0299")]
@@ -20,7 +19,6 @@ namespace PostalCodes.UnitTests
             Assert.AreEqual(postalCodePredecessor, (new DefaultPostalCode(postalCode)).Predecessor.ToString());
         }
 
-        [Test]
         [TestCase("0001", "0002")]
         [TestCase("0019", "0020")]
         [TestCase("0299", "0300")]
@@ -31,21 +29,18 @@ namespace PostalCodes.UnitTests
             Assert.AreEqual(postalCodeSuccessor, (new DefaultPostalCode(postalCode)).Successor.ToString());
         }
         
-        [Test]
         [TestCase("00000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new DefaultPostalCode(postalCode)).Predecessor);
         }
 
-        [Test]
         [TestCase("99999")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new DefaultPostalCode(postalCode)).Successor);
         }
 
-        [Test]
         [TestCase("999x99")]
         public void Constructor_InvalidNumber_ThrowsFormatException(string postalCode)
         {
@@ -64,6 +59,13 @@ namespace PostalCodes.UnitTests
         {
             var x = (new DefaultPostalCode("444")).Successor;
             Assert.IsTrue(x.GetType() == typeof(DefaultPostalCode));
+        }
+
+        [Test]
+        public void ToHumanReadableString_ReturnsCorrectString()
+        {
+            var x = new DefaultPostalCode("4444");
+            Assert.AreEqual("4444", x.ToHumanReadableString());
         }
     }
 }

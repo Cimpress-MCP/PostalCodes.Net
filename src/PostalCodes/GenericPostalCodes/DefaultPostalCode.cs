@@ -1,18 +1,23 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace PostalCodes.GenericPostalCodes
 {
     internal class DefaultPostalCode : AlphaNumericPostalCode {
 
-        public DefaultPostalCode(string postalCode) : base(_formats, postalCode, true)
+        public DefaultPostalCode(string postalCode)
+            : base(_formats, postalCode, true)
         {
         }
 
-        public DefaultPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort)
+        public DefaultPostalCode(string postalCode, bool allowConvertToShort)
+            : base(_formats, postalCode, allowConvertToShort)
         {
         }
 
+        /// <summary>
+        /// Gets the predecessor implementation.
+        /// </summary>
+        /// <value>The predecessor implementation.</value>
         protected override PostalCode PredecessorImpl
         {
             get
@@ -22,10 +27,14 @@ namespace PostalCodes.GenericPostalCodes
                 {
                     return null;
                 }
-                return new DefaultPostalCode (b);
+                return CreatePostalCode(b, _allowConvertToShort);
             }
         }
 
+        /// <summary>
+        /// Gets the successor implementation.
+        /// </summary>
+        /// <value>The successor implementation.</value>
         protected override PostalCode SuccessorImpl
         {
             get
@@ -35,31 +44,18 @@ namespace PostalCodes.GenericPostalCodes
                 {
                     return null;
                 }
-                return new DefaultPostalCode (b);
+                return CreatePostalCode(b, _allowConvertToShort);
             }
         }
-        public override PostalCode ExpandPostalCodeAsLowestInRange ()
-        {
-            if (_currentFormatType == FormatType.Short) {
-                if (_currentFormat.ShortExpansionAsLowestInRange != null) {
-                    return new DefaultPostalCode (ToString () + _currentFormat.ShortExpansionAsLowestInRange);
-                }
-                throw new ArgumentException ("Requested short postal code expansion but no expansion provided (lowest)");
-            }
 
-            return new PTPostalCode(ToString());
+        protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
+        {
+            return new DefaultPostalCode(code, allowConvertToShort);
         }
 
-        public override PostalCode ExpandPostalCodeAsHighestInRange ()
+        public override string ToHumanReadableString()
         {
-            if (_currentFormatType == FormatType.Short) {
-                if (_currentFormat.ShortExpansionAsHighestInRange != null) {
-                    return new DefaultPostalCode (ToString () + _currentFormat.ShortExpansionAsHighestInRange);
-                }
-                throw new ArgumentException ("Requested short postal code expansion but no expansion provided (highest)");
-            }
-
-            return new PTPostalCode(ToString());
+            return ToString();
         }
 
         private static readonly PostalCodeFormat[] _formats =

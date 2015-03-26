@@ -60,6 +60,16 @@ namespace PostalCodes.UnitTests.Generated
             Assert.DoesNotThrow(equals);
             Assert.IsFalse(result);
         }
+        [TestCase("1231242")]
+        [TestCase("1234")]
+        public void Equals_WithOtherObject_DoesntThrowAndReturnsFalse(string code)
+        {
+            var x = (new PTPostalCode(code)).Predecessor;
+            bool result = true;
+            TestDelegate equals = () => result = x.Equals(new object());
+            Assert.DoesNotThrow(equals);
+            Assert.IsFalse(result);
+        }
         
         [TestCase("1231242")]
         [TestCase("1234")]
@@ -76,5 +86,55 @@ namespace PostalCodes.UnitTests.Generated
             var x = (new PTPostalCode(code)).Successor;
             Assert.IsTrue(x.GetType() == typeof(PTPostalCode));
         }
+
+        [TestCase("1231242")]
+        [TestCase("1234")]
+        public void ExpandPostalCodeAsHighestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new PTPostalCode(code)).ExpandPostalCodeAsHighestInRange();
+            Assert.IsTrue(x.GetType() == typeof(PTPostalCode));
+        }
+
+        [TestCase("1231242")]
+        [TestCase("1234")]
+        public void ExpandPostalCodeAsLowestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
+        {
+            var x = (new PTPostalCode(code)).ExpandPostalCodeAsLowestInRange();
+            Assert.IsTrue(x.GetType() == typeof(PTPostalCode));
+        }
+
+        [TestCase("1231242")]
+        [TestCase("1234")]
+        public void GetHashCode_WithEqualObject_EqualHashes(string code)
+        {
+            var x = new PTPostalCode(code);
+            var y = new PTPostalCode(code);
+            Assert.IsTrue(x.GetHashCode() == y.GetHashCode());
+        }
+
+        [TestCase("1231242")]
+        [TestCase("1234")]
+        public void AreAdjacent_WithAdjacentPostalCodes_ReturnsTrue(string code)
+        {
+            var x = new PTPostalCode(code);
+            var xPred = x.Predecessor;
+            var xSucc = x.Successor;
+            Assert.IsTrue(PostalCode.AreAdjacent(x, xPred));
+            Assert.IsTrue(PostalCode.AreAdjacent(xPred, x));
+            Assert.IsTrue(PostalCode.AreAdjacent(x, xSucc));
+            Assert.IsTrue(PostalCode.AreAdjacent(xSucc, x));
+            Assert.IsFalse(PostalCode.AreAdjacent(xPred, xSucc));
+        }             
+
+        [TestCase("1231242")]
+        [TestCase("1234")]
+        public void CreateThroughFactoryIsSuccessful(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("PT");
+            var x = PostalCodeFactory.Instance.CreatePostalCode(country, code);
+            
+            Assert.IsTrue(x.GetType() == typeof(PTPostalCode));
+        }             
+
     }
 }
