@@ -7,8 +7,8 @@ namespace PostalCodes.UnitTests.Generated
     internal class BBPostalCodeTests
     {
 
-        [TestCase("BB 12345","12344")]
         [TestCase("12345","12344")]
+        [TestCase("BB 12345","12344")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new BBPostalCode(postalCode);
@@ -18,8 +18,8 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
-        [TestCase("BB 12345","12346")]
         [TestCase("12345","12346")]
+        [TestCase("BB 12345","12346")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new BBPostalCode(postalCode);

@@ -7,8 +7,8 @@ namespace PostalCodes.UnitTests.Generated
     internal class JPPostalCodeTests
     {
 
-        [TestCase("1126394","1126393")]
         [TestCase("8286898","8286897")]
+        [TestCase("1126394","1126393")]
         [TestCase("0000001","0000000")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
@@ -20,8 +20,8 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("1427934","1427935")]
-        [TestCase("4487952","4487953")]
         [TestCase("9999998","9999999")]
+        [TestCase("4487952","4487953")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new JPPostalCode(postalCode);

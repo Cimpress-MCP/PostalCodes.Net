@@ -7,8 +7,8 @@ namespace PostalCodes.UnitTests.Generated
     internal class GBPostalCodeTests
     {
 
-        [TestCase("ZZ9Z9ZZ","ZZ9Z8")]
         [TestCase("Z999ZZ","Z998")]
+        [TestCase("ZZ9Z9ZZ","ZZ9Z8")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new GBPostalCode(postalCode);

@@ -18,9 +18,9 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
-        [TestCase("9999998","9999999")]
-        [TestCase("1248192","1248193")]
         [TestCase("1235","1236")]
+        [TestCase("1248192","1248193")]
+        [TestCase("9999998","9999999")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new PTPostalCode(postalCode);
