@@ -7,9 +7,9 @@ namespace PostalCodes.UnitTests.Generated
     internal class MYPostalCodeTests
     {
 
-        [TestCase("00001","00000")]
-        [TestCase("82888","82887")]
         [TestCase("11234","11233")]
+        [TestCase("82888","82887")]
+        [TestCase("00001","00000")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new MYPostalCode(postalCode);
@@ -19,9 +19,9 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
+        [TestCase("14234","14235")]
         [TestCase("44852","44853")]
         [TestCase("99998","99999")]
-        [TestCase("14234","14235")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new MYPostalCode(postalCode);

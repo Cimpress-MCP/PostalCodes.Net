@@ -43,9 +43,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PostalCodes.Net.nuspec" />
+    <None Include="Generated\PostalCodeFactory.gen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PostalCodeFactory.gen.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Country.cs" />
@@ -64,7 +69,9 @@
     <Compile Include="Iso3166CountryCodeStatus.cs" />
     <Compile Include="PostalCodeFormat.cs" />
     <Compile Include="GenericPostalCodes\AlphaNumericPostalCode.cs" />
-    <Compile Include="Generated\*.gen.cs" />
+    <Compile Include="Generated\*.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
     <Compile Include="GenericPostalCodes\DefaultPostalCode.cs" />
     <Compile Include="Extensions\BBPostalCode.cs" />
   </ItemGroup>
