@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Runtime.InteropServices;
 
 namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
 {
@@ -61,7 +62,6 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
             Assert.IsNull((new GBPostalCode(postalCode)).Predecessor);
         }
 
-        [Test]
         [TestCase("ZZ9Z9ZZ")]
         [TestCase("Z9Z9ZZ")]
         [TestCase("Z99ZZ")]
@@ -77,7 +77,7 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
         public void Predecessor_ValidInput_ReturnsGbPostalCodeObject()
         {
             var x = (new GBPostalCode("CC4C4CC")).Predecessor;
-            Assert.IsTrue( x.GetType() == typeof(GBPostalCode) );
+            Assert.IsTrue(x.GetType() == typeof(GBPostalCode));
         }
 
         [Test]
@@ -85,6 +85,97 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
         {
             var x = (new GBPostalCode("CC4C4CC")).Successor;
             Assert.IsTrue(x.GetType() == typeof(GBPostalCode));
+        }
+
+        [TestCase("ZZ9Z9ZZ", "ZZ9Z9ZZ", true)]
+        [TestCase("ZZ9Z9ZZ", "ZZ9Z9", true)]
+
+        [TestCase("Z9Z9ZZ", "Z9Z9ZZ", true)]
+        [TestCase("Z9Z9ZZ", "Z9Z9", true)]
+
+        [TestCase("Z99ZZ", "Z99ZZ", true)]
+        [TestCase("Z99ZZ", "Z99", true)]
+
+        [TestCase("Z999ZZ", "Z999ZZ", true)]
+        [TestCase("Z999ZZ", "Z999", true)]
+
+        [TestCase("ZZ99ZZ", "ZZ99ZZ", true)]
+        [TestCase("ZZ99ZZ", "ZZ99", true)]
+
+        [TestCase("ZZ999ZZ", "ZZ999ZZ", true)]
+        [TestCase("ZZ999ZZ", "ZZ999", true)]
+
+        [TestCase("ZZ999ZZ", "ZZ99", false)]
+        [TestCase("ZZ999ZZ", "ZZ9Z9", false)]
+        [TestCase("ZZ999ZZ", "Z9Z9", false)]
+        [TestCase("ZZ999ZZ", "Z99", false)]
+        [TestCase("ZZ999ZZ", "Z999", false)]
+
+        [TestCase("ZZ99ZZ", "ZZ9Z9", false)]
+        [TestCase("ZZ99ZZ", "Z9Z9", false)]
+        [TestCase("ZZ99ZZ", "Z99", false)]
+        [TestCase("ZZ99ZZ", "Z999", false)]
+        [TestCase("ZZ99ZZ", "ZZ999", false)]
+
+        [TestCase("Z999ZZ", "ZZ99", false)]
+        [TestCase("Z999ZZ", "ZZ9Z9", false)]
+        [TestCase("Z999ZZ", "Z9Z9", false)]
+        [TestCase("Z999ZZ", "Z99", false)]
+        [TestCase("Z999ZZ", "ZZ999", false)]
+
+        [TestCase("Z99ZZ", "ZZ9Z9", false)]
+        [TestCase("Z99ZZ", "Z9Z9", false)]
+        [TestCase("Z99ZZ", "Z999", false)]
+        [TestCase("Z99ZZ", "ZZ99", false)]
+        [TestCase("Z99ZZ", "ZZ999", false)]
+
+        [TestCase("Z9Z9ZZ", "ZZ9Z9", false)]
+        [TestCase("Z9Z9ZZ", "Z99", false)]
+        [TestCase("Z9Z9ZZ", "Z999", false)]
+        [TestCase("Z9Z9ZZ", "ZZ99", false)]
+        [TestCase("Z9Z9ZZ", "ZZ999", false)]
+
+        [TestCase("ZZ9Z9ZZ", "Z9Z9", false)]
+        [TestCase("ZZ9Z9ZZ", "Z99", false)]
+        [TestCase("ZZ9Z9ZZ", "Z999", false)]
+        [TestCase("ZZ9Z9ZZ", "ZZ99", false)]
+        [TestCase("ZZ9Z9ZZ", "ZZ999", false)]
+        public void PostalCodeFormatsMatch(string code1, string code2, bool expectedMatch)
+        {
+            Assert.AreEqual(expectedMatch, GBPostalCode.HasSameFormat(code1, code2));
+        }
+
+        [Test, Category("Integration")]
+        public void WithBritishZipCode_ReturnsFalseIfFormatsDifferentLength()
+        {
+            var cFactory = new CountryFactory(new IsoCountryCodeValidator());
+            var pcFactory = new PostalCodeFactory();
+            var country = cFactory.CreateCountry("GB");
+            var right = new PostalCodeRange(pcFactory.CreatePostalCode(country, "AA99 9AA"), pcFactory.CreatePostalCode(country, "BB99 9AA"));
+            var left = new PostalCodeRange(pcFactory.CreatePostalCode(country, "A9A 9AA"), pcFactory.CreatePostalCode(country, "C9A 9AA"));
+            Assert.IsFalse(PostalCodeRange.Contains(left, right));
+        }
+
+        [Test, Category("Integration")]
+        public void WithBritishZipCode_ReturnsFalseIfFormatsSameLengthButDifferentFormat()
+        {
+            var cFactory = new CountryFactory(new IsoCountryCodeValidator());
+            var pcFactory = new PostalCodeFactory();
+            var country = cFactory.CreateCountry("GB");
+            var right = new PostalCodeRange(pcFactory.CreatePostalCode(country, "A99 9AA"), pcFactory.CreatePostalCode(country, "B99 9AA"));
+            var left = new PostalCodeRange(pcFactory.CreatePostalCode(country, "AA9 9AA"), pcFactory.CreatePostalCode(country, "CC9 9AA"));
+            Assert.IsFalse(PostalCodeRange.Contains(left, right));
+        }
+
+        [Test, Category("Integration")]
+        public void WithBritishZipCode_ReturnsTrueIfFormatMatchedAndCodesAreContained()
+        {
+            var cFactory = new CountryFactory(new IsoCountryCodeValidator());
+            var pcFactory = new PostalCodeFactory();
+            var country = cFactory.CreateCountry("GB");
+            var right = new PostalCodeRange(pcFactory.CreatePostalCode(country, "AA9 9AA"), pcFactory.CreatePostalCode(country, "BB9 9AA"));
+            var left = new PostalCodeRange(pcFactory.CreatePostalCode(country, "AA9 9AA"), pcFactory.CreatePostalCode(country, "CC9 9AA"));
+            Assert.IsTrue(PostalCodeRange.Contains(left, right));
         }
     }
 }

@@ -50,7 +50,6 @@
     <Compile Include="CountryPostalCodeTests.cs" />
     <Compile Include="CountryFactoryTests.cs" />
     <Compile Include="CountryTests.cs" />
-    <Compile Include="GBPostalCodeTests.cs" />
     <Compile Include="Iso3166CountryTests.cs" />
     <Compile Include="IsoCountryCodeValidatorTests.cs" />
     <Compile Include="PostalCodeTests.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="CountrySpecificPostalCodes\GBPostalCodeManualTests.cs" />
     <Compile Include="CountrySpecificPostalCodes\CAPostalCodeManualTests.cs" />
     <Compile Include="CountrySpecificPostalCodes\BBPostalCodeManualTests.cs" />
+    <Compile Include="PostalCodeFormatTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PostalCodes\PostalCodes.csproj">
