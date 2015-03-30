@@ -13,6 +13,7 @@ namespace PostalCodes.UnitTests
             return mockValidator.Object;
         }
         
+        [Test]
         public void CreateCountry_ValidCountryCode_ReturnsValidObject()
         {
             const string countryCode = "aa";
