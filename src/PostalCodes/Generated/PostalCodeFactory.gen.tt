@@ -452,7 +452,6 @@ namespace PostalCodes.UnitTests.Generated
             
             Assert.IsTrue(x.GetType() == typeof(<#= countryInfo.CountryCodeAlpha2 #>PostalCode));
         }             
-
     }
 }
 <#+

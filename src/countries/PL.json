@@ -5,15 +5,10 @@
 	"Formats" : [
 			{
 				"Name" : "PL : 99-999",
-				"RegexDefault" : "^[0-9]{2}-[0-9]{3}$",
-				"OutputDefault" : "xx-xxx"
-			},
-			{
-				"Name" : "PL : 99999",
 				"RegexDefault" : "^[0-9]{5}$",
-				"OutputDefault" : "xxxxx"
-			}		
-		],
+				"OutputDefault" : "xx-xxx"
+			}
+	],
 
 	"TestData" : {
 		"Max" : [ "99999", "99-999" ],
