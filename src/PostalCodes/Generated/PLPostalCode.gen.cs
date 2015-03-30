@@ -36,13 +36,8 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "PL : 99-999",
-                RegexDefault = new Regex("^[0-9]{2}-[0-9]{3}$", RegexOptions.Compiled),
-                OutputDefault = "xx-xxx",
-            },
-            new PostalCodeFormat {
-                Name = "PL : 99999",
                 RegexDefault = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
-                OutputDefault = "xxxxx",
+                OutputDefault = "xx-xxx",
             }
         };
     }

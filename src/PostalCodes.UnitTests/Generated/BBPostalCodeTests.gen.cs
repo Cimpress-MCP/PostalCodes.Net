@@ -136,6 +136,5 @@ namespace PostalCodes.UnitTests.Generated
             
             Assert.IsTrue(x.GetType() == typeof(BBPostalCode));
         }             
-
     }
 }
