@@ -6,18 +6,18 @@ namespace PostalCodes
     {
         internal override bool ValidateFormatCompatibility(PostalCode other)
         {
-            return HasSamePostalCodeFormat(other as GBPostalCode);
+            return HasSameFormat(other as GBPostalCode);
         }
 
-        public static bool HasSamePostalCodeFormat(string quotePostalCode, string startPostalCodeRange)
+        public static bool HasSameFormat(string quotePostalCode, string startPostalCodeRange)
         {
             var code = new GBPostalCode(quotePostalCode);
             var otherCode = new GBPostalCode(startPostalCodeRange);
 
-            return code.HasSamePostalCodeFormat(otherCode);
+            return code.HasSameFormat(otherCode);
         }
 
-        public bool HasSamePostalCodeFormat(GBPostalCode other)
+        public bool HasSameFormat(GBPostalCode other)
         {
             if ( other == null )
             {

@@ -142,7 +142,7 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
         [TestCase("ZZ9Z9ZZ", "ZZ999", false)]
         public void PostalCodeFormatsMatch(string code1, string code2, bool expectedMatch)
         {
-            Assert.AreEqual(expectedMatch, GBPostalCode.HasSamePostalCodeFormat(code1, code2));
+            Assert.AreEqual(expectedMatch, GBPostalCode.HasSameFormat(code1, code2));
         }
 
         [Test, Category("Integration")]
