@@ -362,6 +362,10 @@ namespace PostalCodes
             {
                 return false;
             }
+            if (!outer.Start.ValidateFormatCompatibility(inner.Start) || !outer.End.ValidateFormatCompatibility(inner.End))
+            {
+                return false;
+            }
             return outer.Start.CompareTo(inner.Start) <= 0 && outer.End.CompareTo(inner.End) >= 0;
         }
 
