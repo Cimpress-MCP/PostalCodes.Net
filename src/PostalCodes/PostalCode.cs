@@ -33,7 +33,7 @@ namespace PostalCodes
         /// Gets the postal code string.
         /// </summary>
         /// <value>The postal code string.</value>
-        protected string PostalCodeString
+        protected internal string PostalCodeString
         {
             get { return _backingPostalCode; }
         }
@@ -477,6 +477,16 @@ namespace PostalCodes
             }
 
             throw new ArgumentException (string.Format ("Failed to normalize postal code '{0}'", code));
+        }
+
+        /// <summary>
+        /// Validates the format compatibility for comparing purposes
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns><c>true</c> if the formats can be compared, <c>false</c> otherwise.</returns>
+        internal virtual bool ValidateFormatCompatibility(PostalCode other)
+        {
+            return true;
         }
     }
 }
