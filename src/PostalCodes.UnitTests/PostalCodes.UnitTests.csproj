@@ -64,6 +64,7 @@
     <Compile Include="CountrySpecificPostalCodes\GBPostalCodeManualTests.cs" />
     <Compile Include="CountrySpecificPostalCodes\CAPostalCodeManualTests.cs" />
     <Compile Include="CountrySpecificPostalCodes\BBPostalCodeManualTests.cs" />
+    <Compile Include="PostalCodeFormatTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PostalCodes\PostalCodes.csproj">

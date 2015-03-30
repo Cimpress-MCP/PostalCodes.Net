@@ -59,7 +59,6 @@
     <Compile Include="IIsoCountryCodeValidator.cs" />
     <Compile Include="IsoCountryCodeValidator.cs" />
     <Compile Include="PostalCode.cs" />
-    <Compile Include="PostalCodeInputNormalizer.cs" />
     <Compile Include="PostalCodeRange.cs" />
     <Compile Include="PostalCodeStringComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +73,7 @@
     </Compile>
     <Compile Include="GenericPostalCodes\DefaultPostalCode.cs" />
     <Compile Include="Extensions\BBPostalCode.cs" />
+    <Compile Include="Extensions\GBPostalCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />
