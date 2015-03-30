@@ -53,7 +53,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GBPostalCode.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryFactory.cs" />
     <Compile Include="CountryPostalCode.cs" />

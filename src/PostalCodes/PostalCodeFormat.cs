@@ -48,7 +48,7 @@ namespace PostalCodes
         /// <summary>
         /// Gets or sets the short expansion as lowest in range.
         /// </summary>
-        /// <value>The short expansAion as lowest in range.</value>
+        /// <value>The short expansion as lowest in range.</value>
         public string ShortExpansionAsLowestInRange { get; internal set; }
 
         /// <summary>

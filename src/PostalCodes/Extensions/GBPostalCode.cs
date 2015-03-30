@@ -4,18 +4,26 @@ namespace PostalCodes
 {
     internal partial class GBPostalCode : AlphaNumericPostalCode
     {
-        public static bool PostalCodeFormatsMatch(string quotePostalCode, string startPostalCodeRange)
+        internal override bool ValidateFormatCompatibility(PostalCode other)
         {
-            var code = new GBPostalCode(quotePostalCode);
-
-            return code.PostalCodeFormatsMatch(startPostalCodeRange);
+            return HasSamePostalCodeFormat(other as GBPostalCode);
         }
 
-        public bool PostalCodeFormatsMatch(string quotePostalCode)
+        public static bool HasSamePostalCodeFormat(string quotePostalCode, string startPostalCodeRange)
         {
             var code = new GBPostalCode(quotePostalCode);
+            var otherCode = new GBPostalCode(startPostalCodeRange);
 
-            return code._currentFormat == _currentFormat;
+            return code.HasSamePostalCodeFormat(otherCode);
+        }
+
+        public bool HasSamePostalCodeFormat(GBPostalCode other)
+        {
+            if ( other == null )
+            {
+                return false;
+            }
+            return _currentFormat == other._currentFormat;
         }
     }
 }

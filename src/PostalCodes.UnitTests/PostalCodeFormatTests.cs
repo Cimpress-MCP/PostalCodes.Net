@@ -25,15 +25,15 @@ namespace PostalCodes.UnitTests
             };
 
             var o2 = new PostalCodeFormat {
-                Name = "5-Digits - 99999",
-                RegexDefault = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
-                OutputDefault = "xxxxx",
-                RegexShort = new Regex("aa", RegexOptions.Compiled),
-                OutputShort = "asdasd",
-                AutoConvertToShort = false,
-                ShortExpansionAsLowestInRange = "0",
-                ShortExpansionAsHighestInRange = "9",
-                LeftPaddingCharacter = "0",
+                Name = o1.Name,
+                RegexDefault = o1.RegexDefault,
+                OutputDefault = o1.OutputDefault,
+                RegexShort = o1.RegexShort,
+                OutputShort = o1.OutputShort,
+                AutoConvertToShort = o1.AutoConvertToShort,
+                ShortExpansionAsLowestInRange = o1.ShortExpansionAsLowestInRange,
+                ShortExpansionAsHighestInRange = o1.ShortExpansionAsHighestInRange,
+                LeftPaddingCharacter = o1.LeftPaddingCharacter,
             };
 
             Assert.IsTrue(o1.Equals(o2));
