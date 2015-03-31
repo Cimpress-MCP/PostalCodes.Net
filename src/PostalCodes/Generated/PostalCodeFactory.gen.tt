@@ -10,10 +10,11 @@
 <#@ import namespace="System.Web.Script.Serialization" #>
 <#
     var filesForCountries = new Dictionary<string, string[]>{
-         { "4Digits.json", new [] { "AT", "AU", "BG", "CH", "DK", "HU", "NO", "SI", "NZ", "BE", "CY" }},
-         { "5Digits.json", new [] { "DE","CZ","EE","ES","FI","FR","GR","IT","SE","SK","TR","US","PR","VI","AS","GU","MP","PW","FM","MH","MY","HR","MX" }},
-         { "6Digits.json", new [] { "IN", "SG" }},
-         { "7Digits.json", new [] { "JP" }}
+         { "3Digits.json", new [] { "FO", "IS", "LS", "MG", "OM", "PG", "PS" }},
+         { "4Digits.json", new [] { "AF", "AL", "AM", "AR", "AT", "AU", "BD", "BE", "BE", "BG", "BO", "CC", "CH", "CV", "CX", "CY", "CY", "DK", "ET", "GE", "GL", "GW", "HM", "HT", "HU", "HU", "LI", "LR", "LU", "MK", "MZ", "NE", "NF", "NO", "NO", "NZ", "PH", "PY", "SI", "SJ", "TN", "ZA" }},
+         { "5Digits.json", new [] { "AS", "BA", "BT", "CR", "CU", "CZ", "DE", "DO", "DZ", "EE", "EG", "ES", "FI", "FM", "FR", "GR", "GT", "GU", "HN", "HR", "HR", "ID", "IQ", "IT", "JO", "KE", "KH", "KW", "LA", "LK", "LY", "MA", "MC", "ME", "MH", "MM", "MN", "MP", "MQ", "MU", "MX", "MY", "NA", "NI", "NP", "PE", "PK", "PR", "PW", "RS", "SD", "SE", "SK", "SN", "TD", "TH", "TR", "TW", "UA", "US", "UY", "VI", "XK", "YT", "ZM" }},
+         { "6Digits.json", new [] { "BY", "CN", "CO", "EC", "IN", "KG", "KZ", "NG", "PA", "RO", "RU", "SG", "TJ", "TM", "TT", "VN" }},
+         { "7Digits.json", new [] { "IL", "JP" }}
     };
 
     var js = new System.Web.Script.Serialization.JavaScriptSerializer ();

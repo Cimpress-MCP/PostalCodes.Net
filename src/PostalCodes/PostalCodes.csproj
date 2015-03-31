@@ -74,6 +74,9 @@
     <Compile Include="GenericPostalCodes\DefaultPostalCode.cs" />
     <Compile Include="Extensions\BBPostalCode.cs" />
     <Compile Include="Extensions\GBPostalCode.cs" />
+    <Compile Include="Generated\PostalCodeFactory.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />

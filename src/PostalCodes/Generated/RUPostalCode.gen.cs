@@ -9,7 +9,7 @@ namespace PostalCodes
 
         public RUPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
         {
-            _countryName = "Russia";
+            _countryName = "RU";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
@@ -35,13 +35,12 @@ namespace PostalCodes
 
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
-                Name = "RU : 999999",
+                Name = "6-Digits - 999999",
                 RegexDefault = new Regex("^[0-9]{6}$", RegexOptions.Compiled),
-                RegexShort = new Regex("^[0-9]{3}$", RegexOptions.Compiled),
                 OutputDefault = "xxxxxx",
-                OutputShort = "xxx",
-                ShortExpansionAsLowestInRange = "000",
-                ShortExpansionAsHighestInRange = "999",
+                AutoConvertToShort = false,
+                ShortExpansionAsLowestInRange = "0",
+                ShortExpansionAsHighestInRange = "9",
                 LeftPaddingCharacter = "0",
             }
         };
