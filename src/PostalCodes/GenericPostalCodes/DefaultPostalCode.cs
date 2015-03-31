@@ -2,7 +2,8 @@ using System.Text.RegularExpressions;
 
 namespace PostalCodes.GenericPostalCodes
 {
-    internal class DefaultPostalCode : AlphaNumericPostalCode {
+    internal class DefaultPostalCode : AlphaNumericPostalCode
+    {
 
         public DefaultPostalCode(string postalCode)
             : base(_formats, postalCode, true)

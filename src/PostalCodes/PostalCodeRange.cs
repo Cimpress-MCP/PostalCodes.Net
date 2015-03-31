@@ -30,7 +30,8 @@ namespace PostalCodes
         /// <exception cref="System.ArgumentException"></exception>
         public PostalCodeRange(PostalCode start, PostalCode end)
         {
-            if (start != null && end != null && start.GetType() != end.GetType()) {
+            if (start != null && end != null && start.GetType() != end.GetType())
+            {
                 throw new ArgumentException(String.Format(
                     "The start and the end of the range are from incompatible types ('{0}' & '{1}')",
                     start.GetType(), end.GetType()));
@@ -335,11 +336,12 @@ namespace PostalCodes
         public static bool Contains(PostalCodeRange range, PostalCode specificCode)
         {
             if (specificCode == null)
+            {
                 return range.IsDefault;
-
+            }
             return range.IsDefault 
-                || ( (range.Start <= specificCode) && ((specificCode <= range.End) || (range.End == null))) ||
-                   (((range.Start <= specificCode) || (range.End == null)) && (specificCode <= range.End));
+                || ((range.Start <= specificCode) && ((specificCode <= range.End) || (range.End == null)))
+                || (((range.Start <= specificCode) || (range.End == null)) && (specificCode <= range.End));
         }
 
         /// <summary>
@@ -447,7 +449,6 @@ namespace PostalCodes
             var newStart = left.Start < right.Start ? left.Start : right.Start;
             var newEnd = left.End > right.End ? left.End : right.End;
             return new PostalCodeRange(newStart, newEnd);
-
         }
         #endregion
     }

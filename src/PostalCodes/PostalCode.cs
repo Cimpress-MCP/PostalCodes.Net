@@ -69,7 +69,8 @@ namespace PostalCodes
         /// <param name="formats">Formats.</param>
         /// <param name="postalCode">Postal code.</param>
         internal PostalCode(PostalCodeFormat[] formats, string postalCode)
-            : this(formats, postalCode, true) {
+            : this(formats, postalCode, true) 
+        {
         }
 
         /// <summary>
@@ -85,7 +86,8 @@ namespace PostalCodes
             var nonWhiteSpaceCode = ClearWhiteSpaces (postalCode);
 
             string paddedPostalCode = SetMatchingFormat(formats, nonWhiteSpaceCode);
-            if (paddedPostalCode != null) {
+            if (paddedPostalCode != null)
+            {
                 nonWhiteSpaceCode = paddedPostalCode;
             }
 
@@ -382,12 +384,13 @@ namespace PostalCodes
         /// </summary>
         /// <returns>The human readable string.</returns>
         /// <param name="outputFormat">Output format. </param>
-        protected virtual string ToHumanReadableString(string outputFormat) {
+        protected virtual string ToHumanReadableString(string outputFormat)
+        {
             var result = "";
 
             var normalized = PostalCodeString;
             var normalizedIndex = 0;
-            for (var i = 0; i < outputFormat.Length && normalizedIndex < PostalCodeString.Length; i++) 
+            for (var i = 0; i < outputFormat.Length && normalizedIndex < PostalCodeString.Length; i++)
             {
                 result += outputFormat [i] == 'x' ? normalized [normalizedIndex++] : outputFormat [i];
             }
@@ -395,15 +398,20 @@ namespace PostalCodes
             return result;
         }
 
-        private string SetMatchingFormat(PostalCodeFormat[] formats, string postalCode) {
-            foreach (var fmt in formats) {
-                if (fmt.RegexDefault.IsMatch (postalCode)) {
+        private string SetMatchingFormat(PostalCodeFormat[] formats, string postalCode)
+        {
+            foreach (var fmt in formats)
+            {
+                if (fmt.RegexDefault.IsMatch (postalCode))
+                {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
                     return null;
                 }
-                if (fmt.RegexShort != null) {
-                    if (fmt.RegexShort.IsMatch (postalCode)) {
+                if (fmt.RegexShort != null)
+                {
+                    if (fmt.RegexShort.IsMatch (postalCode))
+                    {
                         _currentFormatType = FormatType.Short;
                         _currentFormat = fmt;
                         return null;
@@ -412,25 +420,31 @@ namespace PostalCodes
             }
 
             // Let's give it a try by left padding...
-            foreach (var fmt in formats) {
-                if (fmt.LeftPaddingCharacter == null) {
+            foreach (var fmt in formats)
+            {
+                if (fmt.LeftPaddingCharacter == null)
+                {
                     continue;
                 }
 
                 var expectedLength = fmt.OutputDefault.ToCharArray ().Count (a => a == 'x');
-                if (expectedLength < postalCode.Length) {
+                if (expectedLength < postalCode.Length)
+                {
                     continue;
                 }
 
                 var paddedPostalCode = postalCode.PadLeft (expectedLength, fmt.LeftPaddingCharacter[0]);
 
-                if (fmt.RegexDefault.IsMatch (paddedPostalCode)) {
+                if (fmt.RegexDefault.IsMatch (paddedPostalCode))
+                {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
                     return paddedPostalCode;
                 }
-                if (fmt.RegexShort != null) {
-                    if (fmt.RegexShort.IsMatch (paddedPostalCode)) {
+                if (fmt.RegexShort != null)
+                {
+                    if (fmt.RegexShort.IsMatch (paddedPostalCode))
+                    {
                         _currentFormatType = FormatType.Short;
                         _currentFormat = fmt;
                         return paddedPostalCode;
@@ -446,9 +460,11 @@ namespace PostalCodes
         /// </summary>
         /// <returns>The white spaces.</returns>
         /// <param name="code">Code.</param>
-        protected string ClearWhiteSpaces(string code) {
+        protected string ClearWhiteSpaces(string code)
+        {
             var normalized = code;
-            foreach (var c in _whiteSpaceCharacters.ToCharArray()) {
+            foreach (var c in _whiteSpaceCharacters.ToCharArray())
+            {
                 normalized = normalized.Replace (c + "", "");
             }
             return normalized;
@@ -461,17 +477,21 @@ namespace PostalCodes
         protected virtual string Normalize(string code)
         {
             var normalized = code;
-            if (_currentFormat.RegexDefault.IsMatch (normalized)) {
+            if (_currentFormat.RegexDefault.IsMatch (normalized))
+            {
 
-                if (_allowConvertToShort && _currentFormat.AutoConvertToShort) {
+                if (_allowConvertToShort && _currentFormat.AutoConvertToShort)
+                {
                     var charsInShortFormat = _currentFormat.OutputShort.Count(c => c == 'x');
                     normalized = normalized.Substring (0, charsInShortFormat);
                 }
                 return normalized;
             }
 
-            if (_currentFormat.RegexShort != null) {
-                if (_currentFormat.RegexShort.IsMatch (normalized)) {
+            if (_currentFormat.RegexShort != null)
+            {
+                if (_currentFormat.RegexShort.IsMatch (normalized))
+                {
                     return normalized;
                 }
             }
