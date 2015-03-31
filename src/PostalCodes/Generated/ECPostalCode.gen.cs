@@ -3,23 +3,23 @@ using PostalCodes.GenericPostalCodes;
 
 namespace PostalCodes
 {
-    internal partial class RUPostalCode : AlphaNumericPostalCode
+    internal partial class ECPostalCode : AlphaNumericPostalCode
     {
-        public RUPostalCode(string postalCode) : this(postalCode, true) {}
+        public ECPostalCode(string postalCode) : this(postalCode, true) {}
 
-        public RUPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
+        public ECPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
         {
-            _countryName = "RU";
+            _countryName = "EC";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
         {
-            return new RUPostalCode(code, allowConvertToShort);
+            return new ECPostalCode(code, allowConvertToShort);
         }
         
         public override bool Equals (object obj)
         {
-            var other = obj as RUPostalCode;
+            var other = obj as ECPostalCode;
             if (other == null) 
             {
                 return false;

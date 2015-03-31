@@ -3,23 +3,23 @@ using PostalCodes.GenericPostalCodes;
 
 namespace PostalCodes
 {
-    internal partial class RUPostalCode : AlphaNumericPostalCode
+    internal partial class BDPostalCode : AlphaNumericPostalCode
     {
-        public RUPostalCode(string postalCode) : this(postalCode, true) {}
+        public BDPostalCode(string postalCode) : this(postalCode, true) {}
 
-        public RUPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
+        public BDPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
         {
-            _countryName = "RU";
+            _countryName = "BD";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
         {
-            return new RUPostalCode(code, allowConvertToShort);
+            return new BDPostalCode(code, allowConvertToShort);
         }
         
         public override bool Equals (object obj)
         {
-            var other = obj as RUPostalCode;
+            var other = obj as BDPostalCode;
             if (other == null) 
             {
                 return false;
@@ -35,9 +35,9 @@ namespace PostalCodes
 
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
-                Name = "6-Digits - 999999",
-                RegexDefault = new Regex("^[0-9]{6}$", RegexOptions.Compiled),
-                OutputDefault = "xxxxxx",
+                Name = "4-Digits - 9999",
+                RegexDefault = new Regex("^[0-9]{4}$", RegexOptions.Compiled),
+                OutputDefault = "xxxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",
                 ShortExpansionAsHighestInRange = "9",
