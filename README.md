@@ -65,7 +65,7 @@ One alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/w
 
 ### On Linux
 
-A popular cross-platform alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/wiki/Microsoft_Compiled_HTML_Help)  is [xCHM](http://xchm.sourceforge.net/).
+A popular cross-platform alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/wiki/Microsoft_Compiled_HTML_Help) is [xCHM](http://xchm.sourceforge.net/).
 
 ##Usages
 
