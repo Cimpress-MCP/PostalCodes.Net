@@ -15,15 +15,15 @@ This package follows the git-flow branching model:
 * Develop features of a ```feature/*``` branch.
 * Create pull request to a ```master``` branch.
 * Once ```master``` is branched into ```release/<major>.<minor>.<patch>``` an automatic job builds and if successful publishes the NuGet package.
-* After successful build the [artifact](https://www.nuget.org/packages/PostalCodes/) will be available via NuGet or directly from [GitHub Releases](https://github.com/Cimpress-MCP/PostalCodes.Net/releases)
+* After successful build the [artifact](https://www.nuget.org/packages/PostalCodes/) will be available via NuGet or directly from [GitHub Releases](https://github.com/Cimpress-MCP/PostalCodes.Net/releases).
 
 ## Prerequisites ##
 
-If you want to open the solution file in Visual Studio, you may need the Sandcastle Help File Builder Visual Studio extension available in the bundle [here](https://github.com/EWSoftware/SHFB/releases)
+If you want to open the solution file in Visual Studio, you may need the Sandcastle Help File Builder Visual Studio extension available in the bundle [here](https://github.com/EWSoftware/SHFB/releases).
 
 ## Building ##
 
-The following snippets assume your working directory is in the root of the repository
+The following snippets assume your working directory is in the root of the repository:
 
 ```
 > git clone https://github.com/Cimpress-MCP/PostalCodes.Net.git
@@ -32,7 +32,7 @@ The following snippets assume your working directory is in the root of the repos
 
 ### On Windows
 
-In order to build the project you can use plain msbuild
+In order to build the project you can use plain msbuild:
 
 ```
 > nuget restore
@@ -46,6 +46,13 @@ In order to build the project you can use plain msbuild
 > xbuild
 ```
 
+### On Linux
+Install the nuget and mono-xbuild packages from [Mono Project package repository](http://www.mono-project.com/docs/getting-started/install/linux/). 
+```
+> nuget restore
+> xbuild
+```
+
 ##Reading the docs
 
 ### On Windows
@@ -54,7 +61,11 @@ In order to build the project you can use plain msbuild
 
 ### On Mac
 
-One alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/wiki/Microsoft_Compiled_HTML_Help) on a Mac is [iChm](https://code.google.com/p/ichm/) or [Chmox](http://chmox.sourceforge.net)
+One alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/wiki/Microsoft_Compiled_HTML_Help) on a Mac is [iChm](https://code.google.com/p/ichm/) or [Chmox](http://chmox.sourceforge.net).
+
+### On Linux
+
+A popular cross-platform alternative to read [Microsoft Compiled HTML Help](http://en.wikipedia.org/wiki/Microsoft_Compiled_HTML_Help)  is [xCHM](http://xchm.sourceforge.net/).
 
 ##Usages
 
