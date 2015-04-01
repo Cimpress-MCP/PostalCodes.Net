@@ -2,13 +2,15 @@
 {
     internal abstract class AlphaNumericPostalCode : PostalCode
     {
-        internal AlphaNumericPostalCode(PostalCodeFormat[] formats, string postalCode, bool allowConvertToShort) : base(formats, postalCode, allowConvertToShort) {}
+        internal AlphaNumericPostalCode(PostalCodeFormat[] formats, string postalCode, bool allowConvertToShort)
+            : base(formats, postalCode, allowConvertToShort) {}
 
         /// <summary>
         /// Gets the internal value.
         /// </summary>
         /// <returns>The internal value.</returns>
-        protected string GetInternalValue() {
+        protected string GetInternalValue()
+        {
             return PostalCodeString;
         }
 

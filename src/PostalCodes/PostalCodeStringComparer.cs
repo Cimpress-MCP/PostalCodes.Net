@@ -4,7 +4,8 @@ namespace PostalCodes
 {
     internal class PostalCodeStringComparer : StringComparer
     {
-        private static readonly Lazy<PostalCodeStringComparer> LazyComparer = new Lazy<PostalCodeStringComparer>(() => new PostalCodeStringComparer());
+        private static readonly Lazy<PostalCodeStringComparer> LazyComparer = 
+            new Lazy<PostalCodeStringComparer>(() => new PostalCodeStringComparer());
 
         public static StringComparer Default
         {

@@ -11,8 +11,7 @@ namespace PostalCodes
         private static readonly ConcurrentDictionary<string, Country> Countries = new ConcurrentDictionary<string, Country>();
 
         private static readonly Lazy<CountryFactory> LazyFactory =
-            new Lazy<CountryFactory>(
-                () => new CountryFactory(new IsoCountryCodeValidator()));
+            new Lazy<CountryFactory>(() => new CountryFactory(new IsoCountryCodeValidator()));
 
         private readonly IIsoCountryCodeValidator _countryCodeValidator;
 

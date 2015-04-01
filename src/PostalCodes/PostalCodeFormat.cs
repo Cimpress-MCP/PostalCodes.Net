@@ -119,6 +119,7 @@ namespace PostalCodes
         /// hash table.</returns>
         public override int GetHashCode()
         {
+              
             var t1 = new {
                 Name, 
                 RegexDefault, 
