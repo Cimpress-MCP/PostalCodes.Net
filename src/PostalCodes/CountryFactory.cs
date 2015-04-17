@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 
 namespace PostalCodes
 {
@@ -36,7 +37,9 @@ namespace PostalCodes
         public Country CreateCountry(string countryCode)
         {
             var normalizedCountryCode = _countryCodeValidator.GetNormalizedCountryCode(countryCode);
-            return Countries.GetOrAdd(normalizedCountryCode, key => new Country(normalizedCountryCode));
+            var iso3166country = Iso3166Countries.Countries.ToList().FirstOrDefault(a => a.Alpha2Code.Equals(normalizedCountryCode));
+            var countryName = iso3166country == null ? normalizedCountryCode : iso3166country.CountryName;
+            return Countries.GetOrAdd(normalizedCountryCode, key => new Country(normalizedCountryCode, countryName));
         }
     }
 }
