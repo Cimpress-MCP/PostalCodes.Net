@@ -12,6 +12,8 @@ namespace PostalCodes
         /// </summary>
         private readonly string _backingCode;
 
+        private readonly string _name;
+
         /// <summary>
         /// Gets the country code of the country
         /// </summary>
@@ -19,20 +21,39 @@ namespace PostalCodes
         public string Code { get { return _backingCode; } }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Country"/> class.
+        /// Gets the country name
         /// </summary>
-        internal Country() : this("") {}
+        /// <value>The country name.</value>
+        public string Name { get { return _name; } }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Country"/> class.
         /// </summary>
-        /// <param name="code">The code.</param>
-        internal Country(string code)
+        internal Country() : this("", "")
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Country"/> class.
+        /// </summary>
+        /// <param name = "code">The country code.</param>
+        internal Country(string code) : this(code, "")
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Country"/> class.
+        /// </summary>
+        /// <param name = "code">The country code.</param>
+        /// <param name = "name">The country name</param>
+        internal Country(string code, string name)
         {
             _backingCode = code;
+            _name = name;
         }
 
         #region Equals
+
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>
@@ -59,7 +80,7 @@ namespace PostalCodes
         /// <returns><c>true</c> if the specified <see cref="PostalCodes.Country" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public bool Equals(Country other)
         {
-            if (other == null)
+            if ( other == null )
             {
                 return false;
             }
@@ -74,7 +95,7 @@ namespace PostalCodes
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(Country left, Country right)
         {
-            if (ReferenceEquals(left, null))
+            if ( ReferenceEquals(left, null) )
             {
                 return ReferenceEquals(right, null);
             }

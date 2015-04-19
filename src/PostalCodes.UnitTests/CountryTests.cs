@@ -7,14 +7,13 @@ namespace PostalCodes.UnitTests
     internal class CountryTests
     {
         #pragma warning disable 0414
-        private static readonly object[] DataSourceForEqualOperator =
-        {
-            new object[] {"BG", "BG",  true}, 
-            new object[] {"BG", null, false}, 
-            new object[] {null, "BG", false}, 
-            new object[] {null, null, true},
+        private static readonly object[] DataSourceForEqualOperator = {
+            new object[] { "BG", "BG",  true }, 
+            new object[] { "BG", null, false }, 
+            new object[] { null, "BG", false }, 
+            new object[] { null, null, true },
         };
-        
+
         [Test, TestCaseSource("DataSourceForEqualOperator")]
         public void Country_ValidObject_OperatorEqualsReturnsCorrectResult(string country1, string country2, bool expectedResult)
         {
@@ -42,7 +41,7 @@ namespace PostalCodes.UnitTests
             Assert.AreEqual(false, new Country("BG") == nullCountry);
             // ReSharper enable ConditionIsAlwaysTrueOrFalse
         }
-        
+
 
         [Test, TestCaseSource("DataSourceForEqualOperator")]
         public void Country_ValidObject_OperatorInequalsReturnsCorrectResult(string country1, string country2, bool expectedResult)
@@ -68,6 +67,17 @@ namespace PostalCodes.UnitTests
         public void Country_CountryCode_ReturnsCorrect(string country)
         {
             Assert.AreEqual(country, (new Country(country).Code));
+        }
+
+        [Test]
+        [TestCase("BG", "Bulgaria")]
+        [TestCase("CA", "Canada")]
+        [TestCase("US", "United States")]
+        public void Country_CountryCode_ReturnsCorrect(string country, string name)
+        {
+            var c = new Country(country, name);
+            Assert.AreEqual(country, c.Code);
+            Assert.AreEqual(name, c.Name);
         }
 
         [Test]
