@@ -2,7 +2,7 @@
 	"CountryName" : "Russia",
 	"CountryCodeAlpha2" : "RU",
 
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 
 	"Formats" : [
 			{

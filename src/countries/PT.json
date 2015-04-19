@@ -2,7 +2,7 @@
 	"CountryName" : "Portugal",
 	"CountryCodeAlpha2" : "PT",
 
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 
 	"Formats" : [
 			{

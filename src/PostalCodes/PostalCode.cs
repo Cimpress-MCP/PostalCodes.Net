@@ -51,7 +51,7 @@ namespace PostalCodes
         /// <summary>
         /// The white space characters.
         /// </summary>
-        protected string _whiteSpaceCharacters = " -";
+        protected string _redundantCharacters = " -";
 
         /// <summary>
         /// The name of the country.
@@ -67,9 +67,10 @@ namespace PostalCodes
         /// Initializes a new instance of the <see cref="PostalCodes.PostalCode"/> class.
         /// </summary>
         /// <param name="formats">Formats.</param>
+		/// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
-        internal PostalCode(PostalCodeFormat[] formats, string postalCode)
-            : this(formats, postalCode, true) 
+		internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode)
+			: this(formats, redundantCharacters, postalCode, true) 
         {
         }
 
@@ -77,11 +78,13 @@ namespace PostalCodes
         /// Initializes a new instance of the <see cref="PostalCodes.PostalCode"/> class.
         /// </summary>
         /// <param name="formats">Formats.</param>
+		/// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
         /// <param name="allowConvertToShort">If set to <c>true</c> allow convert to short format.</param>
-        internal PostalCode(PostalCodeFormat[] formats, string postalCode, bool allowConvertToShort)
+		internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort)
         {
             _allowConvertToShort = allowConvertToShort;
+			_redundantCharacters = redundantCharacters;
 
             var nonWhiteSpaceCode = ClearWhiteSpaces (postalCode);
 
@@ -463,7 +466,7 @@ namespace PostalCodes
         protected string ClearWhiteSpaces(string code)
         {
             var normalized = code;
-            foreach (var c in _whiteSpaceCharacters.ToCharArray())
+            foreach (var c in _redundantCharacters.ToCharArray())
             {
                 normalized = normalized.Replace (c + "", "");
             }

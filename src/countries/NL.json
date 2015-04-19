@@ -2,7 +2,7 @@
 	"CountryName" : "Netherlands",
 	"CountryCodeAlpha2" : "NL",
 
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 
 	"Formats" : [
 			{

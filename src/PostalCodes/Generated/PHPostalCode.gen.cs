@@ -5,16 +5,16 @@ namespace PostalCodes
 {
     internal partial class PHPostalCode : AlphaNumericPostalCode
     {
-        public PHPostalCode(string postalCode) : this(postalCode, true) {}
+        public PHPostalCode(string postalCode) : this(postalCode, " -", true) {}
 
-        public PHPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
+        public PHPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
         {
             _countryName = "PH";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
         {
-            return new PHPostalCode(code, allowConvertToShort);
+            return new PHPostalCode(code, " -", allowConvertToShort);
         }
         
         public override bool Equals (object obj)

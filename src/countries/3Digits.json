@@ -2,7 +2,7 @@
 	"CountryName" : "N/A",
 	"CountryCodeAlpha2" : "N/A",
 
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 
 	"Formats" : [
 			{

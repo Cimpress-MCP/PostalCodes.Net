@@ -2,7 +2,7 @@
 	"CountryName" : "Malta",
 	"CountryCodeAlpha2" : "MT",
 
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 
 	"Formats" : [
 			{

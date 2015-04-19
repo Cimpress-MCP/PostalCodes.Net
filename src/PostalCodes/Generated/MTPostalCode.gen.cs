@@ -5,16 +5,16 @@ namespace PostalCodes
 {
     internal partial class MTPostalCode : AlphaNumericPostalCode
     {
-        public MTPostalCode(string postalCode) : this(postalCode, true) {}
+        public MTPostalCode(string postalCode) : this(postalCode, " -", true) {}
 
-        public MTPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
+        public MTPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
         {
             _countryName = "Malta";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
         {
-            return new MTPostalCode(code, allowConvertToShort);
+            return new MTPostalCode(code, " -", allowConvertToShort);
         }
         
         public override bool Equals (object obj)
