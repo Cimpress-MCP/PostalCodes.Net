@@ -1,7 +1,7 @@
 {
 	"CountryName" : "Poland",
 	"CountryCodeAlpha2" : "PL",
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 	"Formats" : [
 			{
 				"Name" : "PL : 99-999",

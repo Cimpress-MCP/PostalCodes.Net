@@ -5,16 +5,16 @@ namespace PostalCodes
 {
     internal partial class NGPostalCode : AlphaNumericPostalCode
     {
-        public NGPostalCode(string postalCode) : this(postalCode, true) {}
+        public NGPostalCode(string postalCode) : this(postalCode, " -", true) {}
 
-        public NGPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
+        public NGPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
         {
             _countryName = "NG";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
         {
-            return new NGPostalCode(code, allowConvertToShort);
+            return new NGPostalCode(code, " -", allowConvertToShort);
         }
         
         public override bool Equals (object obj)

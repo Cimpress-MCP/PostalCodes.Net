@@ -51,6 +51,45 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PostalCodeFactory.gen.cs</LastGenOutput>
     </None>
+    <None Include="..\countries\3Digits.json">
+      <Link>PostalCodeDefinitions\3Digits.json</Link>
+    </None>
+    <None Include="..\countries\4Digits.json">
+      <Link>PostalCodeDefinitions\4Digits.json</Link>
+    </None>
+    <None Include="..\countries\5Digits.json">
+      <Link>PostalCodeDefinitions\5Digits.json</Link>
+    </None>
+    <None Include="..\countries\6Digits.json">
+      <Link>PostalCodeDefinitions\6Digits.json</Link>
+    </None>
+    <None Include="..\countries\7Digits.json">
+      <Link>PostalCodeDefinitions\7Digits.json</Link>
+    </None>
+    <None Include="..\countries\BB.json">
+      <Link>PostalCodeDefinitions\BB.json</Link>
+    </None>
+    <None Include="..\countries\CA.json">
+      <Link>PostalCodeDefinitions\CA.json</Link>
+    </None>
+    <None Include="..\countries\GB.json">
+      <Link>PostalCodeDefinitions\GB.json</Link>
+    </None>
+    <None Include="..\countries\MT.json">
+      <Link>PostalCodeDefinitions\MT.json</Link>
+    </None>
+    <None Include="..\countries\NL.json">
+      <Link>PostalCodeDefinitions\NL.json</Link>
+    </None>
+    <None Include="..\countries\PL.json">
+      <Link>PostalCodeDefinitions\PL.json</Link>
+    </None>
+    <None Include="..\countries\PT.json">
+      <Link>PostalCodeDefinitions\PT.json</Link>
+    </None>
+    <None Include="..\countries\RU.json">
+      <Link>PostalCodeDefinitions\RU.json</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Country.cs" />
@@ -80,6 +119,7 @@
     <Folder Include="GenericPostalCodes\" />
     <Folder Include="Extensions\" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Folder Include="PostalCodeDefinitions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

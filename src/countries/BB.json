@@ -2,7 +2,7 @@
 	"CountryName" : "Barbados",
 	"CountryCodeAlpha2" : "BB",
 
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 
 	"Formats" : [
 			{

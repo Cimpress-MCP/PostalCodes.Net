@@ -124,7 +124,7 @@ namespace PostalCodes
 	public class CountryInfo {
 		public string CountryCodeAlpha2 { get; set; }
 		public string CountryName { get; set; }
-		public string WhiteSpaceCharacters { get; set; }
+		public string RedundantCharacters { get; set; }
 
 		public List<Dictionary<string, string>> Formats { get; set; }
 
@@ -169,16 +169,16 @@ namespace PostalCodes
 {
     internal partial class <#= countryInfo.CountryCodeAlpha2 #>PostalCode : AlphaNumericPostalCode
     {
-        public <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode) : this(postalCode, true) {}
+        public <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode) : this(postalCode, "<#= countryInfo.RedundantCharacters #>", true) {}
 
-        public <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
+        public <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
         {
             _countryName = "<#= countryInfo.CountryName #>";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
         {
-            return new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(code, allowConvertToShort);
+            return new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(code, "<#= countryInfo.RedundantCharacters #>", allowConvertToShort);
         }
         
         public override bool Equals (object obj)

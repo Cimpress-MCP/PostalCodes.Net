@@ -5,16 +5,16 @@ namespace PostalCodes
 {
     internal partial class SEPostalCode : AlphaNumericPostalCode
     {
-        public SEPostalCode(string postalCode) : this(postalCode, true) {}
+        public SEPostalCode(string postalCode) : this(postalCode, " -", true) {}
 
-        public SEPostalCode(string postalCode, bool allowConvertToShort) : base(_formats, postalCode, allowConvertToShort) 
+        public SEPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
         {
             _countryName = "SE";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
         {
-            return new SEPostalCode(code, allowConvertToShort);
+            return new SEPostalCode(code, " -", allowConvertToShort);
         }
         
         public override bool Equals (object obj)

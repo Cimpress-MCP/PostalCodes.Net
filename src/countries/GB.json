@@ -2,7 +2,7 @@
 	"CountryName" : "Great Britain",
 	"CountryCodeAlpha2" : "GB",
 
-	"WhiteSpaceCharacters" : " -",
+	"RedundantCharacters" : " -",
 
 	"Formats" : [
 			{
