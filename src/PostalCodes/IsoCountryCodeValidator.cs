@@ -53,7 +53,8 @@ namespace PostalCodes
 
             countryCode = countryCode.Trim();
             countryCode = countryCode.ToUpperInvariant();
-            var isoCountry = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
+            Iso3166Country isoCountry;
+            Iso3166Countries.Countries.TryGetValue(countryCode, out isoCountry);
             if (isoCountry == default(Iso3166Country))
             {
                 throw new InvalidOperationException(string.Format("The specified country code is not valid: {0}", countryCode));

@@ -248,8 +248,6 @@ namespace PostalCodes
                     return new UYPostalCode(postalCode);
                 case "VI" :
                     return new VIPostalCode(postalCode);
-                case "XK" :
-                    return new XKPostalCode(postalCode);
                 case "YT" :
                     return new YTPostalCode(postalCode);
                 case "ZM" :
