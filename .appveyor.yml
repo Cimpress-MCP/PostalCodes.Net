@@ -16,7 +16,7 @@ build:
   parallel: true
   verbosity: normal
 test_script:
-- .\packages\OpenCover.4.5.3723\OpenCover.Console.exe -register:user -target:"packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -register:user "-targetargs:""src\PostalCodes.UnitTests\bin\Release\PostalCodes.UnitTests.dll"" /noshadow" -filter:"+[PostalCodes*]*" -output:opencoverCoverage.xml
+- .\packages\OpenCover.4.5.3723\OpenCover.Console.exe -register:user -target:"packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -register:user "-targetargs:""src\PostalCodes.UnitTests\bin\Release\PostalCodes.UnitTests.dll"" /noshadow" -filter:"+[PostalCodes*]*" -output:opencoverCoverage.xml -returntargetcode
 - ps: if($env:COVERALLS_REPO_TOKEN) { .\packages\coveralls.net.0.5.0\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID }
 artifacts:
 - path: src\PostalCodes\bin\*\*.nupkg

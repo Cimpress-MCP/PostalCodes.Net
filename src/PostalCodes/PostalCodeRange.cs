@@ -339,7 +339,8 @@ namespace PostalCodes
             {
                 return range.IsDefault;
             }
-            if (!range.Start.ValidateFormatCompatibility(specificCode) || !range.End.ValidateFormatCompatibility(specificCode))
+			if ((range.Start != null && !range.Start.ValidateFormatCompatibility(specificCode)) 
+				|| (range.End != null && !range.End.ValidateFormatCompatibility(specificCode)))
             {
                 return false;
             }
