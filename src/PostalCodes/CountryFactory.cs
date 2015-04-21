@@ -7,7 +7,7 @@ namespace PostalCodes
     /// <summary>
     /// Factory implementation for Country
     /// </summary>
-    public class CountryFactory
+    public class CountryFactory : ICountryFactory
     {
         private static readonly ConcurrentDictionary<string, Country> Countries = new ConcurrentDictionary<string, Country>();
 
@@ -30,15 +30,15 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Retrieves a Country object using the provided country code and normalizer
+        /// Retrieves a Country object using the provided country code
         /// </summary>
         /// <param name="countryCode">Country code representing the country</param>
         /// <returns>A Country object</returns>
         public Country CreateCountry(string countryCode)
         {
             var normalizedCountryCode = _countryCodeValidator.GetNormalizedCountryCode(countryCode);
-            var iso3166country = Iso3166Countries.Countries.ToList().FirstOrDefault(a => a.Alpha2Code.Equals(normalizedCountryCode));
-            var countryName = iso3166country == null ? normalizedCountryCode : iso3166country.CountryName;
+            var iso3166Country = Iso3166Countries.Countries.ToList().FirstOrDefault(a => a.Alpha2Code.Equals(normalizedCountryCode));
+            var countryName = iso3166Country == null ? normalizedCountryCode : iso3166Country.CountryName;
             return Countries.GetOrAdd(normalizedCountryCode, key => new Country(normalizedCountryCode, countryName));
         }
     }

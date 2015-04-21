@@ -95,6 +95,8 @@
     <Compile Include="Country.cs" />
     <Compile Include="CountryFactory.cs" />
     <Compile Include="CountryPostalCode.cs" />
+    <Compile Include="ICountryFactory.cs" />
+    <Compile Include="IPostalCodeFactory.cs" />
     <Compile Include="IIsoCountryCodeValidator.cs" />
     <Compile Include="IsoCountryCodeValidator.cs" />
     <Compile Include="PostalCode.cs" />
@@ -115,11 +117,7 @@
     <Compile Include="Extensions\GBPostalCode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Generated\" />
-    <Folder Include="GenericPostalCodes\" />
-    <Folder Include="Extensions\" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-    <Folder Include="PostalCodeDefinitions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

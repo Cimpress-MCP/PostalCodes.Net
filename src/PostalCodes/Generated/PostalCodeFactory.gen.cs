@@ -6,7 +6,7 @@ namespace PostalCodes
     /// <summary>
     /// Factory implementation for PostalCode
     /// </summary>
-    public class PostalCodeFactory
+    public class PostalCodeFactory : IPostalCodeFactory
     {
         private static readonly Lazy<PostalCodeFactory> LazyFactory = new Lazy<PostalCodeFactory>(() => new PostalCodeFactory());
 
