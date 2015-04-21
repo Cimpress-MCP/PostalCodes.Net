@@ -7,7 +7,7 @@ namespace PostalCodes
     /// <summary>
     /// Factory implementation for Country
     /// </summary>
-    public class CountryFactory
+    public class CountryFactory : ICountryFactory
     {
         private static readonly ConcurrentDictionary<string, Country> Countries = new ConcurrentDictionary<string, Country>();
 
