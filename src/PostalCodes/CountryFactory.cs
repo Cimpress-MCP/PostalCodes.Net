@@ -7,7 +7,7 @@ namespace PostalCodes
     /// <summary>
     /// Factory implementation for Country
     /// </summary>
-    public class CountryFactory
+    public class CountryFactory : ICountryFactory
     {
         private static readonly ConcurrentDictionary<string, Country> Countries = new ConcurrentDictionary<string, Country>();
 
@@ -30,7 +30,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Retrieves a Country object using the provided country code and normalizer
+        /// Retrieves a Country object using the provided country code
         /// </summary>
         /// <param name="countryCode">Country code representing the country</param>
         /// <returns>A Country object</returns>
