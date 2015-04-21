@@ -15,10 +15,10 @@ namespace PostalCodes
         /// <returns>The iso3166p3 code.</returns>
         public string GetIso3166p3Code(string countryCode)
         {
-            var oldCode = Iso3166Countries.Countries.FirstOrDefault (a => a.NewCountryCodes.Contains (countryCode));
+            var oldCode = Iso3166Countries.Countries.Values.FirstOrDefault (a => a.NewCountryCodes.Contains (countryCode));
             if (oldCode == default(Iso3166Country)) 
             {
-                oldCode = Iso3166Countries.Countries.FirstOrDefault (a => a.Alpha2Code == countryCode);
+                Iso3166Countries.Countries.TryGetValue(countryCode, out oldCode);
             }
 
             if (oldCode == default(Iso3166Country)

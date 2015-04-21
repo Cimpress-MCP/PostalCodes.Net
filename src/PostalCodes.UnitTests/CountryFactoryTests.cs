@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using NUnit.Framework;
 
 namespace PostalCodes.UnitTests
@@ -16,13 +17,13 @@ namespace PostalCodes.UnitTests
         [Test]
         public void CreateCountry_ValidCountryCode_ReturnsValidObject()
         {
-            const string countryCode = "aa";
+            const string countryCode = "PL";
 
             var countryFactory = new CountryFactory(CreateMockValidator());
             var country = countryFactory.CreateCountry(countryCode);
 
             Assert.IsNotNull(country);
-            Assert.AreEqual(countryCode, country.Code);
+            Assert.AreEqual("PL", country.Code);
         }
 
         [Test]
@@ -57,6 +58,17 @@ namespace PostalCodes.UnitTests
             Assert.AreSame(c1, c2);
             Assert.AreSame(c1.Code, c2.Code);
             Assert.AreEqual(c1.Code, country.ToUpperInvariant());
+        }
+
+        [TestCase("UKa")]
+        [TestCase("DEe")]
+        [TestCase("XX")]
+        [TestCase("AB")]
+        public void CallingWithNotValidCountry(string countryCode)
+        {
+            var countryFactory = CountryFactory.Instance;
+            TestDelegate createCountry = () => countryFactory.CreateCountry(countryCode);
+            Assert.Throws<InvalidOperationException>(createCountry);
         }
     }
 }

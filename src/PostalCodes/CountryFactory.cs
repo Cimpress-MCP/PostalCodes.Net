@@ -37,8 +37,16 @@ namespace PostalCodes
         public Country CreateCountry(string countryCode)
         {
             var normalizedCountryCode = _countryCodeValidator.GetNormalizedCountryCode(countryCode);
-            var iso3166Country = Iso3166Countries.Countries.ToList().FirstOrDefault(a => a.Alpha2Code.Equals(normalizedCountryCode));
-            var countryName = iso3166Country == null ? normalizedCountryCode : iso3166Country.CountryName;
+            Iso3166Country iso3166Country;
+            if (Iso3166Countries.Countries.TryGetValue(normalizedCountryCode, out iso3166Country) == false)
+            {
+                throw new InvalidOperationException(string.Format("Unsupported country code: {0}", countryCode));
+            }
+            if (iso3166Country.Status != Iso3166CountryCodeStatus.OfficiallyAssigned && iso3166Country.Status != Iso3166CountryCodeStatus.TransitionallyReserved)
+            {
+                throw new InvalidOperationException(string.Format("Country: {0}, is in status {1}", countryCode, iso3166Country.Status));
+            }
+            var countryName = iso3166Country.CountryName;
             return Countries.GetOrAdd(normalizedCountryCode, key => new Country(normalizedCountryCode, countryName));
         }
     }
