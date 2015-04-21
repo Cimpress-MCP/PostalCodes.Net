@@ -339,6 +339,10 @@ namespace PostalCodes
             {
                 return range.IsDefault;
             }
+            if (!range.Start.ValidateFormatCompatibility(specificCode) || !range.End.ValidateFormatCompatibility(specificCode))
+            {
+                return false;
+            }
             return range.IsDefault 
                 || ((range.Start <= specificCode) && ((specificCode <= range.End) || (range.End == null)))
                 || (((range.Start <= specificCode) || (range.End == null)) && (specificCode <= range.End));
@@ -369,6 +373,16 @@ namespace PostalCodes
                 return false;
             }
             return outer.Start.CompareTo(inner.Start) <= 0 && outer.End.CompareTo(inner.End) >= 0;
+        }
+
+        /// <summary>
+        /// Determines whether the range contains a postal code.
+        /// </summary>
+        /// <param name="postalCode">The postal code.</param>
+        /// <returns><c>true</c> if range contains the specified postal code; otherwise, <c>false</c>.</returns>
+        public bool Contains(PostalCode postalCode)
+        {
+            return Contains(this, postalCode);
         }
 
         /// <summary>
