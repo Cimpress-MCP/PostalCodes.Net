@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PostalCodes
 {
@@ -94,7 +95,7 @@ namespace PostalCodes
                 nonWhiteSpaceCode = paddedPostalCode;
             }
 
-            _backingPostalCode = Normalize(nonWhiteSpaceCode);
+            _backingPostalCode = String.Intern(Normalize(nonWhiteSpaceCode));
         }
 
         /// <summary>
@@ -430,32 +431,39 @@ namespace PostalCodes
                     continue;
                 }
 
-                var expectedLength = fmt.OutputDefault.ToCharArray ().Count (a => a == 'x');
-                if (expectedLength < postalCode.Length)
+                string paddedPostalCode;
+                
+                if (fmt.RegexShort != null && TryOutPadding(postalCode, fmt.OutputShort.ToCharArray().Count(a => a == 'x'), fmt.LeftPaddingCharacter[0], fmt.RegexShort, out paddedPostalCode))
                 {
-                    continue;
+                    _currentFormatType = FormatType.Short;
+                    _currentFormat = fmt;
+                    return paddedPostalCode;
                 }
-
-                var paddedPostalCode = postalCode.PadLeft (expectedLength, fmt.LeftPaddingCharacter[0]);
-
-                if (fmt.RegexDefault.IsMatch (paddedPostalCode))
+                
+                if (TryOutPadding(postalCode, fmt.OutputDefault.ToCharArray().Count(a => a == 'x'), fmt.LeftPaddingCharacter[0], fmt.RegexDefault, out paddedPostalCode))
                 {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
                     return paddedPostalCode;
                 }
-                if (fmt.RegexShort != null)
-                {
-                    if (fmt.RegexShort.IsMatch (paddedPostalCode))
-                    {
-                        _currentFormatType = FormatType.Short;
-                        _currentFormat = fmt;
-                        return paddedPostalCode;
-                    }
-                }
             }
 
             throw new ArgumentException ("The input postal code doesn't match any format");
+        }
+
+        private bool TryOutPadding(string postalCode, int expectedLength, char leftPaddingCharacter, Regex regex, out string paddedPostalCode)
+        {
+            paddedPostalCode = null;
+            if (expectedLength > postalCode.Length)
+            {
+                var paddedPostalCodeInternal = postalCode.PadLeft(expectedLength, leftPaddingCharacter);
+                if (regex.IsMatch(paddedPostalCodeInternal))
+                {
+                    paddedPostalCode = paddedPostalCodeInternal;
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

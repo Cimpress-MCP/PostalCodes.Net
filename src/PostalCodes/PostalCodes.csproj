@@ -46,6 +46,9 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\countries\US.json">
+      <Link>PostalCodeDefinitions\US.json</Link>
+    </None>
     <None Include="PostalCodes.Net.nuspec" />
     <None Include="Generated\PostalCodeFactory.gen.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

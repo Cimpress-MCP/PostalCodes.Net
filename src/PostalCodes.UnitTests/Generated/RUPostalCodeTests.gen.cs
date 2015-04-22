@@ -7,9 +7,7 @@ namespace PostalCodes.UnitTests.Generated
     internal class RUPostalCodeTests
     {
 
-        [TestCase("112634","112633")]
-        [TestCase("828688","828687")]
-        [TestCase("000001","000000")]
+        [TestCase("123456","123455")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new RUPostalCode(postalCode);
@@ -19,9 +17,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
-        [TestCase("142934","142935")]
-        [TestCase("448952","448953")]
-        [TestCase("999998","999999")]
+        [TestCase("123456","123457")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new RUPostalCode(postalCode);
@@ -33,27 +29,27 @@ namespace PostalCodes.UnitTests.Generated
         }
         
         [TestCase("000000")]
+        [TestCase("000000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new RUPostalCode(postalCode)).Predecessor);
         }
 
         [TestCase("999999")]
+        [TestCase("999999")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new RUPostalCode(postalCode)).Successor);
         }
 
-        [TestCase("12233345")]
-        [TestCase("1s223s")]
-        [TestCase("x12xx3")]
+        [TestCase("x1231s")]
+        [TestCase("1231sd")]
         public void InvalidCode_ThrowsArgumentException(string postalCode)
         {
             Assert.Throws<ArgumentException>(() => new RUPostalCode(postalCode));
         }
 
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void Equals_WithNull_DoesntThrowAndReturnsFalse(string code)
         {
             var x = (new RUPostalCode(code)).Predecessor;
@@ -62,8 +58,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.DoesNotThrow(equals);
             Assert.IsFalse(result);
         }
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void Equals_WithOtherObject_DoesntThrowAndReturnsFalse(string code)
         {
             var x = (new RUPostalCode(code)).Predecessor;
@@ -73,40 +68,35 @@ namespace PostalCodes.UnitTests.Generated
             Assert.IsFalse(result);
         }
         
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new RUPostalCode(code)).Predecessor;
             Assert.IsTrue(x.GetType() == typeof(RUPostalCode));
         }
 
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void Successor_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new RUPostalCode(code)).Successor;
             Assert.IsTrue(x.GetType() == typeof(RUPostalCode));
         }
 
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void ExpandPostalCodeAsHighestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new RUPostalCode(code)).ExpandPostalCodeAsHighestInRange();
             Assert.IsTrue(x.GetType() == typeof(RUPostalCode));
         }
 
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void ExpandPostalCodeAsLowestInRange_ValidInput_ReturnsCorrectPostalCodeObject(string code)
         {
             var x = (new RUPostalCode(code)).ExpandPostalCodeAsLowestInRange();
             Assert.IsTrue(x.GetType() == typeof(RUPostalCode));
         }
 
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void GetHashCode_WithEqualObject_EqualHashes(string code)
         {
             var x = new RUPostalCode(code);
@@ -114,8 +104,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.IsTrue(x.GetHashCode() == y.GetHashCode());
         }
 
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void AreAdjacent_WithAdjacentPostalCodes_ReturnsTrue(string code)
         {
             var x = new RUPostalCode(code);
@@ -128,8 +117,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.IsFalse(PostalCode.AreAdjacent(xPred, xSucc));
         }             
 
-        [TestCase("122334")]
-        [TestCase("525678")]
+        [TestCase("123456")]
         public void CreateThroughFactoryIsSuccessful(string code)
         {
             var country = CountryFactory.Instance.CreateCountry("RU");

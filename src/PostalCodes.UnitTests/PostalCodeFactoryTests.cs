@@ -25,7 +25,7 @@ namespace PostalCodes.UnitTests
         [Test]
         public void TwoPostalCodeObjects_UsingStrings_HaveToShareStrings()
         {
-            var country = new string(new char[] { 'D', 'Z' });
+            var country = new string(new[] { 'D', 'Z' });
             var postalCodeFactory = new PostalCodeFactory();
             var postalCode1 = postalCodeFactory.CreatePostalCode(new Country(country), "12345");
             var postalCode2 = postalCodeFactory.CreatePostalCode(new Country(country), "12345");
