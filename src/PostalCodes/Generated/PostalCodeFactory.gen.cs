@@ -35,6 +35,8 @@ namespace PostalCodes
                 return null;
             }
 
+			postalCode = postalCode.ToUpper();
+
             switch(country.Code) {
                 case "FO" :
                     return new FOPostalCode(postalCode);
@@ -242,8 +244,6 @@ namespace PostalCodes
                     return new TWPostalCode(postalCode);
                 case "UA" :
                     return new UAPostalCode(postalCode);
-                case "US" :
-                    return new USPostalCode(postalCode);
                 case "UY" :
                     return new UYPostalCode(postalCode);
                 case "VI" :
@@ -272,8 +272,6 @@ namespace PostalCodes
                     return new PAPostalCode(postalCode);
                 case "RO" :
                     return new ROPostalCode(postalCode);
-                case "RU" :
-                    return new RUPostalCode(postalCode);
                 case "SG" :
                     return new SGPostalCode(postalCode);
                 case "TJ" :
@@ -302,6 +300,10 @@ namespace PostalCodes
                     return new PLPostalCode(postalCode);
                 case "PT" :
                     return new PTPostalCode(postalCode);
+                case "RU" :
+                    return new RUPostalCode(postalCode);
+                case "US" :
+                    return new USPostalCode(postalCode);
             }
 
             // Default behavior so far was to just return NumericPostalCode

@@ -9,7 +9,7 @@ namespace PostalCodes
 
         public USPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
         {
-            _countryName = "US";
+            _countryName = "United States of America";
         }
         
         protected override PostalCode CreatePostalCode(string code, bool allowConvertToShort)
@@ -35,12 +35,14 @@ namespace PostalCodes
 
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
-                Name = "5-Digits - 99999",
-                RegexDefault = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
-                OutputDefault = "xxxxx",
-                AutoConvertToShort = false,
-                ShortExpansionAsLowestInRange = "0",
-                ShortExpansionAsHighestInRange = "9",
+                Name = "US : 99999-9999",
+                RegexDefault = new Regex("^[0-9]{9}$", RegexOptions.Compiled),
+                RegexShort = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
+                OutputDefault = "xxxxx-xxxx",
+                OutputShort = "xxxxx",
+                AutoConvertToShort = true,
+                ShortExpansionAsLowestInRange = "0000",
+                ShortExpansionAsHighestInRange = "9999",
                 LeftPaddingCharacter = "0",
             }
         };
