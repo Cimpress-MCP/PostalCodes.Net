@@ -38,6 +38,7 @@ namespace PostalCodes
                 Name = "PL : 99-999",
                 RegexDefault = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
                 OutputDefault = "xx-xxx",
+                LeftPaddingCharacter = "0",
             }
         };
     }
