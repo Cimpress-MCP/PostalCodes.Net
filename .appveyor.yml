@@ -42,7 +42,7 @@ deploy:
     branch: /release/.*/
 notifications:
 - provider: HipChat
-  room: MSW Logistics Quoting and Planning
+  room: Awesome Source
   auth_token:
     secure: Bom1JR9YuKXK/fN7SW+R0LMb6KqYZEo2dJDnuoMxdfU=
   on_build_success: true
