@@ -127,6 +127,6 @@
     <Exec WorkingDirectory="$(SolutionDir)" Condition=" '$(OS)' != 'Unix' " Command=".nuget\NuGet.exe restore" />
   </Target>
   <Target Name="AfterBuild">
-    <Exec WorkingDirectory="$(TargetDir)" Condition=" '$(OS)' != 'Unix' " Command="$(SolutionDir).nuget\NuGet.exe pack $(ProjectPath)" />
+    <Exec WorkingDirectory="$(TargetDir)" Condition=" '$(OS)' != 'Unix' " Command="$(SolutionDir).nuget\NuGet.exe pack -symbols $(ProjectPath)" />
   </Target>
 </Project>
