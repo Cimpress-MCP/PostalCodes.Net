@@ -68,7 +68,7 @@ namespace PostalCodes.UnitTests
         {
             var countryFactory = CountryFactory.Instance;
             TestDelegate createCountry = () => countryFactory.CreateCountry(countryCode);
-            Assert.Throws<InvalidOperationException>(createCountry);
+            Assert.Throws<ArgumentException>(createCountry);
         }
     }
 }

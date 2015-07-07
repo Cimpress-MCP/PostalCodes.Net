@@ -35,18 +35,18 @@ namespace PostalCodes.UnitTests
 
         [Test]
         [TestCase(null, "Country code must not be null.")]
-        public void GetNormalizedCountryCode_NullCountryCode_ThrowsInvalidOperationException(string input, string output)
+        public void GetNormalizedCountryCode_NullCountryCode_ThrowsArgumentException(string input, string output)
         {
-            Assert.Throws<InvalidOperationException>(() => IsoValidator.GetNormalizedCountryCode(input), output);
+            Assert.Throws<ArgumentException>(() => IsoValidator.GetNormalizedCountryCode(input), output);
         }
 
         [Test]
         [TestCase("", "Country code must contain exactly two characters.")]
         [TestCase("U", "Country code must contain exactly two characters.")]
         [TestCase("USA", "Country code must contain exactly two characters.")]
-        public void GetNormalizedCountryCode_InvalidNumberOfChars_ThrowsInvalidOperationException(string input, string output)
+        public void GetNormalizedCountryCode_InvalidNumberOfChars_ThrowsArgumentException(string input, string output)
         {
-            Assert.Throws<InvalidOperationException>(() => IsoValidator.GetNormalizedCountryCode(input), output);
+            Assert.Throws<ArgumentException>(() => IsoValidator.GetNormalizedCountryCode(input), output);
         }
 
         [Test]
