@@ -20,7 +20,7 @@ namespace PostalCodes
             {
                 country = GetIso3166Country(countryCode);
             }
-            catch (InvalidOperationException)
+            catch (ArgumentException)
             {
                 return false;
             }
@@ -48,7 +48,7 @@ namespace PostalCodes
         {
             if (countryCode == null)
             {
-                throw new InvalidOperationException("Country code must not be null.");
+                throw new ArgumentException("Country code must not be null.");
             }
 
             countryCode = countryCode.Trim();
@@ -57,7 +57,7 @@ namespace PostalCodes
             Iso3166Countries.Countries.TryGetValue(countryCode, out isoCountry);
             if (isoCountry == default(Iso3166Country))
             {
-                throw new InvalidOperationException(string.Format("The specified country code is not valid: {0}", countryCode));
+                throw new ArgumentException(string.Format("The specified country code is not valid: {0}", countryCode));
             }
 
             return isoCountry;
