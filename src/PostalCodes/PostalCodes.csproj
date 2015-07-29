@@ -420,6 +420,8 @@
     </Compile>
     <Compile Include="Generated\PostalCodeFactory.gen.cs">
       <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Generated\PRPostalCode.gen.cs">
       <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>

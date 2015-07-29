@@ -68,10 +68,10 @@ namespace PostalCodes
         /// Initializes a new instance of the <see cref="PostalCodes.PostalCode"/> class.
         /// </summary>
         /// <param name="formats">Formats.</param>
-		/// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
+        /// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
-		internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode)
-			: this(formats, redundantCharacters, postalCode, true) 
+        internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode)
+            : this(formats, redundantCharacters, postalCode, true) 
         {
         }
 
@@ -79,13 +79,13 @@ namespace PostalCodes
         /// Initializes a new instance of the <see cref="PostalCodes.PostalCode"/> class.
         /// </summary>
         /// <param name="formats">Formats.</param>
-		/// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
+        /// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
         /// <param name="allowConvertToShort">If set to <c>true</c> allow convert to short format.</param>
-		internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort)
+        internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort)
         {
             _allowConvertToShort = allowConvertToShort;
-			_redundantCharacters = redundantCharacters;
+            _redundantCharacters = redundantCharacters;
 
             var nonWhiteSpaceCode = ClearWhiteSpaces (postalCode);
 

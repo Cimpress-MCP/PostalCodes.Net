@@ -1,43 +1,43 @@
 ﻿{
-	"CountryName" : "United States of America",
-	"CountryCodeAlpha2" : "US",
+    "CountryName" : "United States of America",
+    "CountryCodeAlpha2" : "US",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "US : 99999-9999",
-				"RegexDefault" : "^[0-9]{9}$",
-				"RegexShort" : "^[0-9]{5}$",
-				"OutputDefault" : "xxxxx-xxxx",
-				"OutputShort" : "xxxxx",
-				"AutoConvertToShort" : "true",
-				"LeftPaddingCharacter" : "0",
-				"ShortExpansionAsLowestInRange" : "0000",
-				"ShortExpansionAsHighestInRange" : "9999"
-			}
-		],
+    "Formats" : [
+            {
+                "Name" : "US : 99999-9999",
+                "RegexDefault" : "^[0-9]{9}$",
+                "RegexShort" : "^[0-9]{5}$",
+                "OutputDefault" : "xxxxx-xxxx",
+                "OutputShort" : "xxxxx",
+                "AutoConvertToShort" : "true",
+                "LeftPaddingCharacter" : "0",
+                "ShortExpansionAsLowestInRange" : "0000",
+                "ShortExpansionAsHighestInRange" : "9999"
+            }
+        ],
 
-	"TestData" : {
-		"Max" : [ "99999", "99999-9999" ],
-		"Min" : [ "00000", "00000-0000" ],
-		"Invalid" : [ "x1231s", "1231sd", "1010101010" ],
-		"Valid" : ["12345"],
-		"Predecessor" : {
+    "TestData" : {
+        "Max" : [ "99999", "99999-9999" ],
+        "Min" : [ "00000", "00000-0000" ],
+        "Invalid" : [ "x1231s", "1231sd", "1010101010" ],
+        "Valid" : ["12345"],
+        "Predecessor" : {
             "12346": "12345",
             "12346-1234" : "12345"
-		},
-		"Successor" : {
+        },
+        "Successor" : {
             "12346": "12347",
             "12346-1234" : "12347"
-		},
+        },
         "IsBefore" : {
             "1234" : "1236",
             "1234-1231" : "1236",
-            "1235" : "1235-7777",
+            "1235" : "1237-7777",
             "1234-9999" : "1235-0000"
         }
-	}
+    }
 
 }
 

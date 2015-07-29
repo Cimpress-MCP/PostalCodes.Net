@@ -52,8 +52,8 @@ namespace PostalCodes.UnitTests.Generated
         {
             var b = new CAPostalCode(postalCodeBefore);
             var a = new CAPostalCode(postalCodeAfter);
-            Assert.AreEqual(-1, b.CompareTo(a));
-            Assert.AreEqual( 1, a.CompareTo(b));
+            Assert.AreEqual(Math.Sign(-1), Math.Sign(b.CompareTo(a)));
+            Assert.AreEqual(Math.Sign( 1), Math.Sign(a.CompareTo(b)));
         }
         [TestCase("A4B5X5")]
         [TestCase("A4B5A5")]

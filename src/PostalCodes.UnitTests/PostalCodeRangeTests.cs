@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using NUnit.Framework;
 using PostalCodes.GenericPostalCodes;
 
@@ -259,158 +260,104 @@ namespace PostalCodes.UnitTests
             return left.Equals(right);
         }
 
+
+        public static PostalCodeRange[] _sortedPostalCodeRanges = {
+            new PostalCodeRange(null, null), 
+            new PostalCodeRange(new DefaultPostalCode("AAA"), new DefaultPostalCode("ZZZ")),
+            new PostalCodeRange(new DefaultPostalCode("BBB"), new DefaultPostalCode("DDD")),
+            new PostalCodeRange(new DefaultPostalCode("BBB"), new DefaultPostalCode("ZZZ")),
+            new PostalCodeRange(new DefaultPostalCode("CCC"), new DefaultPostalCode("ZZZ")),
+            new PostalCodeRange(new DefaultPostalCode("DDD"), new DefaultPostalCode("DDX")),
+            new PostalCodeRange(new DefaultPostalCode("DDD"), new DefaultPostalCode("EEE")),
+            new PostalCodeRange(new DefaultPostalCode("DDD"), new DefaultPostalCode("FFF"))
+        };
+
         public static IEnumerable<ITestCaseData> Operator_Greater_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
-
-                yield return new TestCaseData(r1, r1).Returns(false);
-                yield return new TestCaseData(r2, r2).Returns(false);
-                yield return new TestCaseData(r3, r3).Returns(false);
-                yield return new TestCaseData(r4, r4).Returns(false);
-
-                yield return new TestCaseData(r1, r2).Returns(false);
-                yield return new TestCaseData(r1, r3).Returns(false);
-                yield return new TestCaseData(r1, r4).Returns(false);
-                yield return new TestCaseData(r2, r3).Returns(false);
-                yield return new TestCaseData(r2, r4).Returns(false);
-                yield return new TestCaseData(r3, r4).Returns(false);
-
-                yield return new TestCaseData(r2, r1).Returns(true);
-                yield return new TestCaseData(r3, r1).Returns(true);
-                yield return new TestCaseData(r4, r1).Returns(true);
-                yield return new TestCaseData(r3, r2).Returns(true);
-                yield return new TestCaseData(r4, r2).Returns(true);
-                yield return new TestCaseData(r4, r3).Returns(true);
+                for(var i=0; i<_sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(false);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(true);
+                    }
             }
+        }
+
+        [Test]
+        [TestCaseSource("Operator_Greater_TestCases")]
+        public bool Operator_GreaterThan(PostalCodeRange left, PostalCodeRange right)
+        {
+            return left > right;
         }
 
         public static IEnumerable<ITestCaseData> Operator_GreaterEqual_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(false);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(true);
+                    }
 
-                yield return new TestCaseData(r1, r1).Returns(true);
-                yield return new TestCaseData(r2, r2).Returns(true);
-                yield return new TestCaseData(r3, r3).Returns(true);
-                yield return new TestCaseData(r4, r4).Returns(true);
-
-                yield return new TestCaseData(r1, r2).Returns(false);
-                yield return new TestCaseData(r1, r3).Returns(false);
-                yield return new TestCaseData(r1, r4).Returns(false);
-                yield return new TestCaseData(r2, r3).Returns(false);
-                yield return new TestCaseData(r2, r4).Returns(false);
-                yield return new TestCaseData(r3, r4).Returns(false);
-
-                yield return new TestCaseData(r2, r1).Returns(true);
-                yield return new TestCaseData(r3, r1).Returns(true);
-                yield return new TestCaseData(r4, r1).Returns(true);
-                yield return new TestCaseData(r3, r2).Returns(true);
-                yield return new TestCaseData(r4, r2).Returns(true);
-                yield return new TestCaseData(r4, r3).Returns(true);
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                {
+                    yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[i]).Returns(true);
+                }
             }
+        }
+
+        [Test]
+        [TestCaseSource("Operator_GreaterEqual_TestCases")]
+        public bool Operator_GreaterThanOrEqual(PostalCodeRange left, PostalCodeRange right)
+        {
+            return left >= right;
         }
 
         public static IEnumerable<ITestCaseData> Operator_Less_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
-
-                yield return new TestCaseData(r1, r1).Returns(false);
-                yield return new TestCaseData(r2, r2).Returns(false);
-                yield return new TestCaseData(r3, r3).Returns(false);
-                yield return new TestCaseData(r4, r4).Returns(false);
-
-                yield return new TestCaseData(r1, r2).Returns(true);
-                yield return new TestCaseData(r1, r3).Returns(true);
-                yield return new TestCaseData(r1, r4).Returns(true);
-                yield return new TestCaseData(r2, r3).Returns(true);
-                yield return new TestCaseData(r2, r4).Returns(true);
-                yield return new TestCaseData(r3, r4).Returns(true);
-
-                yield return new TestCaseData(r2, r1).Returns(false);
-                yield return new TestCaseData(r3, r1).Returns(false);
-                yield return new TestCaseData(r4, r1).Returns(false);
-                yield return new TestCaseData(r3, r2).Returns(false);
-                yield return new TestCaseData(r4, r2).Returns(false);
-                yield return new TestCaseData(r4, r3).Returns(false);
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(true);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(false);
+                    }
             }
+        }
+
+        [Test]
+        [TestCaseSource("Operator_Less_TestCases")]
+        public bool Operator_LessThan(PostalCodeRange left, PostalCodeRange right)
+        {
+            return left < right;
         }
 
         public static IEnumerable<ITestCaseData> Operator_LessEqual_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(true);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(false);
+                    }
 
-                yield return new TestCaseData(r1, r1).Returns(true);
-                yield return new TestCaseData(r2, r2).Returns(true);
-                yield return new TestCaseData(r3, r3).Returns(true);
-                yield return new TestCaseData(r4, r4).Returns(true);
-
-                yield return new TestCaseData(r1, r2).Returns(true);
-                yield return new TestCaseData(r1, r3).Returns(true);
-                yield return new TestCaseData(r1, r4).Returns(true);
-                yield return new TestCaseData(r2, r3).Returns(true);
-                yield return new TestCaseData(r2, r4).Returns(true);
-                yield return new TestCaseData(r3, r4).Returns(true);
-
-                yield return new TestCaseData(r2, r1).Returns(false);
-                yield return new TestCaseData(r3, r1).Returns(false);
-                yield return new TestCaseData(r4, r1).Returns(false);
-                yield return new TestCaseData(r3, r2).Returns(false);
-                yield return new TestCaseData(r4, r2).Returns(false);
-                yield return new TestCaseData(r4, r3).Returns(false);
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                {
+                    yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[i]).Returns(true);
+                }
             }
         }
 
         [Test]
-        [TestCaseSource("Operator_Greater_TestCases")]
-        public bool Operator_GreaterThan_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
-        {
-            return left > right;
-        }
-
-        [Test]
-        [TestCaseSource("Operator_GreaterEqual_TestCases")]
-        public bool Operator_GreaterThanOrEqual_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
-        {
-            return left >= right;
-        }
-
-        [Test]
-        [TestCaseSource("Operator_Less_TestCases")]
-        public bool Operator_LessThan_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
-        {
-            return left < right;
-        }
-
-        [Test]
         [TestCaseSource("Operator_LessEqual_TestCases")]
-        public bool Operator_LessThanOrEqual_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
+        public bool Operator_LessThanOrEqual(PostalCodeRange left, PostalCodeRange right)
         {
             return left <= right;
         }
@@ -501,130 +448,6 @@ namespace PostalCodes.UnitTests
                 yield return
                     new TestCaseData(new PostalCodeRange(new DefaultPostalCode("006"), new DefaultPostalCode("007")), range,
                         new[] {new PostalCodeRange(new DefaultPostalCode("006"), new DefaultPostalCode("007"))});
-
-                // Definite Range from Indefinite Range
-
-                yield return
-                    new TestCaseData(PostalCodeRange.Default, range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002")), new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("001")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("001"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("002")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("003")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("004")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("005")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("006")), range,
-                        new[]
-                        {
-                            new PostalCodeRange(null, new DefaultPostalCode("002")),
-                            new PostalCodeRange(new DefaultPostalCode("006"), new DefaultPostalCode("006"))
-                        });
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("007")), range,
-                        new[]
-                        {
-                            new PostalCodeRange(null, new DefaultPostalCode("002")),
-                            new PostalCodeRange(new DefaultPostalCode("006"), new DefaultPostalCode("007"))
-                        });
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("001"), null), range,
-                        new[]
-                        {
-                            new PostalCodeRange(new DefaultPostalCode("001"), new DefaultPostalCode("002")),
-                            new PostalCodeRange(new DefaultPostalCode("006"), null)
-                        });
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("002"), null), range,
-                        new[]
-                        {
-                            new PostalCodeRange(new DefaultPostalCode("002"), new DefaultPostalCode("002")),
-                            new PostalCodeRange(new DefaultPostalCode("006"), null)
-                        });
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("003"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("004"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("005"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("006"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("007"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("007"), null)});
-
-                // Indefinite from Indefinite
-
-                range = new PostalCodeRange(new DefaultPostalCode("003"), null);
-
-                yield return new TestCaseData(PostalCodeRange.Default, range, new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("001")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("001"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("002")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("003")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("004")), range,
-                        new[] {new PostalCodeRange(null, new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("001"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("001"), new DefaultPostalCode("002"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("002"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("002"), new DefaultPostalCode("002"))});
-                yield return new TestCaseData(new PostalCodeRange(new DefaultPostalCode("003"), null), range, new PostalCodeRange[0]);
-                yield return new TestCaseData(new PostalCodeRange(new DefaultPostalCode("004"), null), range, new PostalCodeRange[0]);
-
-                range = new PostalCodeRange(null, new DefaultPostalCode("005"));
-
-                yield return new TestCaseData(PostalCodeRange.Default, range, new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("004")), range, new PostalCodeRange[0]);
-                yield return new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("005")), range, new PostalCodeRange[0]);
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("006")), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), new DefaultPostalCode("006"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("007")), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), new DefaultPostalCode("007"))});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("004"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("005"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("006"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("006"), null)});
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("007"), null), range,
-                        new[] {new PostalCodeRange(new DefaultPostalCode("007"), null)});
-
-
-                // Default
-
-                yield return new TestCaseData(PostalCodeRange.Default, PostalCodeRange.Default, new PostalCodeRange[0]);
-                yield return new TestCaseData(new PostalCodeRange(new DefaultPostalCode("004"), null), PostalCodeRange.Default, new PostalCodeRange[0]);
-                yield return new TestCaseData(new PostalCodeRange(null, new DefaultPostalCode("004")), PostalCodeRange.Default, new PostalCodeRange[0]);
-                yield return
-                    new TestCaseData(new PostalCodeRange(new DefaultPostalCode("004"), new DefaultPostalCode("004")), PostalCodeRange.Default,
-                        new PostalCodeRange[0]);
             }
         }
 

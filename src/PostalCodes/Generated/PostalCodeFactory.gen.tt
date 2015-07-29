@@ -23,36 +23,36 @@
     string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
     foreach(var fileType in filesForCountries)
     {
-    	foreach(var countryCode in fileType.Value)
-    	{
-   	       	var ci = js.Deserialize<CountryInfo>(File.ReadAllText(Path.Combine(templateDirectory, "../../countries", fileType.Key)));  
-   			ci.CountryCodeAlpha2 = countryCode; 	
-   			ci.CountryName = countryCode; 	  
-    		countryList.Add( ci );
-    	}
-    }	
+        foreach(var countryCode in fileType.Value)
+        {
+                  var ci = js.Deserialize<CountryInfo>(File.ReadAllText(Path.Combine(templateDirectory, "../../countries", fileType.Key)));  
+               ci.CountryCodeAlpha2 = countryCode;     
+               ci.CountryName = countryCode;       
+            countryList.Add( ci );
+        }
+    }    
 
     var jsonFiles = Directory.GetFiles(Path.Combine(templateDirectory, "../../countries/")).Where(a => a.EndsWith(".json"));
     var regex = new Regex(@"^([A-Z]{2})\.json$");
     foreach (var jsonFile in jsonFiles)
     {
-   		
-    	var match = regex.Match(Path.GetFileName(jsonFile));
-    	if (match.Success)
-    	{
-    	   var ci = js.Deserialize<CountryInfo>(File.ReadAllText(jsonFile));  
-    	   countryList.Add( ci );
-    	} 
+           
+        var match = regex.Match(Path.GetFileName(jsonFile));
+        if (match.Success)
+        {
+           var ci = js.Deserialize<CountryInfo>(File.ReadAllText(jsonFile));  
+           countryList.Add( ci );
+        } 
     } 
 
     var countrySortedList = countryList.OrderBy(a => a.CountryCodeAlpha2).ToList();
-	foreach(var countryInfo in countryList) 
+    foreach(var countryInfo in countryList) 
     {
         GeneratePostalCodeFile(countryInfo);
-    	SaveOutput(countryInfo.CountryCodeAlpha2 + "PostalCode.gen.cs");
+        SaveOutput(countryInfo.CountryCodeAlpha2 + "PostalCode.gen.cs");
 
-    	GeneratePostalCodeFileUnitTests(countryInfo);
-    	SaveOutput(Path.Combine("../../PostalCodes.UnitTests/Generated", countryInfo.CountryCodeAlpha2 + "PostalCodeTests.gen.cs"));
+        GeneratePostalCodeFileUnitTests(countryInfo);
+        SaveOutput(Path.Combine("../../PostalCodes.UnitTests/Generated", countryInfo.CountryCodeAlpha2 + "PostalCodeTests.gen.cs"));
     } 
 #>
 using System;
@@ -92,7 +92,7 @@ namespace PostalCodes
                 return null;
             }
 
-			postalCode = postalCode.ToUpper();
+            postalCode = postalCode.ToUpper();
 
             switch(country.Code) {
 <#
@@ -115,33 +115,33 @@ namespace PostalCodes
 
 <#+
     public class TestData {
-    	public List<string> Max { get; set; }
-		public List<string> Min { get; set; }
-		public List<string> Valid { get; set; }
-		public List<string> Invalid { get; set; }
-		public Dictionary<string, string> Predecessor {get; set;}
-		public Dictionary<string, string> Successor {get; set;}
+        public List<string> Max { get; set; }
+        public List<string> Min { get; set; }
+        public List<string> Valid { get; set; }
+        public List<string> Invalid { get; set; }
+        public Dictionary<string, string> Predecessor {get; set;}
+        public Dictionary<string, string> Successor {get; set;}
         public Dictionary<string, string> IsBefore {get; set;}
     }
 
-	public class CountryInfo {
-		public string CountryCodeAlpha2 { get; set; }
-		public string CountryName { get; set; }
-		public string RedundantCharacters { get; set; }
+    public class CountryInfo {
+        public string CountryCodeAlpha2 { get; set; }
+        public string CountryName { get; set; }
+        public string RedundantCharacters { get; set; }
 
-		public List<Dictionary<string, string>> Formats { get; set; }
+        public List<Dictionary<string, string>> Formats { get; set; }
 
-		public TestData TestData { get; set; }
+        public TestData TestData { get; set; }
 
-		public override int GetHashCode()
-		{
-			return CountryCodeAlpha2.GetHashCode();	
-		}
-		public override bool Equals(object o)
-		{
-			return CountryCodeAlpha2.Equals( ((CountryInfo) o).CountryCodeAlpha2);
-		}
-	}
+        public override int GetHashCode()
+        {
+            return CountryCodeAlpha2.GetHashCode();    
+        }
+        public override bool Equals(object o)
+        {
+            return CountryCodeAlpha2.Equals( ((CountryInfo) o).CountryCodeAlpha2);
+        }
+    }
 
   void SaveOutput(string outputFileName)
   {
@@ -154,12 +154,12 @@ namespace PostalCodes
 
   void GeneratePropertyInitializeIfPresent(IDictionary<string, string> format, string propertyName, string formatting)
   {
-	if (format.ContainsKey(propertyName) && !string.IsNullOrEmpty(format[propertyName]))
-	{
+    if (format.ContainsKey(propertyName) && !string.IsNullOrEmpty(format[propertyName]))
+    {
 #>
                 <#= propertyName #> = <#= string.Format(formatting, format[propertyName]) #>,
 <#+
-	}
+    }
   }
    
   void GeneratePostalCodeFile(CountryInfo countryInfo)
@@ -202,22 +202,22 @@ namespace PostalCodes
 
         private static PostalCodeFormat[] _formats = {
 <#+ 
-	for(int i=0; i < countryInfo.Formats.Count; i++)
-	{
-	    var format = countryInfo.Formats[i];
-	    var putComma = (i != countryInfo.Formats.Count-1);
+    for(int i=0; i < countryInfo.Formats.Count; i++)
+    {
+        var format = countryInfo.Formats[i];
+        var putComma = (i != countryInfo.Formats.Count-1);
 #>
             new PostalCodeFormat {
 <#+
-		GeneratePropertyInitializeIfPresent(format, "Name", "\"{0}\"");
-		GeneratePropertyInitializeIfPresent(format, "RegexDefault", "new Regex(\"{0}\", RegexOptions.Compiled)");
-		GeneratePropertyInitializeIfPresent(format, "RegexShort", "new Regex(\"{0}\", RegexOptions.Compiled)");
-		GeneratePropertyInitializeIfPresent(format, "OutputDefault", "\"{0}\"");
-		GeneratePropertyInitializeIfPresent(format, "OutputShort", "\"{0}\"");
-		GeneratePropertyInitializeIfPresent(format, "AutoConvertToShort", "{0}");
-		GeneratePropertyInitializeIfPresent(format, "ShortExpansionAsLowestInRange", "\"{0}\"");
-		GeneratePropertyInitializeIfPresent(format, "ShortExpansionAsHighestInRange", "\"{0}\"");
-		GeneratePropertyInitializeIfPresent(format, "LeftPaddingCharacter", "\"{0}\"");
+        GeneratePropertyInitializeIfPresent(format, "Name", "\"{0}\"");
+        GeneratePropertyInitializeIfPresent(format, "RegexDefault", "new Regex(\"{0}\", RegexOptions.Compiled)");
+        GeneratePropertyInitializeIfPresent(format, "RegexShort", "new Regex(\"{0}\", RegexOptions.Compiled)");
+        GeneratePropertyInitializeIfPresent(format, "OutputDefault", "\"{0}\"");
+        GeneratePropertyInitializeIfPresent(format, "OutputShort", "\"{0}\"");
+        GeneratePropertyInitializeIfPresent(format, "AutoConvertToShort", "{0}");
+        GeneratePropertyInitializeIfPresent(format, "ShortExpansionAsLowestInRange", "\"{0}\"");
+        GeneratePropertyInitializeIfPresent(format, "ShortExpansionAsHighestInRange", "\"{0}\"");
+        GeneratePropertyInitializeIfPresent(format, "LeftPaddingCharacter", "\"{0}\"");
 #>
             }<#+ if (putComma) { #>,
 <#+ } #>
@@ -328,8 +328,8 @@ namespace PostalCodes.UnitTests.Generated
         {
             var b = new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(postalCodeBefore);
             var a = new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(postalCodeAfter);
-            Assert.AreEqual(-1, b.CompareTo(a));
-            Assert.AreEqual( 1, a.CompareTo(b));
+            Assert.AreEqual(Math.Sign(-1), Math.Sign(b.CompareTo(a)));
+            Assert.AreEqual(Math.Sign( 1), Math.Sign(a.CompareTo(b)));
         }
 <#+
        foreach(var testCase in countryInfo.TestData.Valid)

@@ -52,8 +52,8 @@ namespace PostalCodes.UnitTests.Generated
         {
             var b = new NLPostalCode(postalCodeBefore);
             var a = new NLPostalCode(postalCodeAfter);
-            Assert.AreEqual(-1, b.CompareTo(a));
-            Assert.AreEqual( 1, a.CompareTo(b));
+            Assert.AreEqual(Math.Sign(-1), Math.Sign(b.CompareTo(a)));
+            Assert.AreEqual(Math.Sign( 1), Math.Sign(a.CompareTo(b)));
         }
         [TestCase("1235DF")]
         [TestCase("5983DH")]

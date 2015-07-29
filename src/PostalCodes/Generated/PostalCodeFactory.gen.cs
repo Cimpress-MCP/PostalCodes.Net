@@ -35,7 +35,7 @@ namespace PostalCodes
                 return null;
             }
 
-			postalCode = postalCode.ToUpper();
+            postalCode = postalCode.ToUpper();
 
             switch(country.Code) {
                 case "FO" :

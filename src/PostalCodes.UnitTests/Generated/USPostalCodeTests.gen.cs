@@ -53,7 +53,7 @@ namespace PostalCodes.UnitTests.Generated
 
         [TestCase("1234", "1236")]
         [TestCase("1234-1231", "1236")]
-        [TestCase("1235", "1235-7777")]
+        [TestCase("1235", "1237-7777")]
         [TestCase("1234-9999", "1235-0000")]
         public void CompareTo_ReturnsExpectedSign(string postalCodeBefore, string postalCodeAfter)
         {

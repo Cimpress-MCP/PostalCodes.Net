@@ -53,8 +53,8 @@ namespace PostalCodes.UnitTests.Generated
         {
             var b = new PTPostalCode(postalCodeBefore);
             var a = new PTPostalCode(postalCodeAfter);
-            Assert.AreEqual(-1, b.CompareTo(a));
-            Assert.AreEqual( 1, a.CompareTo(b));
+            Assert.AreEqual(Math.Sign(-1), Math.Sign(b.CompareTo(a)));
+            Assert.AreEqual(Math.Sign( 1), Math.Sign(a.CompareTo(b)));
         }
         [TestCase("1231242")]
         [TestCase("1234")]

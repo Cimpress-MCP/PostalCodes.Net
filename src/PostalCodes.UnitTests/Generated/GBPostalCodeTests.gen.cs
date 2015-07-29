@@ -62,8 +62,8 @@ namespace PostalCodes.UnitTests.Generated
         {
             var b = new GBPostalCode(postalCodeBefore);
             var a = new GBPostalCode(postalCodeAfter);
-            Assert.AreEqual(-1, b.CompareTo(a));
-            Assert.AreEqual( 1, a.CompareTo(b));
+            Assert.AreEqual(Math.Sign(-1), Math.Sign(b.CompareTo(a)));
+            Assert.AreEqual(Math.Sign( 1), Math.Sign(a.CompareTo(b)));
         }
         [TestCase("ZZ9A9ZZ")]
         [TestCase("A9Z9ZZ")]
