@@ -27,7 +27,6 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codeSuccessor, code.Successor);
             Assert.AreEqual(codeSuccessor.ToString(), code.Successor.ToString());
             Assert.AreEqual(codeSuccessor.ToHumanReadableString(), code.Successor.ToHumanReadableString());
-
         }
         
         [TestCase("A0A0A0")]
@@ -49,6 +48,13 @@ namespace PostalCodes.UnitTests.Generated
             Assert.Throws<ArgumentException>(() => new CAPostalCode(postalCode));
         }
 
+        public void CompareTo_ReturnsExpectedSign(string postalCodeBefore, string postalCodeAfter)
+        {
+            var b = new CAPostalCode(postalCodeBefore);
+            var a = new CAPostalCode(postalCodeAfter);
+            Assert.AreEqual(-1, b.CompareTo(a));
+            Assert.AreEqual( 1, a.CompareTo(b));
+        }
         [TestCase("A4B5X5")]
         [TestCase("A4B5A5")]
         public void Equals_WithNull_DoesntThrowAndReturnsFalse(string code)

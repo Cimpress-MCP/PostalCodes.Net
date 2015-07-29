@@ -24,6 +24,7 @@
 		"Successor" : {
 			"ZZY9999" : "ZZZ0000",
 			"ABC1234" : "ABC1235"
-		}
+		},
+        "IsBefore" : {}
 	}
 }

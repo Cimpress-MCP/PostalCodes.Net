@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PostalCodes
+﻿namespace PostalCodes
 {
 	/// <summary>
 	/// Statuses taken from http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2

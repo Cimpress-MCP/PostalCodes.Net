@@ -15,6 +15,13 @@ namespace PostalCodes.UnitTests
             return new PostalCodeRange(startPc, endPc);
         }
 
+        private static PostalCodeRange MakeRangeUS(string start, string end)
+        {
+            var startPc = start != null ? new USPostalCode(start) : null;
+            var endPc = end != null ? new USPostalCode(end) : null;
+            return new PostalCodeRange(startPc, endPc);
+        }
+
         public static IEnumerable<ITestCaseData> CoincidesWithTestCases
         {
             get
@@ -35,8 +42,6 @@ namespace PostalCodes.UnitTests
                 yield return new TestCaseData(range, MakeRange("F", "G")).Returns(false);
             }
         }
-
-        // ReSharper disable InconsistentNaming
 
         [Test]
         [TestCaseSource("CoincidesWithTestCases")]
@@ -98,19 +103,21 @@ namespace PostalCodes.UnitTests
             {
                 var range = MakeRange("C", "E");
                 yield return new TestCaseData(range, null).Returns(1);
-                yield return new TestCaseData(range, PostalCodeRange.Default).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "B")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "C")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "D")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "E")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "G")).Returns(-1);
+                yield return new TestCaseData(range, PostalCodeRange.Default).Returns(1);
+                yield return new TestCaseData( PostalCodeRange.Default, range).Returns(-1);
+                yield return new TestCaseData(PostalCodeRange.Default, PostalCodeRange.Default).Returns(0);
+                yield return new TestCaseData(range, MakeRange("A", "B")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "C")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "D")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "E")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "G")).Returns(1);
                 yield return new TestCaseData(range, MakeRange("C", "D")).Returns(1);
                 yield return new TestCaseData(range, MakeRange("C", "E")).Returns(0);
                 yield return new TestCaseData(range, MakeRange("C", "G")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("D", "E")).Returns(1);
-                yield return new TestCaseData(range, MakeRange("D", "G")).Returns(1);
-                yield return new TestCaseData(range, MakeRange("E", "G")).Returns(1);
-                yield return new TestCaseData(range, MakeRange("F", "G")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("D", "E")).Returns(-1);
+                yield return new TestCaseData(range, MakeRange("D", "G")).Returns(-1);
+                yield return new TestCaseData(range, MakeRange("E", "G")).Returns(-1);
+                yield return new TestCaseData(range, MakeRange("F", "G")).Returns(-1);
             }
         }
 
@@ -201,7 +208,7 @@ namespace PostalCodes.UnitTests
                 yield return new TestCaseData(MakeRange("F", "G"), range).Returns(false);
             }
         }
-
+        
         [Test]
         [TestCaseSource("Contains_TestCases")]
         public bool Contains_WhenContained_ReturnsTrue(
@@ -209,6 +216,25 @@ namespace PostalCodes.UnitTests
             PostalCodeRange inner)
         {
             return PostalCodeRange.Contains(outer, inner);
+        }
+
+        public static IEnumerable<ITestCaseData> Contains_WithPostalCode_TestCases
+        {
+            get
+            {
+                var rangeUS = MakeRangeUS("28000 0000", "28000 9999");
+                yield return new TestCaseData(rangeUS, new USPostalCode("28000")).Returns(true);
+                yield return new TestCaseData(rangeUS, new USPostalCode("28000 1235")).Returns(true);
+            }
+        }
+
+        [Test]
+        [TestCaseSource("Contains_WithPostalCode_TestCases")]
+        public bool Contains_WithPostalCode_WhenContained_ReturnsTrue(
+            PostalCodeRange range,
+            PostalCode pc)
+        {
+            return PostalCodeRange.Contains(range, pc);
         }
 
         public static IEnumerable<ITestCaseData> Object_Equals_TestCases

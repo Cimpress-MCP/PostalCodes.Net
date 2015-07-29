@@ -24,6 +24,7 @@
 		"Successor" : {
 			"A9A9A9" : "A9A9B0",
 			"A1B2C3" : "A1B2C4"
-		}
+		},
+        "IsBefore" : {}
 	}
 }

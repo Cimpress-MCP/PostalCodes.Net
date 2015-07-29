@@ -80,6 +80,7 @@
 		"Successor" : {
 			"Z989ZZ" : "Z990",
 			"ZZ0Z9" : "ZZ1A0"
-		}
+		},
+        "IsBefore" : {}
 	}
 }

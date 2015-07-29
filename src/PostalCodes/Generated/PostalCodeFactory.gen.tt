@@ -121,6 +121,7 @@ namespace PostalCodes
 		public List<string> Invalid { get; set; }
 		public Dictionary<string, string> Predecessor {get; set;}
 		public Dictionary<string, string> Successor {get; set;}
+        public Dictionary<string, string> IsBefore {get; set;}
     }
 
 	public class CountryInfo {
@@ -274,7 +275,6 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codeSuccessor, code.Successor);
             Assert.AreEqual(codeSuccessor.ToString(), code.Successor.ToString());
             Assert.AreEqual(codeSuccessor.ToHumanReadableString(), code.Successor.ToHumanReadableString());
-
         }
         
 <#+
@@ -316,6 +316,21 @@ namespace PostalCodes.UnitTests.Generated
             Assert.Throws<ArgumentException>(() => new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(postalCode));
         }
 
+<#+
+       foreach(var testCase in countryInfo.TestData.IsBefore)
+       {
+#>
+        [TestCase("<#= testCase.Key #>", "<#= testCase.Value #>")]
+<#+
+       }
+#>
+        public void CompareTo_ReturnsExpectedSign(string postalCodeBefore, string postalCodeAfter)
+        {
+            var b = new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(postalCodeBefore);
+            var a = new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(postalCodeAfter);
+            Assert.AreEqual(-1, b.CompareTo(a));
+            Assert.AreEqual( 1, a.CompareTo(b));
+        }
 <#+
        foreach(var testCase in countryInfo.TestData.Valid)
        {

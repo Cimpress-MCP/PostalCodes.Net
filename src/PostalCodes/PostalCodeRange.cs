@@ -146,12 +146,14 @@ namespace PostalCodes
 
             if (Start == null && other.Start != null)
             {
-                return 1;
+                // Default range (Start=End=Null) must be before any other
+                return -1;
             }
 
             if (Start != null)
             {
-                var comparison = -Start.CompareTo(other.Start);
+                // prefer (evaluate as smaller) the lower start
+                var comparison = Start.CompareTo(other.Start);
                 if (comparison != 0)
                 {
                     return comparison;
@@ -345,8 +347,7 @@ namespace PostalCodes
                 return false;
             }
             return range.IsDefault 
-                || ((range.Start <= specificCode) && ((specificCode <= range.End) || (range.End == null)))
-                || (((range.Start <= specificCode) || (range.End == null)) && (specificCode <= range.End));
+                || ((range.Start <= specificCode) && (specificCode <= range.End));
         }
 
         /// <summary>
