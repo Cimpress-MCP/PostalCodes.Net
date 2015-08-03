@@ -1,39 +1,40 @@
 {
-	"CountryName" : "Portugal",
-	"CountryCodeAlpha2" : "PT",
+    "CountryName" : "Portugal",
+    "CountryCodeAlpha2" : "PT",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "PT : 9999 999",
-				"RegexDefault" : "^[0-9]{7}$",
-				"OutputDefault" : "xxxx xxx",
-				
-				"RegexShort" : "^[0-9]{4}$",
-				"OutputShort" : "xxxx",
+    "Formats" : [
+            {
+                "Name" : "PT : 9999 999",
+                "RegexDefault" : "^[0-9]{7}$",
+                "OutputDefault" : "xxxx xxx",
+                
+                "RegexShort" : "^[0-9]{4}$",
+                "OutputShort" : "xxxx",
 
-				"LeftPaddingCharacter" : "0",
-				
-				"AutoConvertToShort" : "false",
-				"ShortExpansionAsLowestInRange" : "000",
-				"ShortExpansionAsHighestInRange" : "999"
-			}
-		],
+                "LeftPaddingCharacter" : "0",
+                
+                "AutoConvertToShort" : "false",
+                "ShortExpansionAsLowestInRange" : "000",
+                "ShortExpansionAsHighestInRange" : "999"
+            }
+        ],
 
-	"TestData" : {
-		"Max" : [ "9999999" ],
-		"Min" : [ "0000000" ],
-		"Valid" : ["1231242", "1234"],
-		"Invalid" : [ "1d2345", "xxx123" ],
-		"Predecessor" : {
-			"1234" : "1233",
-			"1234567" : "1234566"
-		},
-		"Successor" : {
-			"9999998" : "9999999",
-			"1248192" : "1248193",
-			"1235" : "1236"
-		}
-	}
+    "TestData" : {
+        "Max" : [ "9999999" ],
+        "Min" : [ "0000000" ],
+        "Valid" : ["1231242", "1234"],
+        "Invalid" : [ "1d2345", "xxx123" ],
+        "Predecessor" : {
+            "1234" : "1233",
+            "1234567" : "1234566"
+        },
+        "Successor" : {
+            "9999998" : "9999999",
+            "1248192" : "1248193",
+            "1235" : "1236"
+        },
+        "IsBefore" : {}
+    }
 }

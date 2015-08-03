@@ -1,85 +1,86 @@
 {
-	"CountryName" : "Great Britain",
-	"CountryCodeAlpha2" : "GB",
+    "CountryName" : "Great Britain",
+    "CountryCodeAlpha2" : "GB",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "UK : AA9A 9[AA]",
-				"RegexDefault" : "^[A-Z][A-Z][0-9][A-Z][0-9][A-Z][A-Z]$",
-				"RegexShort" : "^[A-Z][A-Z][0-9][A-Z][0-9]$",
-				"OutputDefault" : "xxxx xxx",
-				"OutputShort" : "xxxx x",
-				"AutoConvertToShort" : "true",
-				"ShortExpansionAsLowestInRange" : "AA",
-				"ShortExpansionAsHighestInRange" : "ZZ"
-			},
-			{
-				"Name" : "UK : A9A 9[AA]",
-				"RegexDefault" : "^[A-Z][0-9][A-Z][0-9][A-Z][A-Z]$",
-				"RegexShort" : "^[A-Z][0-9][A-Z][0-9]$",
-				"OutputDefault" : "xxx xxx",
-				"OutputShort" : "xxx x",
-				"AutoConvertToShort" : "true",
-				"ShortExpansionAsLowestInRange" : "AA",
-				"ShortExpansionAsHighestInRange" : "ZZ"
-			},
-			{
-				"Name" : "UK : A9 9[AA]",
-				"RegexDefault" : "^[A-Z][0-9][0-9][A-Z][A-Z]$",
-				"RegexShort" : "^[A-Z][0-9][0-9]$",
-				"OutputDefault" : "xx xxx",
-				"OutputShort" : "xx x",
-				"AutoConvertToShort" : "true",
-				"ShortExpansionAsLowestInRange" : "AA",
-				"ShortExpansionAsHighestInRange" : "ZZ"
-			},
-			{
-				"Name" : "UK : A99 9[AA]",
-				"RegexDefault" : "^[A-Z][0-9][0-9][0-9][A-Z][A-Z]$",
-				"RegexShort" : "^[A-Z][0-9][0-9][0-9]$",
-				"OutputDefault" : "xxx xxx",
-				"OutputShort" : "xxx x",
-				"AutoConvertToShort" : "true",
-				"ShortExpansionAsLowestInRange" : "AA",
-				"ShortExpansionAsHighestInRange" : "ZZ"
-			},
-			{
-				"Name" : "UK : AA9 9[AA]",
-				"RegexDefault" : "^[A-Z][A-Z][0-9][0-9][A-Z][A-Z]$",
-				"RegexShort" : "^[A-Z][A-Z][0-9][0-9]$",
-				"OutputDefault" : "xxx xxx",
-				"OutputShort" : "xxx x",
-				"AutoConvertToShort" : "true",
-				"ShortExpansionAsLowestInRange" : "AA",
-				"ShortExpansionAsHighestInRange" : "ZZ"
-			},
-			{
-				"Name" : "UK : AA99 9[AA]",
-				"RegexDefault" : "^[A-Z][A-Z][0-9][0-9][0-9][A-Z][A-Z]$",
-				"RegexShort" : "^[A-Z][A-Z][0-9][0-9][0-9]$",
-				"OutputDefault" : "xxxx xxx",
-				"OutputShort" : "xxxx x",
-				"AutoConvertToShort" : "true",
-				"ShortExpansionAsLowestInRange" : "AA",
-				"ShortExpansionAsHighestInRange" : "ZZ"
-			}
-		],
+    "Formats" : [
+            {
+                "Name" : "UK : AA9A 9[AA]",
+                "RegexDefault" : "^[A-Z][A-Z][0-9][A-Z][0-9][A-Z][A-Z]$",
+                "RegexShort" : "^[A-Z][A-Z][0-9][A-Z][0-9]$",
+                "OutputDefault" : "xxxx xxx",
+                "OutputShort" : "xxxx x",
+                "AutoConvertToShort" : "true",
+                "ShortExpansionAsLowestInRange" : "AA",
+                "ShortExpansionAsHighestInRange" : "ZZ"
+            },
+            {
+                "Name" : "UK : A9A 9[AA]",
+                "RegexDefault" : "^[A-Z][0-9][A-Z][0-9][A-Z][A-Z]$",
+                "RegexShort" : "^[A-Z][0-9][A-Z][0-9]$",
+                "OutputDefault" : "xxx xxx",
+                "OutputShort" : "xxx x",
+                "AutoConvertToShort" : "true",
+                "ShortExpansionAsLowestInRange" : "AA",
+                "ShortExpansionAsHighestInRange" : "ZZ"
+            },
+            {
+                "Name" : "UK : A9 9[AA]",
+                "RegexDefault" : "^[A-Z][0-9][0-9][A-Z][A-Z]$",
+                "RegexShort" : "^[A-Z][0-9][0-9]$",
+                "OutputDefault" : "xx xxx",
+                "OutputShort" : "xx x",
+                "AutoConvertToShort" : "true",
+                "ShortExpansionAsLowestInRange" : "AA",
+                "ShortExpansionAsHighestInRange" : "ZZ"
+            },
+            {
+                "Name" : "UK : A99 9[AA]",
+                "RegexDefault" : "^[A-Z][0-9][0-9][0-9][A-Z][A-Z]$",
+                "RegexShort" : "^[A-Z][0-9][0-9][0-9]$",
+                "OutputDefault" : "xxx xxx",
+                "OutputShort" : "xxx x",
+                "AutoConvertToShort" : "true",
+                "ShortExpansionAsLowestInRange" : "AA",
+                "ShortExpansionAsHighestInRange" : "ZZ"
+            },
+            {
+                "Name" : "UK : AA9 9[AA]",
+                "RegexDefault" : "^[A-Z][A-Z][0-9][0-9][A-Z][A-Z]$",
+                "RegexShort" : "^[A-Z][A-Z][0-9][0-9]$",
+                "OutputDefault" : "xxx xxx",
+                "OutputShort" : "xxx x",
+                "AutoConvertToShort" : "true",
+                "ShortExpansionAsLowestInRange" : "AA",
+                "ShortExpansionAsHighestInRange" : "ZZ"
+            },
+            {
+                "Name" : "UK : AA99 9[AA]",
+                "RegexDefault" : "^[A-Z][A-Z][0-9][0-9][0-9][A-Z][A-Z]$",
+                "RegexShort" : "^[A-Z][A-Z][0-9][0-9][0-9]$",
+                "OutputDefault" : "xxxx xxx",
+                "OutputShort" : "xxxx x",
+                "AutoConvertToShort" : "true",
+                "ShortExpansionAsLowestInRange" : "AA",
+                "ShortExpansionAsHighestInRange" : "ZZ"
+            }
+        ],
 
 
-	"TestData" : {
-		"Max" : [ "ZZ9Z9ZZ", "Z9Z9ZZ", "Z99ZZ", "Z999ZZ", "ZZ99ZZ", "ZZ999ZZ" ],
-		"Min" : [ "AA0A0AA", "A0A0AA", "A00AA", "A000AA", "AA00AA", "AA000AA" ],
-		"Valid" : [ "ZZ9A9ZZ", "A9Z9ZZ", "Z29ZZ", "Z699ZZ", "ZX99ZZ", "ZC999ZZ" ],
-		"Invalid" : [ "12345", "xxx123" ],
-		"Predecessor" : {
-			"ZZ9Z9ZZ" : "ZZ9Z8",
-			"Z999ZZ" : "Z998"
-		},
-		"Successor" : {
-			"Z989ZZ" : "Z990",
-			"ZZ0Z9" : "ZZ1A0"
-		}
-	}
+    "TestData" : {
+        "Max" : [ "ZZ9Z9ZZ", "Z9Z9ZZ", "Z99ZZ", "Z999ZZ", "ZZ99ZZ", "ZZ999ZZ" ],
+        "Min" : [ "AA0A0AA", "A0A0AA", "A00AA", "A000AA", "AA00AA", "AA000AA" ],
+        "Valid" : [ "ZZ9A9ZZ", "A9Z9ZZ", "Z29ZZ", "Z699ZZ", "ZX99ZZ", "ZC999ZZ" ],
+        "Invalid" : [ "12345", "xxx123" ],
+        "Predecessor" : {
+            "ZZ9Z9ZZ" : "ZZ9Z8",
+            "Z999ZZ" : "Z998"
+        },
+        "Successor" : {
+            "Z989ZZ" : "Z990",
+            "ZZ0Z9" : "ZZ1A0"
+        },
+        "IsBefore" : {}
+    }
 }

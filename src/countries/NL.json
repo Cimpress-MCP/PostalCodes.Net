@@ -1,37 +1,38 @@
 {
-	"CountryName" : "Netherlands",
-	"CountryCodeAlpha2" : "NL",
+    "CountryName" : "Netherlands",
+    "CountryCodeAlpha2" : "NL",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "NL : 9999 ZZ",
-				"RegexDefault" : "^[0-9]{4}[A-Z]{2}$",
-				"RegexShort" : "^[0-9]{4}$",
-				"OutputDefault" : "xxxx xx",
-				"OutputShort" : "xxxx",
+    "Formats" : [
+            {
+                "Name" : "NL : 9999 ZZ",
+                "RegexDefault" : "^[0-9]{4}[A-Z]{2}$",
+                "RegexShort" : "^[0-9]{4}$",
+                "OutputDefault" : "xxxx xx",
+                "OutputShort" : "xxxx",
 
-				"LeftPaddingCharacter" : "0",
+                "LeftPaddingCharacter" : "0",
 
-				"AutoConvertToShort" : "true",
-				"ShortExpansionAsLowestInRange" : "AA",
-				"ShortExpansionAsHighestInRange" : "ZZ"
-			}
-		],
+                "AutoConvertToShort" : "true",
+                "ShortExpansionAsLowestInRange" : "AA",
+                "ShortExpansionAsHighestInRange" : "ZZ"
+            }
+        ],
 
-	"TestData" : {
-		"Max" : [ "9999ZZ" ],
-		"Min" : [ "0000AA" ],
-		"Valid" : ["1235DF", "5983DH"],
-		"Invalid" : [ "12j4h", "k3j51l" ],
-		"Predecessor" : {
-			"9999ZZ" : "9998",
-			"1000AA" : "0999"
-		},
-		"Successor" : {
-			"0999ZZ" : "1000",
-			"3456JT" : "3457"
-		}
-	}
+    "TestData" : {
+        "Max" : [ "9999ZZ" ],
+        "Min" : [ "0000AA" ],
+        "Valid" : ["1235DF", "5983DH"],
+        "Invalid" : [ "12j4h", "k3j51l" ],
+        "Predecessor" : {
+            "9999ZZ" : "9998",
+            "1000AA" : "0999"
+        },
+        "Successor" : {
+            "0999ZZ" : "1000",
+            "3456JT" : "3457"
+        },
+        "IsBefore" : {}
+    }
 }

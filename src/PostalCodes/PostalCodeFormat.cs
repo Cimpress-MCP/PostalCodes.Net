@@ -8,7 +8,7 @@ namespace PostalCodes
     /// </summary>
     public sealed class PostalCodeFormat : IEquatable<PostalCodeFormat>
     {
-		
+        
         /// <summary>
         /// Gets or sets the name.
         /// </summary>

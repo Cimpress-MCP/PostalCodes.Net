@@ -15,6 +15,13 @@ namespace PostalCodes.UnitTests
             return new PostalCodeRange(startPc, endPc);
         }
 
+        private static PostalCodeRange MakeRangeUS(string start, string end)
+        {
+            var startPc = start != null ? new USPostalCode(start) : null;
+            var endPc = end != null ? new USPostalCode(end) : null;
+            return new PostalCodeRange(startPc, endPc);
+        }
+
         public static IEnumerable<ITestCaseData> CoincidesWithTestCases
         {
             get
@@ -35,8 +42,6 @@ namespace PostalCodes.UnitTests
                 yield return new TestCaseData(range, MakeRange("F", "G")).Returns(false);
             }
         }
-
-        // ReSharper disable InconsistentNaming
 
         [Test]
         [TestCaseSource("CoincidesWithTestCases")]
@@ -98,19 +103,21 @@ namespace PostalCodes.UnitTests
             {
                 var range = MakeRange("C", "E");
                 yield return new TestCaseData(range, null).Returns(1);
-                yield return new TestCaseData(range, PostalCodeRange.Default).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "B")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "C")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "D")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "E")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("A", "G")).Returns(-1);
+                yield return new TestCaseData(range, PostalCodeRange.Default).Returns(1);
+                yield return new TestCaseData( PostalCodeRange.Default, range).Returns(-1);
+                yield return new TestCaseData(PostalCodeRange.Default, PostalCodeRange.Default).Returns(0);
+                yield return new TestCaseData(range, MakeRange("A", "B")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "C")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "D")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "E")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("A", "G")).Returns(1);
                 yield return new TestCaseData(range, MakeRange("C", "D")).Returns(1);
                 yield return new TestCaseData(range, MakeRange("C", "E")).Returns(0);
                 yield return new TestCaseData(range, MakeRange("C", "G")).Returns(-1);
-                yield return new TestCaseData(range, MakeRange("D", "E")).Returns(1);
-                yield return new TestCaseData(range, MakeRange("D", "G")).Returns(1);
-                yield return new TestCaseData(range, MakeRange("E", "G")).Returns(1);
-                yield return new TestCaseData(range, MakeRange("F", "G")).Returns(1);
+                yield return new TestCaseData(range, MakeRange("D", "E")).Returns(-1);
+                yield return new TestCaseData(range, MakeRange("D", "G")).Returns(-1);
+                yield return new TestCaseData(range, MakeRange("E", "G")).Returns(-1);
+                yield return new TestCaseData(range, MakeRange("F", "G")).Returns(-1);
             }
         }
 
@@ -201,7 +208,7 @@ namespace PostalCodes.UnitTests
                 yield return new TestCaseData(MakeRange("F", "G"), range).Returns(false);
             }
         }
-
+        
         [Test]
         [TestCaseSource("Contains_TestCases")]
         public bool Contains_WhenContained_ReturnsTrue(
@@ -209,6 +216,25 @@ namespace PostalCodes.UnitTests
             PostalCodeRange inner)
         {
             return PostalCodeRange.Contains(outer, inner);
+        }
+
+        public static IEnumerable<ITestCaseData> Contains_WithPostalCode_TestCases
+        {
+            get
+            {
+                var rangeUS = MakeRangeUS("28000 0000", "28000 9999");
+                yield return new TestCaseData(rangeUS, new USPostalCode("28000")).Returns(true);
+                yield return new TestCaseData(rangeUS, new USPostalCode("28000 1235")).Returns(true);
+            }
+        }
+
+        [Test]
+        [TestCaseSource("Contains_WithPostalCode_TestCases")]
+        public bool Contains_WithPostalCode_WhenContained_ReturnsTrue(
+            PostalCodeRange range,
+            PostalCode pc)
+        {
+            return PostalCodeRange.Contains(range, pc);
         }
 
         public static IEnumerable<ITestCaseData> Object_Equals_TestCases
@@ -233,158 +259,104 @@ namespace PostalCodes.UnitTests
             return left.Equals(right);
         }
 
+
+        public static PostalCodeRange[] _sortedPostalCodeRanges = {
+            new PostalCodeRange(null, null), 
+            new PostalCodeRange(new DefaultPostalCode("AAA"), new DefaultPostalCode("ZZZ")),
+            new PostalCodeRange(new DefaultPostalCode("BBB"), new DefaultPostalCode("DDD")),
+            new PostalCodeRange(new DefaultPostalCode("BBB"), new DefaultPostalCode("ZZZ")),
+            new PostalCodeRange(new DefaultPostalCode("CCC"), new DefaultPostalCode("ZZZ")),
+            new PostalCodeRange(new DefaultPostalCode("DDD"), new DefaultPostalCode("DDX")),
+            new PostalCodeRange(new DefaultPostalCode("DDD"), new DefaultPostalCode("EEE")),
+            new PostalCodeRange(new DefaultPostalCode("DDD"), new DefaultPostalCode("FFF"))
+        };
+
         public static IEnumerable<ITestCaseData> Operator_Greater_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
-
-                yield return new TestCaseData(r1, r1).Returns(false);
-                yield return new TestCaseData(r2, r2).Returns(false);
-                yield return new TestCaseData(r3, r3).Returns(false);
-                yield return new TestCaseData(r4, r4).Returns(false);
-
-                yield return new TestCaseData(r1, r2).Returns(false);
-                yield return new TestCaseData(r1, r3).Returns(false);
-                yield return new TestCaseData(r1, r4).Returns(false);
-                yield return new TestCaseData(r2, r3).Returns(false);
-                yield return new TestCaseData(r2, r4).Returns(false);
-                yield return new TestCaseData(r3, r4).Returns(false);
-
-                yield return new TestCaseData(r2, r1).Returns(true);
-                yield return new TestCaseData(r3, r1).Returns(true);
-                yield return new TestCaseData(r4, r1).Returns(true);
-                yield return new TestCaseData(r3, r2).Returns(true);
-                yield return new TestCaseData(r4, r2).Returns(true);
-                yield return new TestCaseData(r4, r3).Returns(true);
+                for(var i=0; i<_sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(false);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(true);
+                    }
             }
+        }
+
+        [Test]
+        [TestCaseSource("Operator_Greater_TestCases")]
+        public bool Operator_GreaterThan(PostalCodeRange left, PostalCodeRange right)
+        {
+            return left > right;
         }
 
         public static IEnumerable<ITestCaseData> Operator_GreaterEqual_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(false);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(true);
+                    }
 
-                yield return new TestCaseData(r1, r1).Returns(true);
-                yield return new TestCaseData(r2, r2).Returns(true);
-                yield return new TestCaseData(r3, r3).Returns(true);
-                yield return new TestCaseData(r4, r4).Returns(true);
-
-                yield return new TestCaseData(r1, r2).Returns(false);
-                yield return new TestCaseData(r1, r3).Returns(false);
-                yield return new TestCaseData(r1, r4).Returns(false);
-                yield return new TestCaseData(r2, r3).Returns(false);
-                yield return new TestCaseData(r2, r4).Returns(false);
-                yield return new TestCaseData(r3, r4).Returns(false);
-
-                yield return new TestCaseData(r2, r1).Returns(true);
-                yield return new TestCaseData(r3, r1).Returns(true);
-                yield return new TestCaseData(r4, r1).Returns(true);
-                yield return new TestCaseData(r3, r2).Returns(true);
-                yield return new TestCaseData(r4, r2).Returns(true);
-                yield return new TestCaseData(r4, r3).Returns(true);
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                {
+                    yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[i]).Returns(true);
+                }
             }
+        }
+
+        [Test]
+        [TestCaseSource("Operator_GreaterEqual_TestCases")]
+        public bool Operator_GreaterThanOrEqual(PostalCodeRange left, PostalCodeRange right)
+        {
+            return left >= right;
         }
 
         public static IEnumerable<ITestCaseData> Operator_Less_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
-
-                yield return new TestCaseData(r1, r1).Returns(false);
-                yield return new TestCaseData(r2, r2).Returns(false);
-                yield return new TestCaseData(r3, r3).Returns(false);
-                yield return new TestCaseData(r4, r4).Returns(false);
-
-                yield return new TestCaseData(r1, r2).Returns(true);
-                yield return new TestCaseData(r1, r3).Returns(true);
-                yield return new TestCaseData(r1, r4).Returns(true);
-                yield return new TestCaseData(r2, r3).Returns(true);
-                yield return new TestCaseData(r2, r4).Returns(true);
-                yield return new TestCaseData(r3, r4).Returns(true);
-
-                yield return new TestCaseData(r2, r1).Returns(false);
-                yield return new TestCaseData(r3, r1).Returns(false);
-                yield return new TestCaseData(r4, r1).Returns(false);
-                yield return new TestCaseData(r3, r2).Returns(false);
-                yield return new TestCaseData(r4, r2).Returns(false);
-                yield return new TestCaseData(r4, r3).Returns(false);
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(true);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(false);
+                    }
             }
+        }
+
+        [Test]
+        [TestCaseSource("Operator_Less_TestCases")]
+        public bool Operator_LessThan(PostalCodeRange left, PostalCodeRange right)
+        {
+            return left < right;
         }
 
         public static IEnumerable<ITestCaseData> Operator_LessEqual_TestCases
         {
             get
             {
-                var r1 = MakeRange("06", "10");
-                var r2 = MakeRange("05", "10");
-                var r3 = MakeRange("05", "11");
-                var r4 = PostalCodeRange.Default;
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                    for (var j = i + 1; j < _sortedPostalCodeRanges.Length; j++)
+                    {
+                        yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[j]).Returns(true);
+                        yield return new TestCaseData(_sortedPostalCodeRanges[j], _sortedPostalCodeRanges[i]).Returns(false);
+                    }
 
-                yield return new TestCaseData(r1, r1).Returns(true);
-                yield return new TestCaseData(r2, r2).Returns(true);
-                yield return new TestCaseData(r3, r3).Returns(true);
-                yield return new TestCaseData(r4, r4).Returns(true);
-
-                yield return new TestCaseData(r1, r2).Returns(true);
-                yield return new TestCaseData(r1, r3).Returns(true);
-                yield return new TestCaseData(r1, r4).Returns(true);
-                yield return new TestCaseData(r2, r3).Returns(true);
-                yield return new TestCaseData(r2, r4).Returns(true);
-                yield return new TestCaseData(r3, r4).Returns(true);
-
-                yield return new TestCaseData(r2, r1).Returns(false);
-                yield return new TestCaseData(r3, r1).Returns(false);
-                yield return new TestCaseData(r4, r1).Returns(false);
-                yield return new TestCaseData(r3, r2).Returns(false);
-                yield return new TestCaseData(r4, r2).Returns(false);
-                yield return new TestCaseData(r4, r3).Returns(false);
+                for (var i = 0; i < _sortedPostalCodeRanges.Length; i++)
+                {
+                    yield return new TestCaseData(_sortedPostalCodeRanges[i], _sortedPostalCodeRanges[i]).Returns(true);
+                }
             }
         }
 
         [Test]
-        [TestCaseSource("Operator_Greater_TestCases")]
-        public bool Operator_GreaterThan_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
-        {
-            return left > right;
-        }
-
-        [Test]
-        [TestCaseSource("Operator_GreaterEqual_TestCases")]
-        public bool Operator_GreaterThanOrEqual_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
-        {
-            return left >= right;
-        }
-
-        [Test]
-        [TestCaseSource("Operator_Less_TestCases")]
-        public bool Operator_LessThan_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
-        {
-            return left < right;
-        }
-
-        [Test]
         [TestCaseSource("Operator_LessEqual_TestCases")]
-        public bool Operator_LessThanOrEqual_ComparesInsideRangesAsSmaller(
-            PostalCodeRange left,
-            PostalCodeRange right)
+        public bool Operator_LessThanOrEqual(PostalCodeRange left, PostalCodeRange right)
         {
             return left <= right;
         }
@@ -429,7 +401,7 @@ namespace PostalCodes.UnitTests
             Assert.IsTrue(PostalCodeRange.AreOverlapping(left, right));
         }
 
-        public static IEnumerable<ITestCaseData> Resect_TestCases
+        public static IEnumerable<ITestCaseData> Substract_TestCases
         {
             get
             {
@@ -603,13 +575,13 @@ namespace PostalCodes.UnitTests
         }
 
         [Test]
-        [TestCaseSource("Resect_TestCases")]
-        public void Resect_WorksForAllCases(
+        [TestCaseSource("Substract_TestCases")]
+        public void Substract_WorksForAllCases(
             PostalCodeRange baseRange,
-            PostalCodeRange toResect,
+            PostalCodeRange toSubstract,
             IEnumerable<PostalCodeRange> expected)
         {
-            var actual = PostalCodeRange.Resect(baseRange, toResect);
+            var actual = PostalCodeRange.Substract(baseRange, toSubstract);
 
             Assert.That(actual, Is.EquivalentTo(expected));
         }

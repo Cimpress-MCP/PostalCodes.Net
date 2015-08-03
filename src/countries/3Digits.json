@@ -1,35 +1,36 @@
 {
-	"CountryName" : "N/A",
-	"CountryCodeAlpha2" : "N/A",
+    "CountryName" : "N/A",
+    "CountryCodeAlpha2" : "N/A",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "4-Digits - 999",
-				"RegexDefault" : "^[0-9]{3}$",
-				"OutputDefault" : "xxx",
-				
-				"LeftPaddingCharacter" : "0",
-				
-				"AutoConvertToShort" : "false",
-				"ShortExpansionAsLowestInRange" : "0",
-				"ShortExpansionAsHighestInRange" : "9"
-			}
-		],
+    "Formats" : [
+            {
+                "Name" : "4-Digits - 999",
+                "RegexDefault" : "^[0-9]{3}$",
+                "OutputDefault" : "xxx",
+                
+                "LeftPaddingCharacter" : "0",
+                
+                "AutoConvertToShort" : "false",
+                "ShortExpansionAsLowestInRange" : "0",
+                "ShortExpansionAsHighestInRange" : "9"
+            }
+        ],
 
-	"TestData" : {
-		"Max" : [ "999" ],
-		"Min" : [ "000" ],
-		"Valid" : ["123", "567"],
-		"Invalid" : [ "12345", "123s", "12x3" ],
-		"Predecessor" : {
-			"124" : "123",
-			"888" : "887"
-		},
-		"Successor" : {
-			"123" : "124",
-			"485" : "486"
-		}
-	}
+    "TestData" : {
+        "Max" : [ "999" ],
+        "Min" : [ "000" ],
+        "Valid" : ["123", "567"],
+        "Invalid" : [ "12345", "123s", "12x3" ],
+        "Predecessor" : {
+            "124" : "123",
+            "888" : "887"
+        },
+        "Successor" : {
+            "123" : "124",
+            "485" : "486"
+        },
+        "IsBefore" : {}
+    }
 }

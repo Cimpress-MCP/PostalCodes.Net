@@ -12,8 +12,8 @@
     <copyright>Copyright 2015</copyright>
     <tags>PostalCode, ZipCode, PostalCodes, ZipCodes, postal-code, postal-codes, zip-code, zip-codes</tags>
     <dependencies/>
-	<summary>Library for managing postal codes for .NET</summary>
-	<description>Library that provides zip code validation, formatting and simple arithmetic</description>
-	<language>en-US</language>
+    <summary>Library for managing postal codes for .NET</summary>
+    <description>Library that provides zip code validation, formatting and simple arithmetic</description>
+    <language>en-US</language>
   </metadata>
 </package>

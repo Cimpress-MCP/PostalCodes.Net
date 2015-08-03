@@ -1,36 +1,37 @@
 {
-	"CountryName" : "N/A",
-	"CountryCodeAlpha2" : "N/A",
+    "CountryName" : "N/A",
+    "CountryCodeAlpha2" : "N/A",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "7-Digits - 9999999",
-				"RegexDefault" : "^[0-9]{7}$",
-				"OutputDefault" : "xxxxxxx",
-				
-				"LeftPaddingCharacter" : "0",
-				
-				"AutoConvertToShort" : "false",
-				"ShortExpansionAsLowestInRange" : "0",
-				"ShortExpansionAsHighestInRange" : "9"
-			}
-		],
-	"TestData" : {
-		"Max" : [ "9999999" ],
-		"Min" : [ "0000000" ],
-		"Valid" : ["1122334", "2525678"],
-		"Invalid" : [ "12233344235", "d1s223s", "x12d3" ],
-		"Predecessor" : {
-			"1126394" : "1126393",
-			"8286898" : "8286897",
-			"0000001" : "0000000"
-		},
-		"Successor" : {
-			"1427934" : "1427935",
-			"4487952" : "4487953",
-			"9999998" : "9999999"
-		}
-	}
+    "Formats" : [
+            {
+                "Name" : "7-Digits - 9999999",
+                "RegexDefault" : "^[0-9]{7}$",
+                "OutputDefault" : "xxxxxxx",
+                
+                "LeftPaddingCharacter" : "0",
+                
+                "AutoConvertToShort" : "false",
+                "ShortExpansionAsLowestInRange" : "0",
+                "ShortExpansionAsHighestInRange" : "9"
+            }
+        ],
+    "TestData" : {
+        "Max" : [ "9999999" ],
+        "Min" : [ "0000000" ],
+        "Valid" : ["1122334", "2525678"],
+        "Invalid" : [ "12233344235", "d1s223s", "x12d3" ],
+        "Predecessor" : {
+            "1126394" : "1126393",
+            "8286898" : "8286897",
+            "0000001" : "0000000"
+        },
+        "Successor" : {
+            "1427934" : "1427935",
+            "4487952" : "4487953",
+            "9999998" : "9999999"
+        },
+        "IsBefore" : {}
+    }
 }

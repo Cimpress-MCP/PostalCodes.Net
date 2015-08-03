@@ -3,7 +3,7 @@
     internal abstract class AlphaNumericPostalCode : PostalCode
     {
         internal AlphaNumericPostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort)
-			: base(formats, redundantCharacters, postalCode, allowConvertToShort) {}
+            : base(formats, redundantCharacters, postalCode, allowConvertToShort) {}
 
         /// <summary>
         /// Gets the internal value.

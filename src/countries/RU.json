@@ -1,35 +1,36 @@
 {
-	"CountryName" : "Russia",
-	"CountryCodeAlpha2" : "RU",
+    "CountryName" : "Russia",
+    "CountryCodeAlpha2" : "RU",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "RU : 999999",
-				"RegexDefault" : "^[0-9]{6}$",
-				"RegexShort" : "^[0-9]{3}$",
-				"OutputDefault" : "xxxxxx",
-				"OutputShort" : "xxx",
+    "Formats" : [
+            {
+                "Name" : "RU : 999999",
+                "RegexDefault" : "^[0-9]{6}$",
+                "RegexShort" : "^[0-9]{3}$",
+                "OutputDefault" : "xxxxxx",
+                "OutputShort" : "xxx",
 
-				"LeftPaddingCharacter" : "0",
+                "LeftPaddingCharacter" : "0",
 
-				"ShortExpansionAsLowestInRange" : "000",
-				"ShortExpansionAsHighestInRange" : "999"
-			}
-		],
+                "ShortExpansionAsLowestInRange" : "000",
+                "ShortExpansionAsHighestInRange" : "999"
+            }
+        ],
 
-	"TestData" : {
-		"Max" : [ "999999", "999999" ],
-		"Min" : [ "000000", "000000" ],
-		"Invalid" : [ "x1231s", "1231sd" ],
-		"Valid" : ["123456"],
-		"Predecessor" : {
-			"123456" : "123455"
-		},
-		"Successor" : {
-			"123456" : "123457"
-		}
-	}
+    "TestData" : {
+        "Max" : [ "999999", "999999" ],
+        "Min" : [ "000000", "000000" ],
+        "Invalid" : [ "x1231s", "1231sd" ],
+        "Valid" : ["123456"],
+        "Predecessor" : {
+            "123456" : "123455"
+        },
+        "Successor" : {
+            "123456" : "123457"
+        },
+        "IsBefore" : {}
+    }
 
 }

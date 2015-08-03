@@ -1,29 +1,30 @@
 {
-	"CountryName" : "Barbados",
-	"CountryCodeAlpha2" : "BB",
+    "CountryName" : "Barbados",
+    "CountryCodeAlpha2" : "BB",
 
-	"RedundantCharacters" : " -",
+    "RedundantCharacters" : " -",
 
-	"Formats" : [
-			{
-				"Name" : "BB : 99999",
-				"RegexDefault" : "^[B]{0,2}[0-9]{5}$",
-				"OutputDefault" : "xxxxx"
-			}		
-		],
+    "Formats" : [
+            {
+                "Name" : "BB : 99999",
+                "RegexDefault" : "^[B]{0,2}[0-9]{5}$",
+                "OutputDefault" : "xxxxx"
+            }        
+        ],
 
-	"TestData" : {
-		"Max" : [ "BB99999", "99999" ],
-		"Min" : [ "BB00000", "00000" ],
-		"Valid" : ["BB12345", "12345"],
-		"Invalid" : [ "x1231s", "1231sd" ],
-		"Predecessor" : {
-			"BB 12345" : "12344",
-			"12345" : "12344"
-		},
-		"Successor" : {
-			"BB 12345" : "12346",
-			"12345" : "12346"
-		}
-	}
+    "TestData" : {
+        "Max" : [ "BB99999", "99999" ],
+        "Min" : [ "BB00000", "00000" ],
+        "Valid" : ["BB12345", "12345"],
+        "Invalid" : [ "x1231s", "1231sd" ],
+        "Predecessor" : {
+            "BB 12345" : "12344",
+            "12345" : "12344"
+        },
+        "Successor" : {
+            "BB 12345" : "12346",
+            "12345" : "12346"
+        },
+        "IsBefore" : {}
+    }
 }
