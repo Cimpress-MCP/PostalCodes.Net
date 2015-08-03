@@ -23,7 +23,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Initializes substractFrom new instance of the <see cref="PostalCodeRange"/> class.
+        /// Initializes a new instance of the <see cref="PostalCodeRange"/> class.
         /// </summary>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
@@ -48,7 +48,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets substractFrom value indicating whether this instance is indefinite.
+        /// Gets a value indicating whether this instance is indefinite.
         /// </summary>
         /// <value><c>true</c> if this instance is indefinite; otherwise, <c>false</c>.</value>
         public bool IsIndefinite
@@ -57,7 +57,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets substractFrom value indicating whether this instance is default.
+        /// Gets a value indicating whether this instance is default.
         /// </summary>
         /// <value><c>true</c> if this instance is default; otherwise, <c>false</c>.</value>
         public bool IsDefault
@@ -96,7 +96,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets substractFrom value indicating whether [start defined].
+        /// Gets a value indicating whether [start defined].
         /// </summary>
         /// <value><c>true</c> if [start defined]; otherwise, <c>false</c>.</value>
         public bool StartDefined
@@ -105,7 +105,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets substractFrom value indicating whether [end defined].
+        /// Gets a value indicating whether [end defined].
         /// </summary>
         /// <value><c>true</c> if [end defined]; otherwise, <c>false</c>.</value>
         public bool EndDefined
@@ -131,7 +131,7 @@ namespace PostalCodes
 
         /// <summary>
         /// This comparer is designed to prefer (i.e. evaluate as smaller) more narrow subset ranges,
-        /// where there is no overlap or substractFrom partial intersection, the one with the higher start is
+        /// where there is no overlap or a partial intersection, the one with the higher start is
         /// preferred.
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
@@ -191,7 +191,7 @@ namespace PostalCodes
         #endregion
 
         /// <summary>
-        /// Returns substractFrom <see cref="System.String" /> that represents this instance.
+        /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
@@ -212,9 +212,9 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Returns substractFrom hash code for this instance.
+        /// Returns a hash code for this instance.
         /// </summary>
-        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like substractFrom hash table.</returns>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
             return (StartDefined ? Start.GetHashCode() * 467 : 0) + (EndDefined ? End.GetHashCode() * 487 : 0);
