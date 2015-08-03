@@ -23,7 +23,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PostalCodeRange"/> class.
+        /// Initializes substractFrom new instance of the <see cref="PostalCodeRange"/> class.
         /// </summary>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
@@ -48,7 +48,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is indefinite.
+        /// Gets substractFrom value indicating whether this instance is indefinite.
         /// </summary>
         /// <value><c>true</c> if this instance is indefinite; otherwise, <c>false</c>.</value>
         public bool IsIndefinite
@@ -57,7 +57,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is default.
+        /// Gets substractFrom value indicating whether this instance is default.
         /// </summary>
         /// <value><c>true</c> if this instance is default; otherwise, <c>false</c>.</value>
         public bool IsDefault
@@ -96,7 +96,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets a value indicating whether [start defined].
+        /// Gets substractFrom value indicating whether [start defined].
         /// </summary>
         /// <value><c>true</c> if [start defined]; otherwise, <c>false</c>.</value>
         public bool StartDefined
@@ -105,7 +105,7 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Gets a value indicating whether [end defined].
+        /// Gets substractFrom value indicating whether [end defined].
         /// </summary>
         /// <value><c>true</c> if [end defined]; otherwise, <c>false</c>.</value>
         public bool EndDefined
@@ -131,7 +131,7 @@ namespace PostalCodes
 
         /// <summary>
         /// This comparer is designed to prefer (i.e. evaluate as smaller) more narrow subset ranges,
-        /// where there is no overlap or a partial intersection, the one with the higher start is
+        /// where there is no overlap or substractFrom partial intersection, the one with the higher start is
         /// preferred.
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
@@ -191,7 +191,7 @@ namespace PostalCodes
         #endregion
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// Returns substractFrom <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
@@ -212,9 +212,9 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Returns a hash code for this instance.
+        /// Returns substractFrom hash code for this instance.
         /// </summary>
-        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like substractFrom hash table.</returns>
         public override int GetHashCode()
         {
             return (StartDefined ? Start.GetHashCode() * 467 : 0) + (EndDefined ? End.GetHashCode() * 487 : 0);
@@ -370,15 +370,31 @@ namespace PostalCodes
             {
                 return false;
             }
-            if (!outer.Start.ValidateFormatCompatibility(inner.Start) || !outer.End.ValidateFormatCompatibility(inner.End))
+            if ((outer.StartDefined && !outer.Start.ValidateFormatCompatibility(inner.Start)) 
+                || (outer.EndDefined && !outer.End.ValidateFormatCompatibility(inner.End)))
             {
                 return false;
             }
-            return outer.Start.CompareTo(inner.Start) <= 0 && outer.End.CompareTo(inner.End) >= 0;
+
+            if (outer.StartDefined && outer.EndDefined)
+            {
+                if (inner.StartDefined && inner.EndDefined)
+                    return outer.Start.CompareTo(inner.Start) <= 0 && outer.End.CompareTo(inner.End) >= 0;
+                return false;
+            }
+
+            if (outer.StartDefined)
+                return inner.StartDefined && outer.Start.CompareTo(inner.Start) <= 0;
+            
+            if (outer.EndDefined)
+                return inner.EndDefined && outer.End.CompareTo(inner.End) >= 0;
+
+            // outer == default
+            return true;
         }
 
         /// <summary>
-        /// Determines whether the range contains a postal code.
+        /// Determines whether the range contains substractFrom postal code.
         /// </summary>
         /// <param name="postalCode">The postal code.</param>
         /// <returns><c>true</c> if range contains the specified postal code; otherwise, <c>false</c>.</returns>
@@ -388,50 +404,59 @@ namespace PostalCodes
         }
 
         /// <summary>
-        /// Resects the specified range.
+        /// Implements set substraction operation (A-B = all elements existing in A but not in B)
         /// </summary>
-        /// <param name="range">The range.</param>
-        /// <param name="toResect">To resect.</param>
-        /// <returns>IEnumerable&lt;PostalCodeRange&gt;.</returns>
-        /// <exception cref="System.InvalidOperationException">
-        /// </exception>
-        public static IEnumerable<PostalCodeRange> Resect(PostalCodeRange range, PostalCodeRange toResect)
+        /// <param name="substractFrom"></param>
+        /// <param name="substractWhat"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public static IEnumerable<PostalCodeRange> Substract(PostalCodeRange substractFrom, PostalCodeRange substractWhat)
         {
-            if (Equals(toResect, range))
+            if (Contains(substractWhat, substractFrom) || substractFrom.Equals(substractWhat))
             {
-                // If they are equal, then there is no range that doesn't contain the portion to resect.
-            }
-            else if (!AreCoincident(toResect, range))
-            {
-                // If the range to resect is not coincident with the base range, then there is nothing to resect.
-                yield return range;
+                // the result is empty range
             }
             else
             {
-                if (toResect.StartDefined && (!range.StartDefined || range.Start < toResect.Start))
+                var contains = Contains(substractFrom, substractWhat);
+                var intersect = IntersectsRange(substractFrom, substractWhat);
+
+                if (contains || intersect)
                 {
-                    // If the section to resect starts after the base range, carve out a new range from
-                    // the start of the base range to just before the start of the range to resect.
-                    var newEnd = toResect.PredecessorPostalCode;
-                    if (newEnd == null)
+                    // a1 B1 B2 a2 | a1 B1 a2 B2
+                    if (substractWhat.StartDefined && (contains || (substractFrom.Start <= substractWhat.Start)))
                     {
-                        throw new InvalidOperationException(
-                            String.Format("Breaking up range {0}, can't figure out postal code immediately before range {1}"
-                                ,range, toResect));
+                        var newEnd = substractWhat.Start.Predecessor;
+                        if (newEnd == null)
+                        {
+                            throw new InvalidOperationException(String.Format("Breaking up range {0}, can't figure out postal code immediately after: {1}",
+                                substractFrom, substractWhat.Start));
+                        }
+                        if (substractFrom.Start <= newEnd)
+                        {
+                            yield return new PostalCodeRange(substractFrom.Start, newEnd);
+                        }
                     }
-                    yield return new PostalCodeRange(range.Start, newEnd);
+
+                    // a1 B1 B2 a2 |  B1 a1 B2 a2
+                    if (substractWhat.EndDefined && (contains || (substractWhat.Start <= substractFrom.Start)))
+                    {
+                        var newStart = substractWhat.End.Successor;
+                        if (newStart == null)
+                        {
+                            throw new InvalidOperationException(String.Format("Breaking up range {0}, can't figure out postal code immediately after: {1}",
+                                substractFrom, substractWhat.End));
+                        }
+
+                        if ((substractFrom.EndDefined && (newStart <= substractFrom.End)) || (!substractFrom.EndDefined))
+                        {
+                            yield return new PostalCodeRange(newStart, substractFrom.End);
+                        }
+                    }
                 }
-                if (toResect.EndDefined && (!range.EndDefined || range.End > toResect.End))
+                else
                 {
-                    // If the section to resect ends before the base range, carve out a new range from
-                    // just after the end of the range to resect to the end of the base range.
-                    var newStart = toResect.SuccessorPostalCode;
-                    if (newStart == null)
-                    {
-                        throw new InvalidOperationException(
-                            String.Format("Breaking up range {0}, can't figure out postal code immediately after range {1}",range, toResect));
-                    }
-                    yield return new PostalCodeRange(newStart, range.End);
+                    yield return substractFrom;
                 }
             }
         }
