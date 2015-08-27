@@ -8,7 +8,7 @@ namespace PostalCodes
     /// </summary>
     public class PostalCodeFactory : IPostalCodeFactory
     {
-        private static readonly Lazy<PostalCodeFactory> LazyFactory = new Lazy<PostalCodeFactory>(() => new PostalCodeFactory());
+        private static readonly Lazy<IPostalCodeFactory> LazyFactory = new Lazy<IPostalCodeFactory>(() => new PostalCodeFactory());
 
         internal PostalCodeFactory()
         {
@@ -17,7 +17,7 @@ namespace PostalCodes
         /// <summary>
         /// Gets an instance of PostalCodeFactory
         /// </summary>
-        public static PostalCodeFactory Instance
+        public static IPostalCodeFactory Instance
         {
             get { return LazyFactory.Value; }
         }

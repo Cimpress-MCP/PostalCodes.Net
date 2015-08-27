@@ -10,8 +10,8 @@ namespace PostalCodes
     {
         private static readonly ConcurrentDictionary<string, Country> Countries = new ConcurrentDictionary<string, Country>();
 
-        private static readonly Lazy<CountryFactory> LazyFactory =
-            new Lazy<CountryFactory>(() => new CountryFactory(new IsoCountryCodeValidator()));
+        private static readonly Lazy<ICountryFactory> LazyFactory =
+            new Lazy<ICountryFactory>(() => new CountryFactory(new IsoCountryCodeValidator()));
 
         private readonly IIsoCountryCodeValidator _countryCodeValidator;
 
@@ -23,7 +23,7 @@ namespace PostalCodes
         /// <summary>
         /// Gets an instance of <see cref="CountryFactory"/>
         /// </summary>
-        public static CountryFactory Instance
+        public static ICountryFactory Instance
         {
             get { return LazyFactory.Value; }
         }
