@@ -649,6 +649,20 @@ namespace PostalCodes.UnitTests
         {
             Assert.That(range.IsDefault, Is.True);
         }
+
+        [TestCase("GB", "W1A 0AX","W1A 0AX", "W1A0AX", "W1A0AX")]
+		[TestCase("GB", "W1A 0", "W1A 0AX", "W1A0AA", "W1A0AX")]
+		[TestCase("GB", "W1A 0AX", "W1A 0", "W1A0AX", "W1A0ZZ")]
+		[TestCase("GB", "W1A 0", "W1A 0", "W1A0AA", "W1A0ZZ")]
+		public void RangeExpandedCorrectly(string c, string a, string b, string expectedLeft, string expectedRight) {
+            Country country = CountryFactory.Instance.CreateCountry(c);
+            var left = PostalCodeFactory.Instance.CreatePostalCode(country, a);
+            var right = PostalCodeFactory.Instance.CreatePostalCode(country, b);
+
+            var range = new PostalCodeRange(left.ExpandPostalCodeAsLowestInRange(), right.ExpandPostalCodeAsHighestInRange());
+            Assert.AreEqual(range.Start.ToString(), expectedLeft);
+            Assert.AreEqual(range.End.ToString(), expectedRight);
+        }
     }
 }
 
