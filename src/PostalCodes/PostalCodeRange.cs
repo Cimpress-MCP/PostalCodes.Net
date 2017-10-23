@@ -43,8 +43,8 @@ namespace PostalCodes
                     "PostalCodeRange end ({0}) can't be before start ({1})", end, start));
             }
 
-            Start = start;
-            End = end;
+            Start = start != null ? start.ExpandPostalCodeAsLowestInRange() : start;
+            End = end != null ? end.ExpandPostalCodeAsHighestInRange() : end;
         }
 
         /// <summary>
