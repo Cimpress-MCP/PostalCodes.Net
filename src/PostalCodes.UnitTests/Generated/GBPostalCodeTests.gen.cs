@@ -7,8 +7,8 @@ namespace PostalCodes.UnitTests.Generated
     internal class GBPostalCodeTests
     {
 
-        [TestCase("ZZ9Z9ZZ","ZZ9Z8")]
-        [TestCase("Z999ZZ","Z998")]
+        [TestCase("ZZ9Z9ZZ","ZZ9Z9ZY")]
+        [TestCase("Z999ZZ","Z999ZY")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new GBPostalCode(postalCode);
@@ -18,7 +18,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
-        [TestCase("Z989ZZ","Z990")]
+        [TestCase("Z989ZZ","Z990AA")]
         [TestCase("ZZ0Z9","ZZ1A0")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
@@ -66,6 +66,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(Math.Sign( 1), Math.Sign(a.CompareTo(b)));
         }
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -80,6 +81,7 @@ namespace PostalCodes.UnitTests.Generated
             Assert.IsFalse(result);
         }
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -95,6 +97,7 @@ namespace PostalCodes.UnitTests.Generated
         }
         
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -107,6 +110,7 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -119,6 +123,7 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -131,6 +136,7 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -143,6 +149,7 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -156,6 +163,7 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]
@@ -174,6 +182,7 @@ namespace PostalCodes.UnitTests.Generated
         }             
 
         [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
         [TestCase("A9Z9ZZ")]
         [TestCase("Z29ZZ")]
         [TestCase("Z699ZZ")]

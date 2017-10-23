@@ -7,18 +7,18 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
     internal class GBPostalCodeManualTests
     {
         [Test]
-        [TestCase("AA9A 9", "AA9A8")]
-        [TestCase("BA9A 9AA", "BA9A8")]
-        [TestCase("A1 9ZZ", "A18")]
-        [TestCase("M1 1AA", "M10")]
-        [TestCase("EC1A 1BB", "EC1A0")]
-        [TestCase("W1A 1HQ", "W1A0")]
-        [TestCase("B33 8TH", "B337")]
-        [TestCase("CR2 6XH", "CR25")]
-        [TestCase("DN55 1PT", "DN550")]
-        [TestCase("Z9 9ZZ", "Z98")]
-        [TestCase("Z0 0AA", "Y99")]
-        [TestCase("BA00 0AA", "AZ999")]
+		[TestCase("AA9A 9", "AA9A8")]
+        [TestCase("BA9A 9AA", "BA9A8ZZ")]
+        [TestCase("A1 9ZZ", "A19ZY")]
+        [TestCase("M1 1AA", "M10ZZ")]
+        [TestCase("EC1A 1BB", "EC1A1BA")]
+        [TestCase("W1A 1HQ", "W1A1HP")]
+        [TestCase("B33 8TH", "B338TG")]
+        [TestCase("CR2 6XH", "CR26XG")]
+        [TestCase("DN55 1PT", "DN551PS")]
+        [TestCase("Z9 9ZZ", "Z99ZY")]
+        [TestCase("Z00AA", "Y99ZZ")]
+        [TestCase("BA00 0AA", "AZ999ZZ")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var curr = new GBPostalCode(postalCode);
@@ -29,18 +29,18 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
         }
 
         [Test]
-        [TestCase("AA9A 9AB", "AA9B0")]
-        [TestCase("BA9A 9AA", "BA9B0")]
-        [TestCase("A1 9ZZ", "A20")]
-        [TestCase("M1 1AA", "M12")]
-        [TestCase("EC1A 1BB", "EC1A2")]
-        [TestCase("W1A 1HQ", "W1A2")]
-        [TestCase("B33 8TH", "B339")]
-        [TestCase("CR2 6XH", "CR27")]
-        [TestCase("DN55 1PT", "DN552")]
-        [TestCase("C7 9ZX", "C80")]
-        [TestCase("A9 9ZZ", "B00")]
-        [TestCase("YZ99 9ZZ", "ZA000")]
+        [TestCase("AA9A 9AB", "AA9A9AC")]
+        [TestCase("BA9A 9AA", "BA9A9AB")]
+        [TestCase("A1 9ZZ", "A20AA")]
+        [TestCase("M1 1AA", "M11AB")]
+        [TestCase("EC1A 1BB", "EC1A1BC")]
+        [TestCase("W1A 1HQ", "W1A1HR")]
+        [TestCase("B33 8TH", "B338TI")]
+        [TestCase("CR2 6XH", "CR26XI")]
+        [TestCase("DN55 1PT", "DN551PU")]
+        [TestCase("C7 9ZX", "C79ZY")]
+        [TestCase("A9 9ZZ", "B00AA")]
+        [TestCase("YZ99 9ZZ", "ZA000AA")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var curr = new GBPostalCode(postalCode);

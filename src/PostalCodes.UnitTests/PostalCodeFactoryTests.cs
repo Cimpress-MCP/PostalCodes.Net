@@ -7,8 +7,9 @@ namespace PostalCodes.UnitTests
     internal class PostalCodeFactoryTests
     {
         [Test]
-        [TestCase("GB", "A1 9ZZ", "A19", "GBPostalCode")]
-        [TestCase("PT", "0042", "0042", "PTPostalCode")]
+		[TestCase("GB", "A1 9", "A19", "GBPostalCode")] // short
+		[TestCase("GB", "A1 9ZZ", "A19ZZ", "GBPostalCode")] // long
+		[TestCase("PT", "0042", "0042", "PTPostalCode")]
         [TestCase("CA", "A9A9A9", "A9A9A9", "CAPostalCode")]
         [TestCase("NL", "0024 ZZ", "0024", "NLPostalCode")]
         [TestCase("MT", "PLA1234", "PLA1234", "MTPostalCode")]

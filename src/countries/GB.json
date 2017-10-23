@@ -11,7 +11,7 @@
                 "RegexShort" : "^[A-Z][A-Z][0-9][A-Z][0-9]$",
                 "OutputDefault" : "xxxx xxx",
                 "OutputShort" : "xxxx x",
-                "AutoConvertToShort" : "true",
+                "AutoConvertToShort" : "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
             },
@@ -21,7 +21,7 @@
                 "RegexShort" : "^[A-Z][0-9][A-Z][0-9]$",
                 "OutputDefault" : "xxx xxx",
                 "OutputShort" : "xxx x",
-                "AutoConvertToShort" : "true",
+              "AutoConvertToShort": "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
             },
@@ -31,7 +31,7 @@
                 "RegexShort" : "^[A-Z][0-9][0-9]$",
                 "OutputDefault" : "xx xxx",
                 "OutputShort" : "xx x",
-                "AutoConvertToShort" : "true",
+              "AutoConvertToShort": "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
             },
@@ -41,7 +41,7 @@
                 "RegexShort" : "^[A-Z][0-9][0-9][0-9]$",
                 "OutputDefault" : "xxx xxx",
                 "OutputShort" : "xxx x",
-                "AutoConvertToShort" : "true",
+              "AutoConvertToShort": "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
             },
@@ -51,7 +51,7 @@
                 "RegexShort" : "^[A-Z][A-Z][0-9][0-9]$",
                 "OutputDefault" : "xxx xxx",
                 "OutputShort" : "xxx x",
-                "AutoConvertToShort" : "true",
+              "AutoConvertToShort": "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
             },
@@ -61,7 +61,7 @@
                 "RegexShort" : "^[A-Z][A-Z][0-9][0-9][0-9]$",
                 "OutputDefault" : "xxxx xxx",
                 "OutputShort" : "xxxx x",
-                "AutoConvertToShort" : "true",
+              "AutoConvertToShort": "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
             }
@@ -71,14 +71,14 @@
     "TestData" : {
         "Max" : [ "ZZ9Z9ZZ", "Z9Z9ZZ", "Z99ZZ", "Z999ZZ", "ZZ99ZZ", "ZZ999ZZ" ],
         "Min" : [ "AA0A0AA", "A0A0AA", "A00AA", "A000AA", "AA00AA", "AA000AA" ],
-        "Valid" : [ "ZZ9A9ZZ", "A9Z9ZZ", "Z29ZZ", "Z699ZZ", "ZX99ZZ", "ZC999ZZ" ],
+        "Valid": [ "ZZ9A9ZZ", "ZZ9A9", "A9Z9ZZ", "Z29ZZ", "Z699ZZ", "ZX99ZZ", "ZC999ZZ" ],
         "Invalid" : [ "12345", "xxx123" ],
         "Predecessor" : {
-            "ZZ9Z9ZZ" : "ZZ9Z8",
-            "Z999ZZ" : "Z998"
+            "ZZ9Z9ZZ" : "ZZ9Z9ZY",
+            "Z999ZZ" : "Z999ZY"
         },
         "Successor" : {
-            "Z989ZZ" : "Z990",
+            "Z989ZZ" : "Z990AA",
             "ZZ0Z9" : "ZZ1A0"
         },
         "IsBefore" : {}
