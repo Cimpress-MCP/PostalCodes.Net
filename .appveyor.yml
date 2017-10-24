@@ -36,15 +36,8 @@ deploy:
 - provider: GitHub
   release: $(VERSION_FROM_BRANCH)
   auth_token:
-    secure: yTOxOoZJKPt3DWkzK//Q40wpWi89b9+jbPkNdcjVrO4u9Q6v+px0K2jSRhGnIu6F
+    secure: yPQ0wUIpfJRXiy469uxvFILmbU2qSmO16BzI9hfMJZ7MRDVjk0C/p03o99VWP93d
   artifact: Dlls, Documentation
   on:
     branch: /release/.*/
 notifications:
-- provider: HipChat
-  room: Awesome Source
-  auth_token:
-    secure: Bom1JR9YuKXK/fN7SW+R0LMb6KqYZEo2dJDnuoMxdfU=
-  on_build_success: true
-  on_build_failure: true
-  on_build_status_changed: false
