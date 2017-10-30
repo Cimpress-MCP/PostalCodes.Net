@@ -12,7 +12,10 @@ namespace PostalCodes
         /// The lazy default
         /// </summary>
         private static readonly Lazy<PostalCodeRange> LazyDefault = new Lazy<PostalCodeRange>(() => new PostalCodeRange(null, null));
-        
+
+        private PostalCode _start;
+        private PostalCode _end;
+
         /// <summary>
         /// Gets the default.
         /// </summary>
@@ -43,8 +46,8 @@ namespace PostalCodes
                     "PostalCodeRange end ({0}) can't be before start ({1})", end, start));
             }
 
-            Start = start != null ? start.ExpandPostalCodeAsLowestInRange() : start;
-            End = end != null ? end.ExpandPostalCodeAsHighestInRange() : end;
+            _start = start != null ? start.ExpandPostalCodeAsLowestInRange() : null;
+            _end = end != null ? end.ExpandPostalCodeAsHighestInRange() : null;
         }
 
         /// <summary>
@@ -69,13 +72,21 @@ namespace PostalCodes
         /// Gets the start.
         /// </summary>
         /// <value>The start.</value>
-        public PostalCode Start { get; private set; }
+        public PostalCode Start
+        {
+            get { return _start; }
+            set { _start = value != null ? value.ExpandPostalCodeAsLowestInRange() : null; }
+        }
 
         /// <summary>
         /// Gets the end.
         /// </summary>
         /// <value>The end.</value>
-        public PostalCode End { get; private set; }
+        public PostalCode End
+        {
+            get { return _end; }
+            set { _end = value != null ? value.ExpandPostalCodeAsHighestInRange() : null; }
+        }
 
         /// <summary>
         /// Gets the predecessor postal code.
@@ -346,8 +357,9 @@ namespace PostalCodes
             {
                 return false;
             }
-            return range.IsDefault 
-                || ((range.Start <= specificCode) && (specificCode <= range.End));
+
+            return range.IsDefault ||
+                   ((range.Start <= specificCode.ExpandPostalCodeAsLowestInRange()) && (specificCode.ExpandPostalCodeAsHighestInRange() <= range.End));
         }
 
         /// <summary>

@@ -112,7 +112,406 @@
     <Compile Include="Iso3166CountryCodeStatus.cs" />
     <Compile Include="PostalCodeFormat.cs" />
     <Compile Include="GenericPostalCodes\AlphaNumericPostalCode.cs" />
-    <Compile Include="Generated\*.gen.cs">
+    <Compile Include="Generated\AFPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ALPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\AMPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ARPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ASPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ATPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\AUPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BBPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BDPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BGPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BOPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BTPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\BYPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CCPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CHPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CNPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\COPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CRPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CUPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CVPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CXPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CYPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\CZPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\DEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\DKPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\DOPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\DZPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ECPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\EEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\EGPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ESPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ETPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\FIPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\FMPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\FOPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\FRPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\GBPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\GEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\GLPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\GRPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\GTPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\GUPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\GWPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\HMPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\HNPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\HRPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\HTPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\HUPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\IDPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ILPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\INPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\IQPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ISPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ITPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\JOPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\JPPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\KEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\KGPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\KHPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\KWPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\KZPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\LAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\LIPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\LKPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\LRPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\LSPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\LUPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\LYPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MCPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MGPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MHPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MKPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MMPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MNPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MPPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MQPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MTPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MUPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MXPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MYPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\MZPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NFPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NGPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NIPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NLPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NOPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NPPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\NZPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\OMPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PGPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PHPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PKPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PLPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PostalCodeFactory.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PRPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PSPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PTPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PWPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\PYPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ROPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\RSPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\RUPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\SDPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\SEPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\SGPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\SIPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\SJPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\SKPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\SNPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\TDPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\THPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\TJPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\TMPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\TNPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\TRPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\TTPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\TWPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\UAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\USPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\UYPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\VIPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\VNPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\YTPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ZAPostalCode.gen.cs">
+      <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\ZMPostalCode.gen.cs">
       <DependentUpon>PostalCodeFactory.gen.tt</DependentUpon>
     </Compile>
     <Compile Include="GenericPostalCodes\DefaultPostalCode.cs" />
