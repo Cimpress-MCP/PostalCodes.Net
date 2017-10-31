@@ -8,7 +8,7 @@ namespace PostalCodes.UnitTests.Generated
     {
 
         [TestCase("12346","12345")]
-        [TestCase("12346-1234","12345")]
+        [TestCase("12346-1234","12346-1233")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new USPostalCode(postalCode);
@@ -19,7 +19,7 @@ namespace PostalCodes.UnitTests.Generated
         }
 
         [TestCase("12346","12347")]
-        [TestCase("12346-1234","12347")]
+        [TestCase("12346-1234","12346-1235")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new USPostalCode(postalCode);

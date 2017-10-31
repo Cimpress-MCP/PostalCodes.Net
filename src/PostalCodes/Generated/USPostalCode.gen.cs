@@ -40,7 +40,7 @@ namespace PostalCodes
                 RegexShort = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
                 OutputDefault = "xxxxx-xxxx",
                 OutputShort = "xxxxx",
-                AutoConvertToShort = true,
+                AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0000",
                 ShortExpansionAsHighestInRange = "9999",
                 LeftPaddingCharacter = "0",

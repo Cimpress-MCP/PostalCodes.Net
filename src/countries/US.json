@@ -11,7 +11,7 @@
                 "RegexShort" : "^[0-9]{5}$",
                 "OutputDefault" : "xxxxx-xxxx",
                 "OutputShort" : "xxxxx",
-                "AutoConvertToShort" : "true",
+                "AutoConvertToShort" : "false",
                 "LeftPaddingCharacter" : "0",
                 "ShortExpansionAsLowestInRange" : "0000",
                 "ShortExpansionAsHighestInRange" : "9999"
@@ -25,11 +25,11 @@
         "Valid" : ["12345"],
         "Predecessor" : {
             "12346": "12345",
-            "12346-1234" : "12345"
+            "12346-1234" : "12346-1233"
         },
         "Successor" : {
             "12346": "12347",
-            "12346-1234" : "12347"
+            "12346-1234" : "12346-1235"
         },
         "IsBefore" : {
             "1234" : "1236",
