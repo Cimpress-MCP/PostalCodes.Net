@@ -5,7 +5,3 @@ install:
 script:
 - xbuild /p:Configuration=Release PostalCodes.sln
 - mono ./packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
-notifications:
-  hipchat:
-    rooms:
-      secure: SOlUr8XcTfgLFQr2ELJu5GS0wWhQ/gLGcI7kVh/ZGnP6O1RFeiPqOGf9NYoOu4W8rXq+F2+GiYsua42HLxLtccrhwmyY6LZjhAymJ7NUwjP8UuPw9i9T4iHVEhH2JYZubQnaamLX3F/aYJRT/P5tHea8MCQVXRkdC1vOZrkSE2g=

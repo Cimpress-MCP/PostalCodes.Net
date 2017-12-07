@@ -222,9 +222,15 @@ namespace PostalCodes.UnitTests
         {
             get
             {
-                var rangeUS = MakeRangeUS("28000 0000", "28000 9999");
-                yield return new TestCaseData(rangeUS, new USPostalCode("28000")).Returns(true);
-                yield return new TestCaseData(rangeUS, new USPostalCode("28000 1235")).Returns(true);
+                var rangeUS1 = MakeRangeUS("28000 0000", "28000 9999");
+                var rangeUS2 = MakeRangeUS("28000", "28000");
+                var rangeUS3 = MakeRangeUS("28000", "29000");
+                yield return new TestCaseData(rangeUS1, new USPostalCode("28000")).Returns(true);
+                yield return new TestCaseData(rangeUS1, new USPostalCode("28000 1235")).Returns(true);
+                yield return new TestCaseData(rangeUS2, new USPostalCode("28000")).Returns(true);
+                yield return new TestCaseData(rangeUS2, new USPostalCode("28000 1235")).Returns(true);
+                yield return new TestCaseData(rangeUS3, new USPostalCode("28000")).Returns(true);
+                yield return new TestCaseData(rangeUS3, new USPostalCode("28000 1235")).Returns(true);
             }
         }
 
