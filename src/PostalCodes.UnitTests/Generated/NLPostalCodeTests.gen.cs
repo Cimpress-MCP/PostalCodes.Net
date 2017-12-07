@@ -7,8 +7,10 @@ namespace PostalCodes.UnitTests.Generated
     internal class NLPostalCodeTests
     {
 
-        [TestCase("9999ZZ","9998")]
-        [TestCase("1000AA","0999")]
+        [TestCase("9999","9998")]
+        [TestCase("1000","0999")]
+        [TestCase("9999ZZ","9999ZY")]
+        [TestCase("1000AA","0999ZZ")]
         public void Predecessor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodePredecessor)
         {
             var code = new NLPostalCode(postalCode);
@@ -18,8 +20,10 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codePredecessor.ToHumanReadableString(), code.Predecessor.ToHumanReadableString());
         }
 
-        [TestCase("0999ZZ","1000")]
-        [TestCase("3456JT","3457")]
+        [TestCase("0999","1000")]
+        [TestCase("3456","3457")]
+        [TestCase("0999ZZ","1000AA")]
+        [TestCase("3456JT","3456JU")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new NLPostalCode(postalCode);
@@ -48,6 +52,11 @@ namespace PostalCodes.UnitTests.Generated
             Assert.Throws<ArgumentException>(() => new NLPostalCode(postalCode));
         }
 
+        [TestCase("1234", "1236")]
+        [TestCase("1234AA", "1236AA")]
+        [TestCase("1235", "1237AA")]
+        [TestCase("1235ZY", "1235ZZ")]
+        [TestCase("1234ZZ", "1235")]
         public void CompareTo_ReturnsExpectedSign(string postalCodeBefore, string postalCodeAfter)
         {
             var b = new NLPostalCode(postalCodeBefore);

@@ -40,7 +40,7 @@ namespace PostalCodes
                 RegexShort = new Regex("^[0-9]{4}$", RegexOptions.Compiled),
                 OutputDefault = "xxxx xx",
                 OutputShort = "xxxx",
-                AutoConvertToShort = true,
+                AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "AA",
                 ShortExpansionAsHighestInRange = "ZZ",
                 LeftPaddingCharacter = "0",

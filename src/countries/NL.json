@@ -14,7 +14,7 @@
 
                 "LeftPaddingCharacter" : "0",
 
-                "AutoConvertToShort" : "true",
+                "AutoConvertToShort" : "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
             }
@@ -26,13 +26,24 @@
         "Valid" : ["1235DF", "5983DH"],
         "Invalid" : [ "12j4h", "k3j51l" ],
         "Predecessor" : {
-            "9999ZZ" : "9998",
-            "1000AA" : "0999"
+            "9999" : "9998",
+            "1000" : "0999",
+            "9999ZZ": "9999ZY",
+            "1000AA": "0999ZZ"
         },
         "Successor" : {
-            "0999ZZ" : "1000",
-            "3456JT" : "3457"
+            "0999" : "1000",
+            "3456" : "3457",
+            "0999ZZ": "1000AA",
+            "3456JT": "3456JU"
         },
-        "IsBefore" : {}
+        "IsBefore" : {
+          "1234": "1236",
+          "1234AA": "1234AB",
+          "1235": "1237AA",
+          "1234AA": "1236AA",
+          "1235ZY": "1235ZZ",
+          "1234ZZ": "1235"
+        }
     }
 }
