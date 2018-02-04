@@ -40,6 +40,34 @@ namespace PostalCodes
         }
 
         /// <summary>
+        /// The lowest-expanded postal code (if the postal code is short)
+        /// </summary>
+        private readonly string _lowestExpandedPostalCode;
+
+        /// <summary>
+        /// Gets the lowest-expanded postal code string.
+        /// </summary>
+        /// <value>The lowest-expanded postal code string.</value>
+        protected internal string LowestExpandedPostalCodeString
+        {
+            get { return _lowestExpandedPostalCode; }
+        }
+
+        /// <summary>
+        /// The highest-expanded postal code (if the postal code is short)
+        /// </summary>
+        private readonly string _highestExpandedPostalCode;
+
+        /// <summary>
+        /// Gets the highest-expanded postal code string.
+        /// </summary>
+        /// <value>The highest-expanded postal code string.</value>
+        protected internal string HighestExpandedPostalCodeString
+        {
+            get { return _highestExpandedPostalCode; }
+        }
+
+        /// <summary>
         /// The current format.
         /// </summary>
         protected PostalCodeFormat _currentFormat = null;
@@ -96,6 +124,9 @@ namespace PostalCodes
             }
 
             _backingPostalCode = String.Intern(Normalize(nonWhiteSpaceCode));
+
+            _lowestExpandedPostalCode = ExpandLowest();
+            _highestExpandedPostalCode = ExpandHighest();
         }
 
         /// <summary>
@@ -156,6 +187,16 @@ namespace PostalCodes
         public virtual int CompareTo(PostalCode other)
         {
             return other == null ? 1 : PostalCodeStringComparer.Default.Compare(PostalCodeString, other.PostalCodeString);
+        }
+
+        /// <summary>
+        /// Compares the current object with another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.</returns>
+        public virtual int CompareTo(string other)
+        {
+            return other == null ? 1 : PostalCodeStringComparer.Default.Compare(PostalCodeString, other);
         }
 
         #endregion
@@ -281,12 +322,42 @@ namespace PostalCodes
         }
 
         /// <summary>
+        /// Implements the &lt;=.
+        /// </summary>
+        /// <param name="left">The left (as postal code).</param>
+        /// <param name="right">The right (as string).</param>
+        /// <returns>The result of the operator.</returns>
+        public static bool operator <=(PostalCode left, string right)
+        {
+            if (left == null)
+            {
+                return true;
+            }
+            return left.CompareTo(right) <= 0;
+        }
+
+        /// <summary>
+        /// Implements the &gt;=.
+        /// </summary>
+        /// <param name="left">The left (as postal code).</param>
+        /// <param name="right">The right (as string).</param>
+        /// <returns>The result of the operator.</returns>
+        public static bool operator >=(PostalCode left, PostalCode right)
+        {
+            if (left == null)
+            {
+                return right == null;
+            }
+            return left.CompareTo(right) >= 0;
+        }
+
+        /// <summary>
         /// Implements the &gt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator >=(PostalCode left, PostalCode right)
+        public static bool operator >=(PostalCode left, string right)
         {
             if (left == null)
             {
@@ -324,6 +395,26 @@ namespace PostalCodes
             return ToHumanReadableString(outputFormat);
         }
 
+        private string ExpandLowest()
+        {
+            if (_currentFormatType == FormatType.Short && _currentFormat.ShortExpansionAsLowestInRange != null)
+            {
+                return _backingPostalCode + _currentFormat.ShortExpansionAsLowestInRange;
+            }
+
+            return _backingPostalCode;
+        }
+
+        private string ExpandHighest()
+        {
+            if (_currentFormatType == FormatType.Short && _currentFormat.ShortExpansionAsHighestInRange != null)
+            {
+                return _backingPostalCode + _currentFormat.ShortExpansionAsHighestInRange;
+            }
+
+            return _backingPostalCode;
+        }
+
         /// <summary>
         /// Expands the postal code as lowest in range.
         /// </summary>
@@ -342,7 +433,7 @@ namespace PostalCodes
                 }
             }
 
-            return CreatePostalCode(ToString(), _allowConvertToShort);
+            return this;
         }
 
         /// <summary>
@@ -363,7 +454,7 @@ namespace PostalCodes
                 }
             }
 
-            return CreatePostalCode(ToString(), _allowConvertToShort);
+            return this;
         }
 
         /// <summary>
