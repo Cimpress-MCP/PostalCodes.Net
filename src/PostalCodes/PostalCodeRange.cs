@@ -359,7 +359,7 @@ namespace PostalCodes
             }
 
             return range.IsDefault ||
-                   ((range.Start <= specificCode.ExpandPostalCodeAsLowestInRange()) && (specificCode.ExpandPostalCodeAsHighestInRange() <= range.End));
+                   ((range.Start <= specificCode.LowestExpandedPostalCodeString) && (range.End >= specificCode.HighestExpandedPostalCodeString));
         }
 
         /// <summary>
