@@ -76,7 +76,7 @@ namespace PostalCodes
         /// Gets the PostalCodeFormat.
         /// </summary>
         /// <value>The PostalCodeFormat.</value>
-        public PostalCodeFormat currentFormat
+        public PostalCodeFormat PostalCodeFormat
         {
             get { return _currentFormat; }
         }
