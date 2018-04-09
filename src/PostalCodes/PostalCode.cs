@@ -71,6 +71,15 @@ namespace PostalCodes
         /// The current format.
         /// </summary>
         protected PostalCodeFormat _currentFormat = null;
+        
+        /// <summary>
+        /// Gets the PostalCodeFormat.
+        /// </summary>
+        /// <value>The PostalCodeFormat.</value>
+        public PostalCodeFormat currentFormat
+        {
+            get { return _currentFormat; }
+        }
 
         /// <summary>
         /// The type of the current format.
