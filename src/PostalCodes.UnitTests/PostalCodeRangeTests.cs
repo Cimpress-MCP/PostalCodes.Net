@@ -21,7 +21,14 @@ namespace PostalCodes.UnitTests
             var endPc = end != null ? new USPostalCode(end) : null;
             return new PostalCodeRange(startPc, endPc);
         }
-
+        
+        private static PostalCodeRange MakeRangeJP(string start, string end)
+        {
+            var startPc = start != null ? new JPPostalCode(start) : null;
+            var endPc = end != null ? new JPPostalCode(end) : null;
+            return new PostalCodeRange(startPc, endPc);
+        }
+        
         public static IEnumerable<ITestCaseData> CoincidesWithTestCases
         {
             get
@@ -231,6 +238,11 @@ namespace PostalCodes.UnitTests
                 yield return new TestCaseData(rangeUS2, new USPostalCode("28000 1235")).Returns(true);
                 yield return new TestCaseData(rangeUS3, new USPostalCode("28000")).Returns(true);
                 yield return new TestCaseData(rangeUS3, new USPostalCode("28000 1235")).Returns(true);
+
+                var rangeJP = MakeRangeJP("9000001", "9000006");
+                yield return new TestCaseData(rangeJP, new JPPostalCode("9000005")).Returns(true);
+                yield return new TestCaseData(rangeJP, new JPPostalCode("9000-005")).Returns(true);
+                yield return new TestCaseData(rangeJP, new JPPostalCode("9000007")).Returns(false);
             }
         }
 

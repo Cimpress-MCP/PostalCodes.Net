@@ -8,11 +8,6 @@ namespace PostalCodes
     /// </summary>
     public class PostalCodeRange : IEquatable<PostalCodeRange>, IComparable<PostalCodeRange>, IComparable
     {
-        /// <summary>
-        /// The lazy default
-        /// </summary>
-        private static readonly Lazy<PostalCodeRange> LazyDefault = new Lazy<PostalCodeRange>(() => new PostalCodeRange(null, null));
-
         private PostalCode _start;
         private PostalCode _end;
 
@@ -20,10 +15,7 @@ namespace PostalCodes
         /// Gets the default.
         /// </summary>
         /// <value>The default.</value>
-        public static PostalCodeRange Default
-        {
-            get { return LazyDefault.Value; }
-        }
+        public static readonly PostalCodeRange Default = new PostalCodeRange(null, null);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostalCodeRange"/> class.
@@ -35,38 +27,30 @@ namespace PostalCodes
         {
             if (start != null && end != null && start.GetType() != end.GetType())
             {
-                throw new ArgumentException(String.Format(
-                    "The start and the end of the range are from incompatible types ('{0}' & '{1}')",
-                    start.GetType(), end.GetType()));
+                throw new ArgumentException(
+                    $"The start and the end of the range are from incompatible types ('{start.GetType()}' & '{end.GetType()}')");
             }
 
             if (end != null && start != null && start > end)
             {
-                throw new ArgumentException(String.Format(
-                    "PostalCodeRange end ({0}) can't be before start ({1})", end, start));
+                throw new ArgumentException($"PostalCodeRange end ({end}) can't be before start ({start})");
             }
 
-            _start = start != null ? start.ExpandPostalCodeAsLowestInRange() : null;
-            _end = end != null ? end.ExpandPostalCodeAsHighestInRange() : null;
+            _start = start?.ExpandPostalCodeAsLowestInRange();
+            _end = end?.ExpandPostalCodeAsHighestInRange();
         }
 
         /// <summary>
         /// Gets a value indicating whether this instance is indefinite.
         /// </summary>
         /// <value><c>true</c> if this instance is indefinite; otherwise, <c>false</c>.</value>
-        public bool IsIndefinite
-        {
-            get { return !StartDefined || !EndDefined; }
-        }
+        public bool IsIndefinite => !StartDefined || !EndDefined;
 
         /// <summary>
         /// Gets a value indicating whether this instance is default.
         /// </summary>
         /// <value><c>true</c> if this instance is default; otherwise, <c>false</c>.</value>
-        public bool IsDefault
-        {
-            get { return !StartDefined && !EndDefined; }
-        }
+        public bool IsDefault => !StartDefined && !EndDefined;
 
         /// <summary>
         /// Gets the start.
@@ -74,8 +58,8 @@ namespace PostalCodes
         /// <value>The start.</value>
         public PostalCode Start
         {
-            get { return _start; }
-            set { _start = value != null ? value.ExpandPostalCodeAsLowestInRange() : null; }
+            get => _start;
+            set => _start = value != null ? value.ExpandPostalCodeAsLowestInRange() : null;
         }
 
         /// <summary>
@@ -84,45 +68,33 @@ namespace PostalCodes
         /// <value>The end.</value>
         public PostalCode End
         {
-            get { return _end; }
-            set { _end = value != null ? value.ExpandPostalCodeAsHighestInRange() : null; }
+            get => _end;
+            set => _end = value != null ? value.ExpandPostalCodeAsHighestInRange() : null;
         }
 
         /// <summary>
         /// Gets the predecessor postal code.
         /// </summary>
         /// <value>The predecessor postal code.</value>
-        public PostalCode PredecessorPostalCode
-        {
-            get { return StartDefined ? Start.Predecessor : null; }
-        }
+        public PostalCode PredecessorPostalCode => StartDefined ? Start.Predecessor : null;
 
         /// <summary>
         /// Gets the successor postal code.
         /// </summary>
         /// <value>The successor postal code.</value>
-        public PostalCode SuccessorPostalCode
-        {
-            get { return EndDefined ? End.Successor : null; }
-        }
+        public PostalCode SuccessorPostalCode => EndDefined ? End.Successor : null;
 
         /// <summary>
         /// Gets a value indicating whether [start defined].
         /// </summary>
         /// <value><c>true</c> if [start defined]; otherwise, <c>false</c>.</value>
-        public bool StartDefined
-        {
-            get { return Start != null; }
-        }
+        public bool StartDefined => Start != null;
 
         /// <summary>
         /// Gets a value indicating whether [end defined].
         /// </summary>
         /// <value><c>true</c> if [end defined]; otherwise, <c>false</c>.</value>
-        public bool EndDefined
-        {
-            get { return End != null; }
-        }
+        public bool EndDefined => End != null;
 
         #region IComparable Members
 
