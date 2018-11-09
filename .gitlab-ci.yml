@@ -1,0 +1,33 @@
+variables:
+  VERSION: "2.1.0"
+  NAME: PostalCodes.$VERSION.$CI_JOB_ID
+  ARTIFACTORY: "https://artifactory.cimpress.io/artifactory/api/nuget/nuget-release-local;cost_center=0000263302;bu=CimpressTechnology;team_name=Vltava;contact_email=QuoterSupport@cimpress.com/"
+  
+stages:
+  - build
+  - publish
+
+build:
+  stage: build
+  script:
+    - dotnet build --configuration Release      
+    - dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
+  tags:
+    - netcore
+  artifacts:
+    paths:
+      - src/
+    expire_in: 1 week
+    
+publish:
+  stage: publish
+  only:
+#    - master
+#    - production
+  script:
+    - dotnet pack src/PostalCodes/PostalCodes.csproj -p:PackageVersion=$VERSION.$CI_JOB_ID --include-symbols --include-source --configuration Release
+    - nuget sources Update -Name Artifactory -Source $ARTIFACTORY -ConfigFile nuget.config
+    - nuget setapikey $ARTIFACTORY_USER:$ARTIFACTORY_PASS -Source Artifactory -ConfigFile nuget.config -Verbosity quiet
+    - nuget push "src/PostalCodes/bin/Release/$NAME.nupkg" -Source Artifactory -NonInteractive -ConfigFile nuget.config
+  tags:
+    - netcore
