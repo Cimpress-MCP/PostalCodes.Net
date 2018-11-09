@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using PostalCodes.GenericPostalCodes;
 
 namespace PostalCodes.UnitTests

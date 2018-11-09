@@ -1,7 +1,0 @@
-language: csharp
-solution: PostalCodes.sln
-install:
-- nuget restore PostalCodes.sln
-script:
-- xbuild /p:Configuration=Release PostalCodes.sln
-- mono ./packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/PostalCodes.UnitTests/bin/Release/PostalCodes.UnitTests.dll
