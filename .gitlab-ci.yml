@@ -22,8 +22,8 @@ build:
 publish:
   stage: publish
   only:
-#    - master
-#    - production
+    - master
+    - production
   script:
     - dotnet pack src/PostalCodes/PostalCodes.csproj -p:PackageVersion=$VERSION.$CI_JOB_ID --include-symbols --include-source --configuration Release
     - nuget sources Update -Name Artifactory -Source $ARTIFACTORY -ConfigFile nuget.config
