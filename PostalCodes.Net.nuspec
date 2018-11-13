@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>PostalCodes</id>
     <version>$version$</version>
-    <title>$title$</title>
+    <title>PostalCodes</title>
     <authors>Rafał Nowosielski, Ivan Stanishev, Brendan Shea</authors>
     <owners>Rafał Nowosielski</owners>
-    <licenseUrl>https://github.com/Cimpress-MCP/PostalCodes.Net/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/Cimpress-MCP/PostalCodes.Net/wiki</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>Copyright 2015</copyright>
-    <tags>PostalCode, ZipCode, PostalCodes, ZipCodes, postal-code, postal-codes, zip-code, zip-codes</tags>
+    <tags>Squad:Vltava,BU:Cimpress Technology,CostCenter:263302,OwnerEmail:QuoterSupport@cimpress.com</tags>
     <dependencies/>
     <summary>Library for managing postal codes for .NET</summary>
     <description>Library that provides zip code validation, formatting and simple arithmetic</description>
     <language>en-US</language>
   </metadata>
+  <files>
+    <file src='src/PostalCodes/bin/Release/netcoreapp2.1/PostalCodes.dll' target='lib/netcoreapp2.1'/>
+    <file src='src/PostalCodes/bin/Release/netcoreapp2.1/PostalCodes.pdb' target='lib/netcoreapp2.1'/>
+  </files>
 </package>
