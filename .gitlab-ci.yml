@@ -10,7 +10,8 @@ stages:
 build:
   stage: build
   script:
-    - dotnet build --configuration Release      
+#    - dotnet build --configuration Release -f net45      
+    - dotnet build --configuration Release -f netcoreapp2.1     
     - dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
   tags:
     - netcore
@@ -25,9 +26,9 @@ publish:
     - master
     - production
   script:
-    - dotnet pack src/PostalCodes/PostalCodes.csproj -p:PackageVersion=$VERSION.$CI_JOB_ID --include-symbols --include-source --configuration Release
+    - nuget pack "PostalCodes.Net.nuspec" -Verbosity detailed -Version $VERSION.$CI_JOB_ID
     - nuget sources Update -Name Artifactory -Source $ARTIFACTORY -ConfigFile nuget.config
     - nuget setapikey $ARTIFACTORY_USER:$ARTIFACTORY_PASS -Source Artifactory -ConfigFile nuget.config -Verbosity quiet
-    - nuget push "src/PostalCodes/bin/Release/$NAME.nupkg" -Source Artifactory -NonInteractive -ConfigFile nuget.config
+    - nuget push "$NAME.nupkg" -Source Artifactory -NonInteractive -ConfigFile nuget.config
   tags:
     - netcore
