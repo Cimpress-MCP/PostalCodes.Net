@@ -11,13 +11,12 @@ stages:
 build:
   stage: build
   script:
-    - dotnet build --configuration Release -f net45      
-    - dotnet build --configuration Release -f netcoreapp2.1     
+    - dotnet build --configuration Release     
     - dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
   tags:
-#   - netcore
-    - qp
-    - windows
+   - netcore
+#    - qp
+#    - windows
   artifacts:
     paths:
       - src/
@@ -31,9 +30,9 @@ publish:
   script:
     - nuget pack "PostalCodes.Net.nuspec" -Verbosity detailed -Version $PC_VERSION
     - nuget sources Update -Name Artifactory -Source $ARTIFACTORY -ConfigFile nuget.config
-    - nuget setapikey "$ARTIFACTORY_USER`:$ARTIFACTORY_PASS" -Source Artifactory -ConfigFile nuget.config -Verbosity quiet # win version ` escapes the ":", should be removed if run on linux
-    - nuget push "$NAME.nupkg" -Source Artifactory -NonInteractive -ConfigFile nuget.config
+    - nuget setapikey $ARTIFACTORY_USER:$ARTIFACTORY_PASS -Source Artifactory -ConfigFile nuget.config -Verbosity quiet
+    - nuget push "PostalCodes.$PC_VERSION.nupkg" -Source Artifactory -NonInteractive -ConfigFile nuget.config
   tags:
-#   - netcore
-    - qp
-    - windows
+   - netcore
+#    - qp
+#    - windows

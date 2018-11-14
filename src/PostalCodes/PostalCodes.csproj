@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Platforms>x64</Platforms>
-    <TargetFrameworks>net45;netcoreapp2.1</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <None Update="Generated\PostalCodeFactory.gen.tt">
