@@ -15,9 +15,7 @@
     <language>en-US</language>
   </metadata>
   <files>
-    <file src='src\PostalCodes\bin\Release\netcoreapp2.1\PostalCodes.dll' target='lib\netcoreapp2.1'/>
-    <file src='src\PostalCodes\bin\Release\netcoreapp2.1\PostalCodes.pdb' target='lib\netcoreapp2.1'/>
-    <file src='src\PostalCodes\bin\Release\net45\PostalCodes.dll' target='lib\net45'/>
-    <file src='src\PostalCodes\bin\Release\net45\PostalCodes.pdb' target='lib\net45'/>
+    <file src='src/PostalCodes/bin/Release/netstandard2.0/PostalCodes.dll' target='lib/netstandard2.0'/>
+    <file src='src/PostalCodes/bin/Release/netstandard2.0/PostalCodes.pdb' target='lib/netstandard2.0'/>
   </files>
 </package>
