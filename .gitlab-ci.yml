@@ -1,8 +1,9 @@
 variables:
-  VERSION: 2.1.0
+  VERSION: 3.1.0
   PC_VERSION: $VERSION.$CI_JOB_ID 
   NAME: PostalCodes.$PC_VERSION
   ARTIFACTORY: "https://artifactory.cimpress.io/artifactory/api/nuget/nuget-release-local;cost_center=0000263302;bu=CimpressTechnology;team_name=Vltava;contact_email=QuoterSupport@cimpress.com/"
+  VBU_ARTIFACTORY: "https://artifactory.vips.vpsvc.com/artifactory/api/nuget/nuget-release-local"
   
 stages:
   - build
@@ -32,6 +33,9 @@ publish:
     - nuget sources Update -Name Artifactory -Source $ARTIFACTORY -ConfigFile nuget.config
     - nuget setapikey $ARTIFACTORY_USER:$ARTIFACTORY_PASS -Source Artifactory -ConfigFile nuget.config -Verbosity quiet
     - nuget push "PostalCodes.$PC_VERSION.nupkg" -Source Artifactory -NonInteractive -ConfigFile nuget.config
+    - nuget sources Add -Name VBUArtifactory -Source $VBU_ARTIFACTORY -ConfigFile nuget.config
+    - nuget setapikey $VBU_ARTIFACTORY_USER:$VBU_ARTIFACTORY_PASS -Source VBUArtifactory -ConfigFile nuget.config -Verbosity quiet
+    - nuget push "PostalCodes.$PC_VERSION.nupkg" -Source VBUArtifactory -NonInteractive -ConfigFile nuget.config
   tags:
    - netcore
 #    - qp
