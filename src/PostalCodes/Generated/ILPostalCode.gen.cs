@@ -36,7 +36,7 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "7-Digits - 9999999",
-                RegexDefault = new Regex("^[0-9]{7}$", RegexOptions.Compiled),
+                RegexDefault = new Regex("^(ISL){0,1}[0-9]{7}$", RegexOptions.Compiled),
                 OutputDefault = "xxxxxxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",
