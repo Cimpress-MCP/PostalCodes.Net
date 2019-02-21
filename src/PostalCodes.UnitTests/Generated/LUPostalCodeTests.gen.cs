@@ -20,6 +20,9 @@ namespace PostalCodes.UnitTests.Generated
 
         [TestCase("1234","1235")]
         [TestCase("4852","4853")]
+        [TestCase("L4852","L4853")]
+        [TestCase("L 4852","L 4853")]
+        [TestCase("L-4852","L-4853")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new LUPostalCode(postalCode);
