@@ -36,7 +36,7 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "4-Digits - 9999",
-                RegexDefault = new Regex("^[0-9]{4}$", RegexOptions.Compiled),
+                RegexDefault = new Regex("^(SI){0,1}[0-9]{4}$", RegexOptions.Compiled),
                 OutputDefault = "xxxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",
