@@ -8,8 +8,8 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
         [Test]
         [TestCase("9992 ZZ", "9992ZY")]
         [TestCase("9992", "9991")]
-        [TestCase("1000", "0999")]
-        [TestCase("1000 AA", "0999ZZ")]
+        [TestCase("1000", "9999")]
+        [TestCase("1000 AA", "9999ZZ")]
         [TestCase("4000 ZZ", "4000ZY")]
         [TestCase("4000", "3999")]
         [TestCase("1422", "1421")]
@@ -34,8 +34,8 @@ namespace PostalCodes.UnitTests.CountrySpecificPostalCodes
         }
 
         [Test]
-        [TestCase("0000 AA")]
-        [TestCase("0000")]
+        [TestCase("1000 AA")]
+        [TestCase("1000")]
         public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
         {
             Assert.IsNull((new NLPostalCode(postalCode)).Predecessor);
