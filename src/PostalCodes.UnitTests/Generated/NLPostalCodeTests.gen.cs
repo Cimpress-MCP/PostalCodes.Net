@@ -33,11 +33,11 @@ namespace PostalCodes.UnitTests.Generated
             Assert.AreEqual(codeSuccessor.ToHumanReadableString(), code.Successor.ToHumanReadableString());
         }
         
-        [TestCase("1000AA")]
-        public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
-        {
-            Assert.IsNull((new NLPostalCode(postalCode)).Predecessor);
-        }
+        //[TestCase("1000AA")]
+        //public void Predecessor_FirstInRange_ReturnsNull(string postalCode)
+        //{
+        //    Assert.IsNull((new NLPostalCode(postalCode)).Predecessor);
+        //}
 
         [TestCase("9999ZZ")]
         public void Successor_LastInRange_ReturnsNull(string postalCode)

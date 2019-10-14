@@ -11,8 +11,8 @@ namespace PostalCodes.UnitTests
 		[TestCase("GB", "A1 9ZZ", "A19ZZ", "GBPostalCode")] // long
 		[TestCase("PT", "0042", "0042", "PTPostalCode")]
         [TestCase("CA", "A9A9A9", "A9A9A9", "CAPostalCode")]
-        [TestCase("NL", "0024", "0024", "NLPostalCode")] // short NL
-        [TestCase("NL", "0024 ZZ", "0024ZZ", "NLPostalCode")] // long NL
+        [TestCase("NL", "1024", "1024", "NLPostalCode")] // short NL
+        [TestCase("NL", "1024 ZZ", "1024ZZ", "NLPostalCode")] // long NL
         [TestCase("MT", "PLA1234", "PLA1234", "MTPostalCode")]
         [TestCase("??", "004", "004", "DefaultPostalCode")]
         public void CreatePostalCode_ReturnsCorrectObjectType(string country, string postalCode, string normalizedPostalCode, string objectTypeName)
