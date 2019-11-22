@@ -15,5 +15,5 @@ jobs:
       run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
     - name: Publish
       run: |
-        dotnet pack -v detailed --version-suffix 3.1.0.6
-        dotnet nuget push PostalCodes.3.1.0.6.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet pack . -p:PackageVersion=3.1.0.6 -o .
+        dotnet nuget push src/PostalCodes/PostalCodes.3.1.0.6.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
