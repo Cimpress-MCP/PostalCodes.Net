@@ -1,20 +1,20 @@
 name: .NET Core
 on: push
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v1
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 2.2.108
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-      - name: Test
-        run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
-      - name: Publish
-        run: |
-          nuget pack "PostalCodes.Net.nuspec" -Verbosity detailed -Version 3.0.0.1
-          nuget setApiKey ${{ secrets.NUGET_API_KEY }}
-          nuget push PostalCodes.3.0.0.1.nupkg -Source https://api.nuget.org/v3/index.json -NonInteractive -ConfigFile nuget.config
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: Test
+      run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
+    - name: Publish
+      run: |
+        nuget pack "PostalCodes.Net.nuspec" -Verbosity detailed -Version 3.0.0.1
+        nuget setApiKey ${{ secrets.NUGET_API_KEY }}
+        nuget push PostalCodes.3.0.0.1.nupkg -Source https://api.nuget.org/v3/index.json -NonInteractive -ConfigFile nuget.config
