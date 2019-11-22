@@ -7,7 +7,7 @@ namespace PostalCodes
     /// <summary>
     /// Class PostalCode.
     /// </summary>
-    public abstract class PostalCode : IComparable<PostalCode>, IEquatable<PostalCode>, IComparable
+    public abstract class PostalCode : IComparable<PostalCode>, IEquatable<Object>, IComparable
     {
         /// <summary>
         /// Format type.
@@ -213,23 +213,14 @@ namespace PostalCodes
         #region Implementation of IEquatable<PostalCode>
 
         /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
-        public bool Equals(PostalCode other)
-        {
-            return other != null && PostalCodeStringComparer.Default.Equals(PostalCodeString, other.PostalCodeString);
-        }
-
-        /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            return Equals(obj as PostalCode);
+            var other = obj as PostalCode;
+            return other != null && PostalCodeStringComparer.Default.Equals(PostalCodeString, other.PostalCodeString);
         }
 
         /// <summary>

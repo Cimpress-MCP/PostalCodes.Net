@@ -36,7 +36,7 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "5-Digits - 99999",
-                RegexDefault = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
+                RegexDefault = new Regex("^(SE){0,1}[0-9]{5}$", RegexOptions.Compiled),
                 OutputDefault = "xxxxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",

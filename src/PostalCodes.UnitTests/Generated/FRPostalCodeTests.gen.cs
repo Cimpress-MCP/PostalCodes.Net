@@ -22,6 +22,15 @@ namespace PostalCodes.UnitTests.Generated
         [TestCase("14234","14235")]
         [TestCase("44852","44853")]
         [TestCase("99998","99999")]
+        [TestCase("FR-44852","FR-44853")]
+        [TestCase("F-44852","F-44853")]
+        [TestCase("MC-44852","MC-44853")]
+        [TestCase("FR44852","FR44853")]
+        [TestCase("F44852","F44853")]
+        [TestCase("MC44852","MC44853")]
+        [TestCase("FR 44852","FR 44853")]
+        [TestCase("F 44852","F 44853")]
+        [TestCase("MC 44852","MC 44853")]
         public void Successor_ValidInput_ReturnsCorrectPostalCode(string postalCode, string postalCodeSuccessor)
         {
             var code = new FRPostalCode(postalCode);
