@@ -14,7 +14,9 @@ jobs:
     - name: Test
       run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
     - name: Publish
+      uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       run: |
-        nuget pack "PostalCodes.Net.nuspec" -Verbosity detailed -Version 3.0.0.1
-        nuget setApiKey ${{ secrets.NUGET_API_KEY }}
-        nuget push PostalCodes.3.0.0.1.nupkg -Source https://api.nuget.org/v3/index.json -NonInteractive -ConfigFile nuget.config
+        nuget pack "PostalCodes.Net.nuspec" -Verbosity detailed -Version 3.1.0.6
+        nuget push PostalCodes.3.1.0.6.nupkg -Source https://api.nuget.org/v3/index.json -NonInteractive -ConfigFile nuget.config
