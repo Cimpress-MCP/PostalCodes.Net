@@ -11,3 +11,5 @@ jobs:
         dotnet-version: 2.2.108
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - name: Test
+      run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
