@@ -9,6 +9,7 @@ namespace PostalCodes
     /// </summary>
     public abstract class PostalCode : IComparable<PostalCode>, IEquatable<Object>, IComparable
     {
+        public static bool AllowPostalCodeStringInterning { get; set; } = true;
         /// <summary>
         /// Format type.
         /// </summary>
@@ -132,7 +133,7 @@ namespace PostalCodes
                 nonWhiteSpaceCode = paddedPostalCode;
             }
 
-            _backingPostalCode = String.Intern(Normalize(nonWhiteSpaceCode));
+            _backingPostalCode = AllowPostalCodeStringInterning ? String.Intern(Normalize(nonWhiteSpaceCode)) : Normalize(nonWhiteSpaceCode);
 
             _lowestExpandedPostalCode = ExpandLowest();
             _highestExpandedPostalCode = ExpandHighest();
