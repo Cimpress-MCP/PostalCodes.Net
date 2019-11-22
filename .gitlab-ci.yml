@@ -1,7 +1,7 @@
 variables:
   VERSION: 3.1.0
   PC_VERSION: $VERSION.$CI_JOB_ID 
-  NAME: PostalCodes
+  NAME: PostalCodes.$PC_VERSION
   ARTIFACTORY: "https://artifactory.cimpress.io/artifactory/api/nuget/nuget-release-local;cost_center=0000263302;bu=CimpressTechnology;team_name=Vltava;contact_email=QuoterSupport@cimpress.com/"
   VBU_ARTIFACTORY: "https://artifactory.vips.vpsvc.com/artifactory/api/nuget/nuget-release-local"
   
