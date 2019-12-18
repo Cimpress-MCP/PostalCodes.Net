@@ -7,10 +7,13 @@
     "Formats" : [
             {
                 "Name" : "NL : 9999 ZZ",
-                "RegexDefault" : "^[1-9][0-9]{3}(?!SA|SD|SS)[A-Z]{2}$",
-                "RegexShort" : "^[1-9][0-9]{3}$",
+                "RegexDefault" : "^[0-9]{4}[A-Z]{2}$",
+                "RegexShort" : "^[0-9]{4}$",
                 "OutputDefault" : "xxxx xx",
                 "OutputShort" : "xxxx",
+
+                "LeftPaddingCharacter" : "0",
+
                 "AutoConvertToShort" : "false",
                 "ShortExpansionAsLowestInRange" : "AA",
                 "ShortExpansionAsHighestInRange" : "ZZ"
@@ -19,15 +22,19 @@
 
     "TestData" : {
         "Max" : [ "9999ZZ" ],
-        "Min" : [ ],
-        "Valid" : [ "1235DF", "5983DH" ],
-        "Invalid": [ "12j4h", "k3j51l", "0000AA", "0000", "1234SA", "1234SD", "1234SS" ],
+        "Min" : [ "0000AA" ],
+        "Valid" : ["1235DF", "5983DH"],
+        "Invalid" : [ "12j4h", "k3j51l" ],
         "Predecessor" : {
             "9999" : "9998",
-            "9999ZZ": "9999ZY"
+            "1000" : "0999",
+            "9999ZZ": "9999ZY",
+            "1000AA": "0999ZZ"
         },
         "Successor" : {
+            "0999" : "1000",
             "3456" : "3457",
+            "0999ZZ": "1000AA",
             "3456JT": "3456JU"
         },
         "IsBefore" : {
