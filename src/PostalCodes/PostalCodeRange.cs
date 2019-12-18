@@ -8,11 +8,6 @@ namespace PostalCodes
     /// </summary>
     public class PostalCodeRange : IEquatable<PostalCodeRange>, IComparable<PostalCodeRange>, IComparable
     {
-        /// <summary>
-        /// The lazy default
-        /// </summary>
-        private static readonly Lazy<PostalCodeRange> LazyDefault = new Lazy<PostalCodeRange>(() => new PostalCodeRange(null, null));
-
         private PostalCode _start;
         private PostalCode _end;
 
@@ -20,10 +15,7 @@ namespace PostalCodes
         /// Gets the default.
         /// </summary>
         /// <value>The default.</value>
-        public static PostalCodeRange Default
-        {
-            get { return LazyDefault.Value; }
-        }
+        public static readonly PostalCodeRange Default = new PostalCodeRange(null, null);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostalCodeRange"/> class.
@@ -35,19 +27,17 @@ namespace PostalCodes
         {
             if (start != null && end != null && start.GetType() != end.GetType())
             {
-                throw new ArgumentException(String.Format(
-                    "The start and the end of the range are from incompatible types ('{0}' & '{1}')",
-                    start.GetType(), end.GetType()));
+                throw new ArgumentException(
+                    $"The start and the end of the range are from incompatible types ('{start.GetType()}' & '{end.GetType()}')");
             }
 
             if (end != null && start != null && start > end)
             {
-                throw new ArgumentException(String.Format(
-                    "PostalCodeRange end ({0}) can't be before start ({1})", end, start));
+                throw new ArgumentException($"PostalCodeRange end ({end}) can't be before start ({start})");
             }
 
-            _start = start != null ? start.ExpandPostalCodeAsLowestInRange() : null;
-            _end = end != null ? end.ExpandPostalCodeAsHighestInRange() : null;
+            _start = start?.ExpandPostalCodeAsLowestInRange();
+            _end = end?.ExpandPostalCodeAsHighestInRange();
         }
 
         /// <summary>
