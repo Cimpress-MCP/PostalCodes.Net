@@ -17,3 +17,4 @@ src/PostalCodes.Documentation/Help/
 *.log
 *.userprefs
 index.md
+*.nupkg
