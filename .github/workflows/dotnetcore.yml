@@ -1,5 +1,5 @@
 name: .NET Core
-on: [push]
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,3 +13,7 @@ jobs:
       run: dotnet build --configuration Release
     - name: Test
       run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
+    - name: Publish
+      run: |
+        dotnet pack . -p:PackageVersion=3.0.0.1 -o .
+        dotnet nuget push src/PostalCodes/PostalCodes.3.0.0.1.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
