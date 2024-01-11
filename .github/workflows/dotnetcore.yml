@@ -16,3 +16,19 @@ jobs:
         run: dotnet build --configuration Release
       - name: Test
         run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
+
+  publish:
+    needs: build
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      - name: Publish
+        run: |
+          dotnet pack . -p:PackageVersion=${{ github.event.inputs.version }} -o .
+          dotnet nuget push src/PostalCodes/PostalCodes.${{ github.event.inputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push src/PostalCodes/PostalCodes.${{ github.event.inputs.version }}.snupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
