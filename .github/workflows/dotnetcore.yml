@@ -1,5 +1,13 @@
 name: .NET Core
-on: push
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Package Version"
+        required: true
+        default: "3.1.0.6-alpha"
+
 jobs:
   build:
     runs-on: ubuntu-latest
