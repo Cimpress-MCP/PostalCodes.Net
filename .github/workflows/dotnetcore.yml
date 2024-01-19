@@ -46,4 +46,4 @@ jobs:
 
       - name: Publish
         run: |
-          dotnet nuget push src/PostalCodes/PostalCodes.${{ github.event.inputs.version || env.DEFAULT_VERSION }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push out/PostalCodes.${{ github.event.inputs.version || env.DEFAULT_VERSION }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
