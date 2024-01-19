@@ -21,11 +21,11 @@ jobs:
         with:
           dotnet-version: 2.2.108
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release /p:ContinuousIntegrationBuild=true
       - name: Test
         run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
       - name: Create nuget package
-        run: dotnet pack . -p:PackageVersion=0.0.1-alpha -o out
+        run: dotnet pack . -p:PackageVersion=0.0.1-alpha -o out --no-build
       - name: Install dotnet-validate
         run: dotnet tool install --global dotnet-validate --version 0.0.1-preview.304
 
