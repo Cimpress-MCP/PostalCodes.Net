@@ -1,12 +1,17 @@
 name: .NET Core
 on:
   push:
+    inputs:
+      version:
+        description: "Package Version"
+        required: true
+        default: "3.1.0.${{ GITHUB_RUN_ID }}-alpha"
   workflow_dispatch:
     inputs:
       version:
         description: "Package Version"
         required: true
-        default: "3.1.0.6-alpha"
+        default: "3.1.0.${{ GITHUB_RUN_ID }}-alpha"
 
 jobs:
   build:
