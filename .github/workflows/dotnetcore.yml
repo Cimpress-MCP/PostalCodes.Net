@@ -5,13 +5,13 @@ on:
       version:
         description: "Package Version"
         required: true
-        default: "3.1.0.${{ env.GITHUB_RUN_ID }}-alpha"
+        default: "3.1.0.3-alpha"
   workflow_dispatch:
     inputs:
       version:
         description: "Package Version"
         required: true
-        default: "3.1.0.${{ env.GITHUB_RUN_ID }}-alpha"
+        default: "3.1.0.3-alpha"
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
       - name: Test
         run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
       - name: Create nuget package
-        run: dotnet pack . -p:PackageVersion=0.0.1-alpha -o out --no-build
+        run: dotnet pack . -p:PackageVersion=${{ github.event.inputs.version }} -o out --no-build
       - name: Install dotnet-validate
         run: dotnet tool install --global dotnet-validate --version 0.0.1-preview.304
 
@@ -47,8 +47,5 @@ jobs:
         run: dotnet-validate package local out/*.nupkg
 
       - name: Publish
-        if: github.event_name == 'workflow_dispatch'
         run: |
-          dotnet pack . -p:PackageVersion=${{ github.event.inputs.version }} -o .
           dotnet nuget push src/PostalCodes/PostalCodes.${{ github.event.inputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
-          dotnet nuget push src/PostalCodes/PostalCodes.${{ github.event.inputs.version }}.snupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
