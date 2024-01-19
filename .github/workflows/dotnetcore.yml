@@ -1,19 +1,49 @@
 name: .NET Core
-on: push
+on:
+  push:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+env:
+  DEFAULT_VERSION: "3.1.0.4-alpha"
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 2.2.108
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-    - name: Test
-      run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
-    - name: Publish
-      run: |
-        dotnet pack . -p:PackageVersion=3.1.0.6 -o .
-        dotnet nuget push src/PostalCodes/PostalCodes.3.1.0.6.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      - uses: actions/checkout@v4
+      - name: Setup .NET Core 2.2
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 2.2.x
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 3.1.x
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      - name: Build with dotnet
+        run: dotnet build --configuration Release /p:ContinuousIntegrationBuild=true
+      - name: Test
+        run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
+      - name: Extract Version from Release Tag
+        id: get_version
+        run: echo "VERSION=$(echo '${{ github.event.release.tag_name || env.DEFAULT_VERSION }}' | sed -e 's/^v\.//')" >> $GITHUB_ENV
+      - name: Create nuget package
+        run: dotnet pack . -p:PackageVersion=${{ env.VERSION }} -o out --no-build
+      - name: Install dotnet-validate
+        run: dotnet tool install --global dotnet-validate --version 0.0.1-preview.304
+
+      - name: Validate NuGet package
+        run: dotnet-validate package local out/*.nupkg
+
+      - name: Publish
+        run: |
+          dotnet nuget push out/PostalCodes.${{ env.VERSION }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json

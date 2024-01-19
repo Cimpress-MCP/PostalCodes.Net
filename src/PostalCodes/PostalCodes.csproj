@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net6.0;net8.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <None Update="Generated\PostalCodeFactory.gen.tt">
@@ -11,6 +11,21 @@
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
+  <PropertyGroup>
+    <PackageId>PostalCodes</PackageId>
+    <Version></Version>
+    <Title>PostalCodes</Title>
+    <Authors>Rafał Nowosielski, Ivan Stanishev, Brendan Shea</Authors>
+    <Description>Library that provides zip code validation, formatting and simple arithmetic</Description>
+    <Copyright>Cimpress 2024</Copyright>
+    <PackageTags>PostalCode, ZipCode, PostalCodes, ZipCodes, postal-code, postal-codes, zip-code, zip-codes</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Cimpress-MCP/PostalCodes.Net</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Update="Generated\PostalCodeFactory.gen.cs">
       <DesignTime>True</DesignTime>
