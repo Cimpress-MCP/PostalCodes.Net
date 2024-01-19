@@ -6,7 +6,7 @@ on:
     types: [published]
 
 env:
-  DEFAULT_VERSION: "3.1.0.${{ GITHUB_RUN_ID }}-alpha"
+  DEFAULT_VERSION: "3.1.0.${{ env.GITHUB_RUN_ID }}-alpha"
 
 jobs:
   build:
