@@ -1,17 +1,15 @@
 name: .NET Core
 on:
   push:
-    inputs:
-      version:
-        description: "Package Version"
-        required: true
-        default: "3.1.0.3-alpha"
   workflow_dispatch:
     inputs:
       version:
         description: "Package Version"
         required: true
         default: "3.1.0.3-alpha"
+
+env:
+  DEFAULT_VERSION: "3.1.0.3-alpha"
 
 jobs:
   build:
@@ -39,7 +37,7 @@ jobs:
       - name: Test
         run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
       - name: Create nuget package
-        run: dotnet pack . -p:PackageVersion=${{ github.event.inputs.version }} -o out --no-build
+        run: dotnet pack . -p:PackageVersion=${{ github.event.inputs.version || env.DEFAULT_VERSION }} -o out --no-build
       - name: Install dotnet-validate
         run: dotnet tool install --global dotnet-validate --version 0.0.1-preview.304
 
@@ -48,4 +46,4 @@ jobs:
 
       - name: Publish
         run: |
-          dotnet nuget push src/PostalCodes/PostalCodes.${{ github.event.inputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push src/PostalCodes/PostalCodes.${{ github.event.inputs.version || env.DEFAULT_VERSION }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
