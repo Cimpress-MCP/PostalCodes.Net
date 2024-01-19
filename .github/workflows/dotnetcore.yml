@@ -11,19 +11,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: ["2.2.108", "8.0.x", "6.0.x"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet }}
+          dotnet-version: 2.2.108
       - name: Build with dotnet
         run: dotnet build --configuration Release /p:ContinuousIntegrationBuild=true
       - name: Test
-        run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj -f ${{ matrix.dotnet }}
+        run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
       - name: Create nuget package
         run: dotnet pack . -p:PackageVersion=0.0.1-alpha -o out --no-build
       - name: Install dotnet-validate
