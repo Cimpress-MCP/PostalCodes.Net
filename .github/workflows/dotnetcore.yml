@@ -25,7 +25,7 @@ jobs:
       - name: Test
         run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
       - name: Create nuget package
-        run: dotnet pack . -p:PackageVersion=0.0.1-alpha -o
+        run: dotnet pack . -p:PackageVersion=0.0.1-alpha -o out
       - name: Install dotnet-validate
         run: dotnet tool install --global dotnet-validate --version 0.0.1-preview.304
 
