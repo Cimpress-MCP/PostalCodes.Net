@@ -5,6 +5,9 @@ on:
   release:
     types: [published]
 
+env:
+  DEFAULT_VERSION: "3.1.0.4-alpha"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,9 +33,6 @@ jobs:
         run: dotnet build --configuration Release /p:ContinuousIntegrationBuild=true
       - name: Test
         run: dotnet test src/PostalCodes.UnitTests/PostalCodes.UnitTests.csproj
-      - name: Set DEFAULT_VERSION
-        if: github.event_name != 'release'
-        run: echo "DEFAULT_VERSION=3.1.0.${{ github.run_id }}" >> $GITHUB_ENV
       - name: Extract Version from Release Tag
         id: get_version
         run: echo "VERSION=$(echo '${{ github.event.release.tag_name || env.DEFAULT_VERSION }}' | sed -e 's/^v\.//')" >> $GITHUB_ENV
