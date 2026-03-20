@@ -1,4 +1,5 @@
 ﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".cs" #>
 <#@ assembly name="System" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Text.Json" #>
@@ -47,7 +48,7 @@
     }
 
     var countrySortedList = countryList.OrderBy(a => a.CountryCodeAlpha2).ToList();
-    foreach(var countryInfo in countryList) 
+    foreach(var countryInfo in countrySortedList)
     {
         GeneratePostalCodeFile(countryInfo);
         SaveOutput(countryInfo.CountryCodeAlpha2 + "PostalCode.gen.cs");
@@ -97,7 +98,7 @@ namespace PostalCodes
 
             switch(country.Code) {
 <#
-    foreach(var countryInfo in countryList) 
+    foreach(var countryInfo in countrySortedList)
     {
 #>
                 case "<#= countryInfo.CountryCodeAlpha2 #>" :
