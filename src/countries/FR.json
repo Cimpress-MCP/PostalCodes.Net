@@ -1,0 +1,47 @@
+{
+    "CountryName" : "FR",
+    "CountryCodeAlpha2" : "FR",
+
+    "RedundantCharacters" : " -",
+
+    "Formats" : [
+            {
+                "Name" : "5-Digits - 99999",
+                "RegexDefault" : "^(FR|F|MC){0,1}[0-9]{5}$",
+                "OutputDefault" : "xxxxx",
+
+                "LeftPaddingCharacter" : "0",
+
+                "AutoConvertToShort" : "false",
+                "ShortExpansionAsLowestInRange" : "0",
+                "ShortExpansionAsHighestInRange" : "9"
+            }
+        ],
+
+    "TestData" : {
+        "Max" : [ "99999" ],
+        "Min" : [ "00000" ],
+        "Valid" : ["12234", "52678"],
+        "Invalid" : [ "122345", "1223s", "x12u3" ],
+        "Predecessor" : {
+            "11234" : "11233",
+            "82888" : "82887",
+            "00001" : "00000"
+        },
+        "Successor" : {
+            "14234" : "14235",
+            "44852" : "44853",
+            "99998" : "99999",
+            "FR-44852" : "FR-44853",
+            "F-44852" : "F-44853",
+            "MC-44852" : "MC-44853",
+            "FR44852" : "FR44853",
+            "F44852" : "F44853",
+            "MC44852" : "MC44853",
+            "FR 44852" : "FR 44853",
+            "F 44852" : "F 44853",
+            "MC 44852" : "MC 44853"
+        },
+        "IsBefore" : {}
+    }
+}
