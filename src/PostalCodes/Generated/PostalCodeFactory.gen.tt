@@ -1,15 +1,16 @@
 ﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".cs" #>
 <#@ assembly name="System" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="System.Web.Extensions" #>
+<#@ assembly name="System.Text.Json" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
-<#@ import namespace="System.Web.Script.Serialization" #>
+<#@ import namespace="System.Text.Json" #>
 <#
-    var filesForCountries = new Dictionary<string, string[]> { 
+    var filesForCountries = new Dictionary<string, string[]> {
          { "3Digits.json", new [] { "FO", "IS", "LS", "MG", "OM", "PG", "PS" }},
          { "4Digits.json", new [] { "AF", "AL", "AM", "AR", "AT", "AU", "BD", "BE", "BE", "BG", "BO", "CC", "CH", "CV", "CX", "CY", "CY", "DK", "ET", "GE", "GL", "GW", "HM", "HT", "HU", "HU", "LI", "LR", "LU", "MK", "MZ", "NE", "NF", "NO", "NO", "NZ", "PH", "PY", "SI", "SJ", "TN", "ZA" }},
          { "5Digits.json", new [] { "AS", "BA", "BT", "CR", "CU", "CZ", "DE", "DO", "DZ", "EE", "EG", "ES", "FI", "FM", "FR", "GR", "GT", "GU", "HN", "HR", "HR", "ID", "IQ", "IT", "JO", "KE", "KH", "KW", "LA", "LK", "LY", "MA", "MC", "ME", "MH", "MM", "MN", "MP", "MQ", "MU", "MX", "MY", "NA", "NI", "NP", "PE", "PK", "PR", "PW", "RS", "SD", "SE", "SK", "SN", "TD", "TH", "TR", "TW", "UA", "UY", "VI", "YT", "ZM" }},
@@ -17,36 +18,37 @@
          { "7Digits.json", new [] { "IL", "JP" }}
     };
 
-    var js = new System.Web.Script.Serialization.JavaScriptSerializer ();
+    var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     var countryList = new HashSet<CountryInfo>();
 
     string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
-    foreach(var fileType in filesForCountries)
-    {
-        foreach(var countryCode in fileType.Value)
-        {
-                  var ci = js.Deserialize<CountryInfo>(File.ReadAllText(Path.Combine(templateDirectory, "../../countries", fileType.Key)));  
-               ci.CountryCodeAlpha2 = countryCode;     
-               ci.CountryName = countryCode;       
-            countryList.Add( ci );
-        }
-    }    
 
     var jsonFiles = Directory.GetFiles(Path.Combine(templateDirectory, "../../countries/")).Where(a => a.EndsWith(".json"));
     var regex = new Regex(@"^([A-Z]{2})\.json$");
     foreach (var jsonFile in jsonFiles)
     {
-           
+
         var match = regex.Match(Path.GetFileName(jsonFile));
         if (match.Success)
         {
-           var ci = js.Deserialize<CountryInfo>(File.ReadAllText(jsonFile));  
+           var ci = JsonSerializer.Deserialize<CountryInfo>(File.ReadAllText(jsonFile), jsonOptions);
            countryList.Add( ci );
-        } 
-    } 
+        }
+    }
+
+    foreach(var fileType in filesForCountries)
+    {
+        foreach(var countryCode in fileType.Value)
+        {
+                  var ci = JsonSerializer.Deserialize<CountryInfo>(File.ReadAllText(Path.Combine(templateDirectory, "../../countries", fileType.Key)), jsonOptions);
+               ci.CountryCodeAlpha2 = countryCode;
+               ci.CountryName = countryCode;
+            countryList.Add( ci );
+        }
+    }
 
     var countrySortedList = countryList.OrderBy(a => a.CountryCodeAlpha2).ToList();
-    foreach(var countryInfo in countryList) 
+    foreach(var countryInfo in countrySortedList)
     {
         GeneratePostalCodeFile(countryInfo);
         SaveOutput(countryInfo.CountryCodeAlpha2 + "PostalCode.gen.cs");
@@ -96,7 +98,7 @@ namespace PostalCodes
 
             switch(country.Code) {
 <#
-    foreach(var countryInfo in countryList) 
+    foreach(var countryInfo in countrySortedList)
     {
 #>
                 case "<#= countryInfo.CountryCodeAlpha2 #>" :

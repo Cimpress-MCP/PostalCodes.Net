@@ -1,0 +1,36 @@
+{
+    "CountryName" : "IS",
+    "CountryCodeAlpha2" : "IS",
+
+    "RedundantCharacters" : " -",
+
+    "Formats" : [
+            {
+                "Name" : "4-Digits - 999",
+                "RegexDefault" : "^(IS){0,1}[0-9]{3}$",
+                "OutputDefault" : "xxx",
+
+                "LeftPaddingCharacter" : "0",
+
+                "AutoConvertToShort" : "false",
+                "ShortExpansionAsLowestInRange" : "0",
+                "ShortExpansionAsHighestInRange" : "9"
+            }
+        ],
+
+    "TestData" : {
+        "Max" : [ "999" ],
+        "Min" : [ "000" ],
+        "Valid" : ["123", "567"],
+        "Invalid" : [ "12345", "123s", "12x3" ],
+        "Predecessor" : {
+            "124" : "123",
+            "888" : "887"
+        },
+        "Successor" : {
+            "123" : "124",
+            "485" : "486"
+        },
+        "IsBefore" : {}
+    }
+}
