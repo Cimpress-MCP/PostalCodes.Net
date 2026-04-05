@@ -144,7 +144,7 @@ namespace PostalCodes
         /// </summary>
         /// <param name="other">The other.</param>
         /// <returns><c>true</c> if [is adjacent to] [the specified other]; otherwise, <c>false</c>.</returns>
-        public bool IsAdjacentTo(PostalCode other)
+        private bool IsAdjacentTo(PostalCode other)
         {
             return other != null && Predecessor == other || Successor == other;
         }
@@ -153,19 +153,13 @@ namespace PostalCodes
         /// Gets the predecessor.
         /// </summary>
         /// <value>The predecessor.</value>
-        public PostalCode Predecessor
-        {
-            get { return PredecessorImpl; }
-        }
+        public PostalCode Predecessor => PredecessorImpl;
 
         /// <summary>
         /// Gets the successor.
         /// </summary>
         /// <value>The successor.</value>
-        public PostalCode Successor
-        {
-            get { return SuccessorImpl; }
-        }
+        public PostalCode Successor => SuccessorImpl;
 
         /// <summary>
         /// Gets the predecessor implementation.
@@ -466,11 +460,7 @@ namespace PostalCodes
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool AreAdjacent(PostalCode left, PostalCode right)
         {
-            if (left == null || right == null)
-            {
-                return false;
-            }
-            return left.IsAdjacentTo(right) && right.IsAdjacentTo(left);
+            return left != null && right != null && left.IsAdjacentTo(right) && right.IsAdjacentTo(left);
         }
 
         /// <summary>
