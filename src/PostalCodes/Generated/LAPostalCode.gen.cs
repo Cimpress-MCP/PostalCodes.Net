@@ -7,7 +7,9 @@ namespace PostalCodes
     {
         public LAPostalCode(string postalCode) : this(postalCode, " -", true) {}
 
-        public LAPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
+        public LAPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : this(postalCode, redundantCharacters, allowConvertToShort, true) {}
+
+        internal LAPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort, bool throwOnInvalid) : base(_formats, redundantCharacters, postalCode, allowConvertToShort, throwOnInvalid) 
         {
             _countryName = "LA";
         }
@@ -36,7 +38,11 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "5-Digits - 99999",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^(LV){0,1}[0-9]{5}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxxxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",
@@ -44,5 +50,10 @@ namespace PostalCodes
                 LeftPaddingCharacter = "0",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^(LV){0,1}[0-9]{5}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

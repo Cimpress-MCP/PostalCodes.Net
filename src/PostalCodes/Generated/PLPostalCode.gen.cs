@@ -7,7 +7,9 @@ namespace PostalCodes
     {
         public PLPostalCode(string postalCode) : this(postalCode, " -", true) {}
 
-        public PLPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
+        public PLPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : this(postalCode, redundantCharacters, allowConvertToShort, true) {}
+
+        internal PLPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort, bool throwOnInvalid) : base(_formats, redundantCharacters, postalCode, allowConvertToShort, throwOnInvalid) 
         {
             _countryName = "Poland";
         }
@@ -36,10 +38,19 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "PL : 99-999",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xx-xxx",
                 LeftPaddingCharacter = "0",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[0-9]{5}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

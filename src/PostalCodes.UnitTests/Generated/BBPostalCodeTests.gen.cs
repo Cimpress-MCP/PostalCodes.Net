@@ -142,5 +142,29 @@ namespace PostalCodes.UnitTests.Generated
             
             Assert.IsTrue(x.GetType() == typeof(BBPostalCode));
         }             
+
+        [TestCase("BB12345")]
+        [TestCase("12345")]
+        public void TryCreateThroughFactory_ValidCode_ReturnsSameAsCreate(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("BB");
+            PostalCode x;
+
+            Assert.IsTrue(PostalCodeFactory.Instance.TryCreatePostalCode(country, code, out x));
+            Assert.AreEqual(PostalCodeFactory.Instance.CreatePostalCode(country, code), x);
+            Assert.AreEqual(PostalCodeFactory.Instance.CreatePostalCode(country, code).ToHumanReadableString(), x.ToHumanReadableString());
+        }
+
+        [TestCase("x1231s")]
+        [TestCase("1231sd")]
+        public void TryCreateThroughFactory_InvalidCode_ReturnsFalse(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("BB");
+            PostalCode x;
+
+            Assert.Throws<ArgumentException>(() => PostalCodeFactory.Instance.CreatePostalCode(country, code));
+            Assert.IsFalse(PostalCodeFactory.Instance.TryCreatePostalCode(country, code, out x));
+            Assert.IsNull(x);
+        }
     }
 }

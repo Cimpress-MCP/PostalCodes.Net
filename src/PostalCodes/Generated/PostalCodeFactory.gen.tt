@@ -69,8 +69,24 @@ namespace PostalCodes
     {
         private static readonly Lazy<PostalCodeFactory> LazyFactory = new Lazy<PostalCodeFactory>(() => new PostalCodeFactory());
 
+        private readonly bool _useLegacyNetherlandsFormat;
+
         internal PostalCodeFactory()
         {
+        }
+
+        /// <summary>
+        /// Creates a PostalCodeFactory with the provided options
+        /// </summary>
+        /// <param name="options">Options changing how postal codes are created</param>
+        public PostalCodeFactory(PostalCodeFactoryOptions options)
+        {
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            _useLegacyNetherlandsFormat = options.UseLegacyNetherlandsFormat;
         }
 
         /// <summary>
@@ -94,7 +110,41 @@ namespace PostalCodes
                 return null;
             }
 
-            postalCode = postalCode.ToUpper();
+            return Create(country, PostalCode.ToUpperInvariantIfNeeded(postalCode), true);
+        }
+
+        /// <summary>
+        /// Creates a PostalCode object using the provided Country and postal code, without throwing when the postal
+        /// code matches no format of the country
+        /// </summary>
+        /// <param name="country">Country associated with the provided postal code</param>
+        /// <param name="postalCode">Postal code value</param>
+        /// <param name="result">The PostalCode representing the provided values, or null</param>
+        /// <returns>True if the postal code is not null and matches a format of the country</returns>
+        public bool TryCreatePostalCode(Country country, string postalCode, out PostalCode result)
+        {
+            result = null;
+            if (postalCode == null)
+            {
+                return false;
+            }
+
+            var created = Create(country, PostalCode.ToUpperInvariantIfNeeded(postalCode), false);
+            if (created.PostalCodeFormat == null)
+            {
+                return false;
+            }
+
+            result = created;
+            return true;
+        }
+
+        private PostalCode Create(Country country, string postalCode, bool throwOnInvalid)
+        {
+            if (_useLegacyNetherlandsFormat && country.Code == "NL")
+            {
+                return new NLLegacyPostalCode(postalCode, true, throwOnInvalid);
+            }
 
             switch(country.Code) {
 <#
@@ -102,14 +152,14 @@ namespace PostalCodes
     {
 #>
                 case "<#= countryInfo.CountryCodeAlpha2 #>" :
-                    return new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(postalCode);
+                    return new <#= countryInfo.CountryCodeAlpha2 #>PostalCode(postalCode, "<#= countryInfo.RedundantCharacters #>", true, throwOnInvalid);
 <#
     }
 #>
             }
 
             // Default behavior so far was to just return NumericPostalCode
-            return new DefaultPostalCode(postalCode);
+            return new DefaultPostalCode(postalCode, true, throwOnInvalid);
         }
     }
 }
@@ -164,6 +214,35 @@ namespace PostalCodes
     }
   }
    
+  // Generated regexes on net7+ (no Reflection.Emit at first use), compiled regexes on older targets.
+  void GenerateRegexInitializeIfPresent(IDictionary<string, string> format, string propertyName, int formatIndex)
+  {
+    if (format.ContainsKey(propertyName) && !string.IsNullOrEmpty(format[propertyName]))
+    {
+#>
+#if NET7_0_OR_GREATER
+                <#= propertyName #> = <#= propertyName #><#= formatIndex #>(),
+#else
+                <#= propertyName #> = new Regex("<#= format[propertyName] #>", RegexOptions.Compiled),
+#endif
+<#+
+    }
+  }
+
+  void GenerateRegexMethodIfPresent(IDictionary<string, string> format, string propertyName, int formatIndex)
+  {
+    if (format.ContainsKey(propertyName) && !string.IsNullOrEmpty(format[propertyName]))
+    {
+#>
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("<#= format[propertyName] #>")]
+        private static partial Regex <#= propertyName #><#= formatIndex #>();
+#endif
+<#+
+    }
+  }
+
   void GeneratePostalCodeFile(CountryInfo countryInfo)
   {
 #>
@@ -176,7 +255,9 @@ namespace PostalCodes
     {
         public <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode) : this(postalCode, "<#= countryInfo.RedundantCharacters #>", true) {}
 
-        public <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
+        public <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : this(postalCode, redundantCharacters, allowConvertToShort, true) {}
+
+        internal <#= countryInfo.CountryCodeAlpha2 #>PostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort, bool throwOnInvalid) : base(_formats, redundantCharacters, postalCode, allowConvertToShort, throwOnInvalid) 
         {
             _countryName = "<#= countryInfo.CountryName #>";
         }
@@ -212,8 +293,8 @@ namespace PostalCodes
             new PostalCodeFormat {
 <#+
         GeneratePropertyInitializeIfPresent(format, "Name", "\"{0}\"");
-        GeneratePropertyInitializeIfPresent(format, "RegexDefault", "new Regex(\"{0}\", RegexOptions.Compiled)");
-        GeneratePropertyInitializeIfPresent(format, "RegexShort", "new Regex(\"{0}\", RegexOptions.Compiled)");
+        GenerateRegexInitializeIfPresent(format, "RegexDefault", i);
+        GenerateRegexInitializeIfPresent(format, "RegexShort", i);
         GeneratePropertyInitializeIfPresent(format, "OutputDefault", "\"{0}\"");
         GeneratePropertyInitializeIfPresent(format, "OutputShort", "\"{0}\"");
         GeneratePropertyInitializeIfPresent(format, "AutoConvertToShort", "{0}");
@@ -228,6 +309,13 @@ namespace PostalCodes
 #>
 
         };
+<#+
+    for(int i=0; i < countryInfo.Formats.Count; i++)
+    {
+        GenerateRegexMethodIfPresent(countryInfo.Formats[i], "RegexDefault", i);
+        GenerateRegexMethodIfPresent(countryInfo.Formats[i], "RegexShort", i);
+    }
+#>
     }
 }
 <#+
@@ -472,6 +560,42 @@ namespace PostalCodes.UnitTests.Generated
             
             Assert.IsTrue(x.GetType() == typeof(<#= countryInfo.CountryCodeAlpha2 #>PostalCode));
         }             
+
+<#+
+       foreach(var testCase in countryInfo.TestData.Valid)
+       {
+#>
+        [TestCase("<#= testCase #>")]
+<#+
+       }
+#>
+        public void TryCreateThroughFactory_ValidCode_ReturnsSameAsCreate(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("<#= countryInfo.CountryCodeAlpha2 #>");
+            PostalCode x;
+
+            Assert.IsTrue(PostalCodeFactory.Instance.TryCreatePostalCode(country, code, out x));
+            Assert.AreEqual(PostalCodeFactory.Instance.CreatePostalCode(country, code), x);
+            Assert.AreEqual(PostalCodeFactory.Instance.CreatePostalCode(country, code).ToHumanReadableString(), x.ToHumanReadableString());
+        }
+
+<#+
+       foreach(var testCase in countryInfo.TestData.Invalid)
+       {
+#>
+        [TestCase("<#= testCase #>")]
+<#+
+       }
+#>
+        public void TryCreateThroughFactory_InvalidCode_ReturnsFalse(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("<#= countryInfo.CountryCodeAlpha2 #>");
+            PostalCode x;
+
+            Assert.Throws<ArgumentException>(() => PostalCodeFactory.Instance.CreatePostalCode(country, code));
+            Assert.IsFalse(PostalCodeFactory.Instance.TryCreatePostalCode(country, code, out x));
+            Assert.IsNull(x);
+        }
     }
 }
 <#+

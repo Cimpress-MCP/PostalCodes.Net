@@ -7,7 +7,9 @@ namespace PostalCodes
     {
         public GWPostalCode(string postalCode) : this(postalCode, " -", true) {}
 
-        public GWPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : base(_formats, redundantCharacters, postalCode, allowConvertToShort) 
+        public GWPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort) : this(postalCode, redundantCharacters, allowConvertToShort, true) {}
+
+        internal GWPostalCode(string postalCode, string redundantCharacters, bool allowConvertToShort, bool throwOnInvalid) : base(_formats, redundantCharacters, postalCode, allowConvertToShort, throwOnInvalid) 
         {
             _countryName = "GW";
         }
@@ -36,7 +38,11 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "4-Digits - 9999",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[0-9]{4}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",
@@ -44,5 +50,10 @@ namespace PostalCodes
                 LeftPaddingCharacter = "0",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[0-9]{4}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

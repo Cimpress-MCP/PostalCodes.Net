@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PostalCodes
@@ -29,7 +28,7 @@ namespace PostalCodes
         /// <summary>
         /// The _backing postal code
         /// </summary>
-        private readonly string _backingPostalCode;
+        private string _backingPostalCode;
         
         /// <summary>
         /// Gets the postal code string.
@@ -43,7 +42,7 @@ namespace PostalCodes
         /// <summary>
         /// The lowest-expanded postal code (if the postal code is short)
         /// </summary>
-        private readonly string _lowestExpandedPostalCode;
+        private string _lowestExpandedPostalCode;
 
         /// <summary>
         /// Gets the lowest-expanded postal code string.
@@ -57,7 +56,7 @@ namespace PostalCodes
         /// <summary>
         /// The highest-expanded postal code (if the postal code is short)
         /// </summary>
-        private readonly string _highestExpandedPostalCode;
+        private string _highestExpandedPostalCode;
 
         /// <summary>
         /// Gets the highest-expanded postal code string.
@@ -109,7 +108,7 @@ namespace PostalCodes
         /// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
         internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode)
-            : this(formats, redundantCharacters, postalCode, true) 
+            : this(formats, redundantCharacters, postalCode, true, true) 
         {
         }
 
@@ -120,20 +119,33 @@ namespace PostalCodes
         /// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
         /// <param name="allowConvertToShort">If set to <c>true</c> allow convert to short format.</param>
-        internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort)
+        /// <param name="throwOnInvalid">If set to <c>false</c>, a code that matches no format leaves
+        /// <see cref="PostalCodeFormat"/> null instead of throwing; such an instance must not be used.</param>
+        internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort, bool throwOnInvalid)
         {
             _allowConvertToShort = allowConvertToShort;
             _redundantCharacters = redundantCharacters;
 
             var nonWhiteSpaceCode = ClearWhiteSpaces (postalCode);
 
-            string paddedPostalCode = SetMatchingFormat(formats, nonWhiteSpaceCode);
+            FormatType matchedRegex;
+            string paddedPostalCode = SetMatchingFormat(formats, nonWhiteSpaceCode, out matchedRegex);
+            if (_currentFormat == null)
+            {
+                if (throwOnInvalid)
+                {
+                    throw new ArgumentException ("The input postal code doesn't match any format");
+                }
+                return;
+            }
+
             if (paddedPostalCode != null)
             {
                 nonWhiteSpaceCode = paddedPostalCode;
             }
 
-            _backingPostalCode = AllowPostalCodeStringInterning ? String.Intern(Normalize(nonWhiteSpaceCode)) : Normalize(nonWhiteSpaceCode);
+            var normalized = Normalize(nonWhiteSpaceCode, matchedRegex);
+            _backingPostalCode = AllowPostalCodeStringInterning ? String.Intern(normalized) : normalized;
 
             _lowestExpandedPostalCode = ExpandLowest();
             _highestExpandedPostalCode = ExpandHighest();
@@ -426,7 +438,7 @@ namespace PostalCodes
             {
                 if (_currentFormat.ShortExpansionAsLowestInRange != null)
                 {
-                    return CreatePostalCode(ToString() + _currentFormat.ShortExpansionAsLowestInRange, false);
+                    return CreateExpanded(_lowestExpandedPostalCode);
                 }
                 else
                 {
@@ -447,7 +459,7 @@ namespace PostalCodes
             {
                 if (_currentFormat.ShortExpansionAsHighestInRange != null)
                 {
-                    return CreatePostalCode(ToString() + _currentFormat.ShortExpansionAsHighestInRange, false);
+                    return CreateExpanded(_highestExpandedPostalCode);
                 }
                 else
                 {
@@ -456,6 +468,24 @@ namespace PostalCodes
             }
 
             return this;
+        }
+
+        /// <summary>
+        /// Builds the default-format code of the current format from an already expanded short code, without parsing
+        /// it again. Gives the same result as <c>CreatePostalCode(expanded, false)</c>: every short format with an
+        /// expansion matches its own default format after expansion, and no format listed before it.
+        /// </summary>
+        /// <param name="expanded">The short code with the lowest or highest expansion appended.</param>
+        /// <returns>The expanded postal code.</returns>
+        private PostalCode CreateExpanded(string expanded)
+        {
+            var copy = (PostalCode)MemberwiseClone();
+            copy._allowConvertToShort = false;
+            copy._currentFormatType = FormatType.Default;
+            copy._backingPostalCode = AllowPostalCodeStringInterning ? String.Intern(expanded) : expanded;
+            copy._lowestExpandedPostalCode = copy._backingPostalCode;
+            copy._highestExpandedPostalCode = copy._backingPostalCode;
+            return copy;
         }
 
         /// <summary>
@@ -494,7 +524,16 @@ namespace PostalCodes
             return result;
         }
 
-        private string SetMatchingFormat(PostalCodeFormat[] formats, string postalCode)
+        /// <summary>
+        /// Finds the format of the code and sets <see cref="_currentFormat"/> and <see cref="_currentFormatType"/>.
+        /// </summary>
+        /// <param name="formats">Formats to try, in order.</param>
+        /// <param name="postalCode">Code without redundant characters.</param>
+        /// <param name="matchedRegex">Which regex of the found format the returned (or unchanged) code matches;
+        /// <see cref="FormatType.Default"/> if it matches the default regex, even when the format type is short.</param>
+        /// <returns>The left-padded code, or null if the code matched without padding or matched no format (then
+        /// <see cref="_currentFormat"/> stays null).</returns>
+        private string SetMatchingFormat(PostalCodeFormat[] formats, string postalCode, out FormatType matchedRegex)
         {
             foreach (var fmt in formats)
             {
@@ -502,6 +541,7 @@ namespace PostalCodes
                 {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
+                    matchedRegex = FormatType.Default;
                     return null;
                 }
                 if (fmt.RegexShort != null)
@@ -510,6 +550,7 @@ namespace PostalCodes
                     {
                         _currentFormatType = FormatType.Short;
                         _currentFormat = fmt;
+                        matchedRegex = FormatType.Short;
                         return null;
                     }
                 }
@@ -525,22 +566,25 @@ namespace PostalCodes
 
                 string paddedPostalCode;
                 
-                if (fmt.RegexShort != null && TryOutPadding(postalCode, fmt.OutputShort.ToCharArray().Count(a => a == 'x'), fmt.LeftPaddingCharacter[0], fmt.RegexShort, out paddedPostalCode))
+                if (fmt.RegexShort != null && TryOutPadding(postalCode, fmt.CharsInOutputShort, fmt.LeftPaddingCharacter[0], fmt.RegexShort, out paddedPostalCode))
                 {
                     _currentFormatType = FormatType.Short;
                     _currentFormat = fmt;
+                    matchedRegex = fmt.RegexDefault.IsMatch(paddedPostalCode) ? FormatType.Default : FormatType.Short;
                     return paddedPostalCode;
                 }
                 
-                if (TryOutPadding(postalCode, fmt.OutputDefault.ToCharArray().Count(a => a == 'x'), fmt.LeftPaddingCharacter[0], fmt.RegexDefault, out paddedPostalCode))
+                if (TryOutPadding(postalCode, fmt.CharsInOutputDefault, fmt.LeftPaddingCharacter[0], fmt.RegexDefault, out paddedPostalCode))
                 {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
+                    matchedRegex = FormatType.Default;
                     return paddedPostalCode;
                 }
             }
 
-            throw new ArgumentException ("The input postal code doesn't match any format");
+            matchedRegex = FormatType.Default;
+            return null;
         }
 
         private bool TryOutPadding(string postalCode, int expectedLength, char leftPaddingCharacter, Regex regex, out string paddedPostalCode)
@@ -565,38 +609,76 @@ namespace PostalCodes
         /// <param name="code">Code.</param>
         protected string ClearWhiteSpaces(string code)
         {
-            var normalized = code;
-            foreach (var c in _redundantCharacters.ToCharArray())
+            var i = 0;
+            while (i < code.Length && _redundantCharacters.IndexOf(code[i]) < 0)
             {
-                normalized = normalized.Replace (c + "", "");
+                i++;
             }
-            return normalized;
+
+            if (i == code.Length)
+            {
+                return code;
+            }
+
+            var buffer = new char[code.Length];
+            code.CopyTo(0, buffer, 0, i);
+            var length = i;
+            for (; i < code.Length; i++)
+            {
+                if (_redundantCharacters.IndexOf(code[i]) < 0)
+                {
+                    buffer[length++] = code[i];
+                }
+            }
+            return new string(buffer, 0, length);
+        }
+
+        /// <summary>
+        /// Uppercases the code with the invariant culture, returning it unchanged when it has nothing to uppercase.
+        /// </summary>
+        /// <param name="code">Code.</param>
+        internal static string ToUpperInvariantIfNeeded(string code)
+        {
+            foreach (var c in code)
+            {
+                if ((c >= 'a' && c <= 'z') || c > '\x7f')
+                {
+                    return code.ToUpperInvariant();
+                }
+            }
+            return code;
         }
 
         /// <summary>
         /// Normalize the specified code.
         /// </summary>
         /// <param name="code">Code.</param>
-        protected virtual string Normalize(string code)
+        /// <param name="matchedRegex">Which regex of <see cref="_currentFormat"/> the code is known to match.</param>
+        protected virtual string Normalize(string code, FormatType matchedRegex)
         {
-            var normalized = code;
-            if (_currentFormat.RegexDefault.IsMatch (normalized))
+            if (matchedRegex == FormatType.Default && _allowConvertToShort && _currentFormat.AutoConvertToShort)
             {
-
-                if (_allowConvertToShort && _currentFormat.AutoConvertToShort)
-                {
-                    var charsInShortFormat = _currentFormat.OutputShort.Count(c => c == 'x');
-                    normalized = normalized.Substring (0, charsInShortFormat);
-                }
-                return normalized;
+                return code.Substring (0, _currentFormat.CharsInOutputShort);
             }
 
-            if (_currentFormat.RegexShort != null)
+            return code;
+        }
+
+        /// <summary>
+        /// Finds which regex of <see cref="_currentFormat"/> the code matches.
+        /// </summary>
+        /// <param name="code">Code.</param>
+        /// <exception cref="ArgumentException">The code matches neither regex.</exception>
+        protected FormatType MatchCurrentFormat(string code)
+        {
+            if (_currentFormat.RegexDefault.IsMatch (code))
             {
-                if (_currentFormat.RegexShort.IsMatch (normalized))
-                {
-                    return normalized;
-                }
+                return FormatType.Default;
+            }
+
+            if (_currentFormat.RegexShort != null && _currentFormat.RegexShort.IsMatch (code))
+            {
+                return FormatType.Short;
             }
 
             throw new ArgumentException (string.Format ("Failed to normalize postal code '{0}'", code));

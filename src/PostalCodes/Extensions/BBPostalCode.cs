@@ -4,9 +4,15 @@ namespace PostalCodes
 {
     internal partial class BBPostalCode : AlphaNumericPostalCode
     {
-        protected override string Normalize(string code)
+        protected override string Normalize(string code, FormatType matchedRegex)
         {
-            return code.StartsWith("BB") ? base.Normalize(code.Substring(2)) : base.Normalize(code);
+            if (!code.StartsWith("BB"))
+            {
+                return base.Normalize(code, matchedRegex);
+            }
+
+            var withoutPrefix = code.Substring(2);
+            return base.Normalize(withoutPrefix, MatchCurrentFormat(withoutPrefix));
         }
     }
 }

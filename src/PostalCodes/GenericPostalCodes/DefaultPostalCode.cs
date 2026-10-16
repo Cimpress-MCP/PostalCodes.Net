@@ -2,16 +2,21 @@ using System.Text.RegularExpressions;
 
 namespace PostalCodes.GenericPostalCodes
 {
-    internal class DefaultPostalCode : AlphaNumericPostalCode
+    internal partial class DefaultPostalCode : AlphaNumericPostalCode
     {
 
         public DefaultPostalCode(string postalCode)
-            : base(_formats, " -", postalCode, true)
+            : base(_formats, " -", postalCode, true, true)
         {
         }
 
         public DefaultPostalCode(string postalCode, bool allowConvertToShort)
-            : base(_formats, " -", postalCode, allowConvertToShort)
+            : base(_formats, " -", postalCode, allowConvertToShort, true)
+        {
+        }
+
+        internal DefaultPostalCode(string postalCode, bool allowConvertToShort, bool throwOnInvalid)
+            : base(_formats, " -", postalCode, allowConvertToShort, throwOnInvalid)
         {
         }
 
@@ -64,9 +69,18 @@ namespace PostalCodes.GenericPostalCodes
             new PostalCodeFormat {
                 Name = "Default Alpha Numeric Format",
                 OutputDefault = "xxxxxxxx",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[A-Z0-9]{1,15}$", RegexOptions.Compiled),
+#endif
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[A-Z0-9]{1,15}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
     
 }

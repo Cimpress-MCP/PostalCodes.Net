@@ -195,5 +195,34 @@ namespace PostalCodes.UnitTests.Generated
             
             Assert.IsTrue(x.GetType() == typeof(GBPostalCode));
         }             
+
+        [TestCase("ZZ9A9ZZ")]
+        [TestCase("ZZ9A9")]
+        [TestCase("A9Z9ZZ")]
+        [TestCase("Z29ZZ")]
+        [TestCase("Z699ZZ")]
+        [TestCase("ZX99ZZ")]
+        [TestCase("ZC999ZZ")]
+        public void TryCreateThroughFactory_ValidCode_ReturnsSameAsCreate(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("GB");
+            PostalCode x;
+
+            Assert.IsTrue(PostalCodeFactory.Instance.TryCreatePostalCode(country, code, out x));
+            Assert.AreEqual(PostalCodeFactory.Instance.CreatePostalCode(country, code), x);
+            Assert.AreEqual(PostalCodeFactory.Instance.CreatePostalCode(country, code).ToHumanReadableString(), x.ToHumanReadableString());
+        }
+
+        [TestCase("12345")]
+        [TestCase("xxx123")]
+        public void TryCreateThroughFactory_InvalidCode_ReturnsFalse(string code)
+        {
+            var country = CountryFactory.Instance.CreateCountry("GB");
+            PostalCode x;
+
+            Assert.Throws<ArgumentException>(() => PostalCodeFactory.Instance.CreatePostalCode(country, code));
+            Assert.IsFalse(PostalCodeFactory.Instance.TryCreatePostalCode(country, code, out x));
+            Assert.IsNull(x);
+        }
     }
 }
