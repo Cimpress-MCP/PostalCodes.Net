@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Same sources as PostalCodes.Benchmarks, built against the released package instead of the project,
+       so benchmarks, memory tests and differential dumps can be compared between the two. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <RootNamespace>PostalCodes.Benchmarks</RootNamespace>
+    <PostalCodesBaselineVersion>3.0.0.3</PostalCodesBaselineVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\PostalCodes.Benchmarks\**\*.cs" Exclude="..\PostalCodes.Benchmarks\bin\**;..\PostalCodes.Benchmarks\obj\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+    <PackageReference Include="PostalCodes" Version="$(PostalCodesBaselineVersion)" />
+  </ItemGroup>
+</Project>
