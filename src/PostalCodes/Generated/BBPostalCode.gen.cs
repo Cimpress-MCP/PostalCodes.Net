@@ -38,9 +38,18 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "BB : 99999",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[B]{0,2}[0-9]{5}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxxxx",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[B]{0,2}[0-9]{5}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

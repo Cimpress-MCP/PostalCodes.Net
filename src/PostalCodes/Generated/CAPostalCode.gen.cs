@@ -38,9 +38,18 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "CA : A0A 0A0",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxx xxx",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

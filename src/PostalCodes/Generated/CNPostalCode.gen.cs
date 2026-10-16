@@ -38,7 +38,11 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "6-Digits - 999999",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[0-9]{6}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxxxxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",
@@ -46,5 +50,10 @@ namespace PostalCodes
                 LeftPaddingCharacter = "0",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[0-9]{6}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

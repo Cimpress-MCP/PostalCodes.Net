@@ -38,9 +38,18 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "MA : AAA 1234",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[A-Z]{3}[0-9]{4}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxx xxxx",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[A-Z]{3}[0-9]{4}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

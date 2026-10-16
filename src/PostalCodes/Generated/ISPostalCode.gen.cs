@@ -38,7 +38,11 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "4-Digits - 999",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^(IS){0,1}[0-9]{3}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxx",
                 AutoConvertToShort = false,
                 ShortExpansionAsLowestInRange = "0",
@@ -46,5 +50,10 @@ namespace PostalCodes
                 LeftPaddingCharacter = "0",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^(IS){0,1}[0-9]{3}$")]
+        private static partial Regex RegexDefault0();
+#endif
     }
 }

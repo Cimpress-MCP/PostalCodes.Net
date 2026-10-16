@@ -38,8 +38,16 @@ namespace PostalCodes
         private static PostalCodeFormat[] _formats = {
             new PostalCodeFormat {
                 Name = "US : 99999-9999",
+#if NET7_0_OR_GREATER
+                RegexDefault = RegexDefault0(),
+#else
                 RegexDefault = new Regex("^[0-9]{9}$", RegexOptions.Compiled),
+#endif
+#if NET7_0_OR_GREATER
+                RegexShort = RegexShort0(),
+#else
                 RegexShort = new Regex("^[0-9]{5}$", RegexOptions.Compiled),
+#endif
                 OutputDefault = "xxxxx-xxxx",
                 OutputShort = "xxxxx",
                 AutoConvertToShort = false,
@@ -48,5 +56,15 @@ namespace PostalCodes
                 LeftPaddingCharacter = "0",
             }
         };
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[0-9]{9}$")]
+        private static partial Regex RegexDefault0();
+#endif
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^[0-9]{5}$")]
+        private static partial Regex RegexShort0();
+#endif
     }
 }

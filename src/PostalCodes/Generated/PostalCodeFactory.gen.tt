@@ -193,6 +193,35 @@ namespace PostalCodes
     }
   }
    
+  // Generated regexes on net7+ (no Reflection.Emit at first use), compiled regexes on older targets.
+  void GenerateRegexInitializeIfPresent(IDictionary<string, string> format, string propertyName, int formatIndex)
+  {
+    if (format.ContainsKey(propertyName) && !string.IsNullOrEmpty(format[propertyName]))
+    {
+#>
+#if NET7_0_OR_GREATER
+                <#= propertyName #> = <#= propertyName #><#= formatIndex #>(),
+#else
+                <#= propertyName #> = new Regex("<#= format[propertyName] #>", RegexOptions.Compiled),
+#endif
+<#+
+    }
+  }
+
+  void GenerateRegexMethodIfPresent(IDictionary<string, string> format, string propertyName, int formatIndex)
+  {
+    if (format.ContainsKey(propertyName) && !string.IsNullOrEmpty(format[propertyName]))
+    {
+#>
+
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("<#= format[propertyName] #>")]
+        private static partial Regex <#= propertyName #><#= formatIndex #>();
+#endif
+<#+
+    }
+  }
+
   void GeneratePostalCodeFile(CountryInfo countryInfo)
   {
 #>
@@ -243,8 +272,8 @@ namespace PostalCodes
             new PostalCodeFormat {
 <#+
         GeneratePropertyInitializeIfPresent(format, "Name", "\"{0}\"");
-        GeneratePropertyInitializeIfPresent(format, "RegexDefault", "new Regex(\"{0}\", RegexOptions.Compiled)");
-        GeneratePropertyInitializeIfPresent(format, "RegexShort", "new Regex(\"{0}\", RegexOptions.Compiled)");
+        GenerateRegexInitializeIfPresent(format, "RegexDefault", i);
+        GenerateRegexInitializeIfPresent(format, "RegexShort", i);
         GeneratePropertyInitializeIfPresent(format, "OutputDefault", "\"{0}\"");
         GeneratePropertyInitializeIfPresent(format, "OutputShort", "\"{0}\"");
         GeneratePropertyInitializeIfPresent(format, "AutoConvertToShort", "{0}");
@@ -259,6 +288,13 @@ namespace PostalCodes
 #>
 
         };
+<#+
+    for(int i=0; i < countryInfo.Formats.Count; i++)
+    {
+        GenerateRegexMethodIfPresent(countryInfo.Formats[i], "RegexDefault", i);
+        GenerateRegexMethodIfPresent(countryInfo.Formats[i], "RegexShort", i);
+    }
+#>
     }
 }
 <#+
