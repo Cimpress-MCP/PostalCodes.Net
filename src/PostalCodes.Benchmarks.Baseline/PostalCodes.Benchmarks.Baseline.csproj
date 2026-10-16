@@ -10,6 +10,7 @@
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <RootNamespace>PostalCodes.Benchmarks</RootNamespace>
     <PostalCodesBaselineVersion>3.0.0.3</PostalCodesBaselineVersion>
+    <DefineConstants>$(DefineConstants);POSTALCODES_BASELINE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\PostalCodes.Benchmarks\**\*.cs" Exclude="..\PostalCodes.Benchmarks\bin\**;..\PostalCodes.Benchmarks\obj\**" />

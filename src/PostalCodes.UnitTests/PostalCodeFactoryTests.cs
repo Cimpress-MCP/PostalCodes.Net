@@ -39,6 +39,31 @@ namespace PostalCodes.UnitTests
             Assert.AreSame(postalCode1.ToString(), postalCode2.ToString(), "Country: " + country.ToUpper());
         }
 
+        [TestCase("US", null)]
+        [TestCase("GB", "")]
+        [TestCase("US", "1234a")]
+        [TestCase("GB", "EC1A 1BBB")]
+        [TestCase("??", "ABCDEFGHIJKLMNOP")] // default format allows at most 15 characters
+        public void TryCreatePostalCode_InvalidCode_ReturnsFalse(string country, string postalCode)
+        {
+            PostalCode result;
+
+            Assert.IsFalse(new PostalCodeFactory().TryCreatePostalCode(new Country(country), postalCode, out result));
+            Assert.IsNull(result);
+        }
+
+        [TestCase("US", "501", "00501")]
+        [TestCase("GB", "ec1a 1bb", "EC1A1BB")]
+        [TestCase("BB", "BB12345", "12345")]
+        [TestCase("??", "abc-123", "ABC123")]
+        public void TryCreatePostalCode_ValidCode_ReturnsNormalizedCode(string country, string postalCode, string normalizedPostalCode)
+        {
+            PostalCode result;
+
+            Assert.IsTrue(new PostalCodeFactory().TryCreatePostalCode(new Country(country), postalCode, out result));
+            Assert.AreEqual(normalizedPostalCode, result.ToString());
+        }
+
         [Test]
         [SetCulture("tr-TR")]
         public void CreatePostalCode_UppercasesIndependentOfCulture()

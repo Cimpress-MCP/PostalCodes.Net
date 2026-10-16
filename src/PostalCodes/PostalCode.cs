@@ -108,7 +108,7 @@ namespace PostalCodes
         /// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
         internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode)
-            : this(formats, redundantCharacters, postalCode, true) 
+            : this(formats, redundantCharacters, postalCode, true, true) 
         {
         }
 
@@ -119,7 +119,9 @@ namespace PostalCodes
         /// <param name="redundantCharacters">Characters that are considered insignificant for the meaning of the postal code</param>
         /// <param name="postalCode">Postal code.</param>
         /// <param name="allowConvertToShort">If set to <c>true</c> allow convert to short format.</param>
-        internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort)
+        /// <param name="throwOnInvalid">If set to <c>false</c>, a code that matches no format leaves
+        /// <see cref="PostalCodeFormat"/> null instead of throwing; such an instance must not be used.</param>
+        internal PostalCode(PostalCodeFormat[] formats, string redundantCharacters, string postalCode, bool allowConvertToShort, bool throwOnInvalid)
         {
             _allowConvertToShort = allowConvertToShort;
             _redundantCharacters = redundantCharacters;
@@ -128,6 +130,15 @@ namespace PostalCodes
 
             FormatType matchedRegex;
             string paddedPostalCode = SetMatchingFormat(formats, nonWhiteSpaceCode, out matchedRegex);
+            if (_currentFormat == null)
+            {
+                if (throwOnInvalid)
+                {
+                    throw new ArgumentException ("The input postal code doesn't match any format");
+                }
+                return;
+            }
+
             if (paddedPostalCode != null)
             {
                 nonWhiteSpaceCode = paddedPostalCode;
@@ -520,7 +531,8 @@ namespace PostalCodes
         /// <param name="postalCode">Code without redundant characters.</param>
         /// <param name="matchedRegex">Which regex of the found format the returned (or unchanged) code matches;
         /// <see cref="FormatType.Default"/> if it matches the default regex, even when the format type is short.</param>
-        /// <returns>The left-padded code, or null if the code matched without padding.</returns>
+        /// <returns>The left-padded code, or null if the code matched without padding or matched no format (then
+        /// <see cref="_currentFormat"/> stays null).</returns>
         private string SetMatchingFormat(PostalCodeFormat[] formats, string postalCode, out FormatType matchedRegex)
         {
             foreach (var fmt in formats)
@@ -571,7 +583,8 @@ namespace PostalCodes
                 }
             }
 
-            throw new ArgumentException ("The input postal code doesn't match any format");
+            matchedRegex = FormatType.Default;
+            return null;
         }
 
         private bool TryOutPadding(string postalCode, int expectedLength, char leftPaddingCharacter, Regex regex, out string paddedPostalCode)

@@ -38,6 +38,16 @@ public class CreateBenchmarks
         }
     }
 
+#if !POSTALCODES_BASELINE
+    // L8: TryCreatePostalCode is not in the baseline package.
+    [Benchmark]
+    [Arguments("US", "x1231s")]
+    public PostalCode? TryCreateInvalid(string country, string code) =>
+        PostalCodeFactory.Instance.TryCreatePostalCode(CountryFactory.Instance.CreateCountry(country), code, out var result)
+            ? result
+            : null;
+#endif
+
     const int Repeats = 1_000_000;
 
     [Benchmark(OperationsPerInvoke = Repeats)]

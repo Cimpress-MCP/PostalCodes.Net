@@ -6,12 +6,17 @@ namespace PostalCodes.GenericPostalCodes
     {
 
         public DefaultPostalCode(string postalCode)
-            : base(_formats, " -", postalCode, true)
+            : base(_formats, " -", postalCode, true, true)
         {
         }
 
         public DefaultPostalCode(string postalCode, bool allowConvertToShort)
-            : base(_formats, " -", postalCode, allowConvertToShort)
+            : base(_formats, " -", postalCode, allowConvertToShort, true)
+        {
+        }
+
+        internal DefaultPostalCode(string postalCode, bool allowConvertToShort, bool throwOnInvalid)
+            : base(_formats, " -", postalCode, allowConvertToShort, throwOnInvalid)
         {
         }
 
