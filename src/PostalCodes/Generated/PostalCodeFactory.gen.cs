@@ -10,8 +10,24 @@ namespace PostalCodes
     {
         private static readonly Lazy<PostalCodeFactory> LazyFactory = new Lazy<PostalCodeFactory>(() => new PostalCodeFactory());
 
+        private readonly bool _useLegacyNetherlandsFormat;
+
         internal PostalCodeFactory()
         {
+        }
+
+        /// <summary>
+        /// Creates a PostalCodeFactory with the provided options
+        /// </summary>
+        /// <param name="options">Options changing how postal codes are created</param>
+        public PostalCodeFactory(PostalCodeFactoryOptions options)
+        {
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            _useLegacyNetherlandsFormat = options.UseLegacyNetherlandsFormat;
         }
 
         /// <summary>
@@ -64,8 +80,13 @@ namespace PostalCodes
             return true;
         }
 
-        private static PostalCode Create(Country country, string postalCode, bool throwOnInvalid)
+        private PostalCode Create(Country country, string postalCode, bool throwOnInvalid)
         {
+            if (_useLegacyNetherlandsFormat && country.Code == "NL")
+            {
+                return new NLLegacyPostalCode(postalCode, true, throwOnInvalid);
+            }
+
             switch(country.Code) {
                 case "AF" :
                     return new AFPostalCode(postalCode, " -", true, throwOnInvalid);
