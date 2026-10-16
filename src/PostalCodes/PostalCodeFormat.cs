@@ -63,6 +63,38 @@ namespace PostalCodes
         /// <value>The pad left character.</value>
         public string LeftPaddingCharacter { get; internal set; }
 
+        private int _charsInOutputDefault = -1;
+        private int _charsInOutputShort = -1;
+
+        /// <summary>
+        /// Number of code characters ('x') in <see cref="OutputDefault"/>.
+        /// </summary>
+        internal int CharsInOutputDefault
+        {
+            get { return _charsInOutputDefault >= 0 ? _charsInOutputDefault : (_charsInOutputDefault = CountCodeChars(OutputDefault)); }
+        }
+
+        /// <summary>
+        /// Number of code characters ('x') in <see cref="OutputShort"/>.
+        /// </summary>
+        internal int CharsInOutputShort
+        {
+            get { return _charsInOutputShort >= 0 ? _charsInOutputShort : (_charsInOutputShort = CountCodeChars(OutputShort)); }
+        }
+
+        private static int CountCodeChars(string output)
+        {
+            var count = 0;
+            foreach (var c in output)
+            {
+                if (c == 'x')
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
         #region Equal implementation
 
         /// <summary>

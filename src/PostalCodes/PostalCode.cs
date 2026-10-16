@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PostalCodes
@@ -555,7 +554,7 @@ namespace PostalCodes
 
                 string paddedPostalCode;
                 
-                if (fmt.RegexShort != null && TryOutPadding(postalCode, fmt.OutputShort.ToCharArray().Count(a => a == 'x'), fmt.LeftPaddingCharacter[0], fmt.RegexShort, out paddedPostalCode))
+                if (fmt.RegexShort != null && TryOutPadding(postalCode, fmt.CharsInOutputShort, fmt.LeftPaddingCharacter[0], fmt.RegexShort, out paddedPostalCode))
                 {
                     _currentFormatType = FormatType.Short;
                     _currentFormat = fmt;
@@ -563,7 +562,7 @@ namespace PostalCodes
                     return paddedPostalCode;
                 }
                 
-                if (TryOutPadding(postalCode, fmt.OutputDefault.ToCharArray().Count(a => a == 'x'), fmt.LeftPaddingCharacter[0], fmt.RegexDefault, out paddedPostalCode))
+                if (TryOutPadding(postalCode, fmt.CharsInOutputDefault, fmt.LeftPaddingCharacter[0], fmt.RegexDefault, out paddedPostalCode))
                 {
                     _currentFormatType = FormatType.Default;
                     _currentFormat = fmt;
@@ -597,12 +596,44 @@ namespace PostalCodes
         /// <param name="code">Code.</param>
         protected string ClearWhiteSpaces(string code)
         {
-            var normalized = code;
-            foreach (var c in _redundantCharacters.ToCharArray())
+            var i = 0;
+            while (i < code.Length && _redundantCharacters.IndexOf(code[i]) < 0)
             {
-                normalized = normalized.Replace (c + "", "");
+                i++;
             }
-            return normalized;
+
+            if (i == code.Length)
+            {
+                return code;
+            }
+
+            var buffer = new char[code.Length];
+            code.CopyTo(0, buffer, 0, i);
+            var length = i;
+            for (; i < code.Length; i++)
+            {
+                if (_redundantCharacters.IndexOf(code[i]) < 0)
+                {
+                    buffer[length++] = code[i];
+                }
+            }
+            return new string(buffer, 0, length);
+        }
+
+        /// <summary>
+        /// Uppercases the code with the invariant culture, returning it unchanged when it has nothing to uppercase.
+        /// </summary>
+        /// <param name="code">Code.</param>
+        internal static string ToUpperInvariantIfNeeded(string code)
+        {
+            foreach (var c in code)
+            {
+                if ((c >= 'a' && c <= 'z') || c > '\x7f')
+                {
+                    return code.ToUpperInvariant();
+                }
+            }
+            return code;
         }
 
         /// <summary>
@@ -614,8 +645,7 @@ namespace PostalCodes
         {
             if (matchedRegex == FormatType.Default && _allowConvertToShort && _currentFormat.AutoConvertToShort)
             {
-                var charsInShortFormat = _currentFormat.OutputShort.Count(c => c == 'x');
-                return code.Substring (0, charsInShortFormat);
+                return code.Substring (0, _currentFormat.CharsInOutputShort);
             }
 
             return code;
