@@ -29,7 +29,7 @@ namespace PostalCodes
         /// <summary>
         /// The _backing postal code
         /// </summary>
-        private readonly string _backingPostalCode;
+        private string _backingPostalCode;
         
         /// <summary>
         /// Gets the postal code string.
@@ -43,7 +43,7 @@ namespace PostalCodes
         /// <summary>
         /// The lowest-expanded postal code (if the postal code is short)
         /// </summary>
-        private readonly string _lowestExpandedPostalCode;
+        private string _lowestExpandedPostalCode;
 
         /// <summary>
         /// Gets the lowest-expanded postal code string.
@@ -57,7 +57,7 @@ namespace PostalCodes
         /// <summary>
         /// The highest-expanded postal code (if the postal code is short)
         /// </summary>
-        private readonly string _highestExpandedPostalCode;
+        private string _highestExpandedPostalCode;
 
         /// <summary>
         /// Gets the highest-expanded postal code string.
@@ -426,7 +426,7 @@ namespace PostalCodes
             {
                 if (_currentFormat.ShortExpansionAsLowestInRange != null)
                 {
-                    return CreatePostalCode(ToString() + _currentFormat.ShortExpansionAsLowestInRange, false);
+                    return CreateExpanded(_lowestExpandedPostalCode);
                 }
                 else
                 {
@@ -447,7 +447,7 @@ namespace PostalCodes
             {
                 if (_currentFormat.ShortExpansionAsHighestInRange != null)
                 {
-                    return CreatePostalCode(ToString() + _currentFormat.ShortExpansionAsHighestInRange, false);
+                    return CreateExpanded(_highestExpandedPostalCode);
                 }
                 else
                 {
@@ -456,6 +456,24 @@ namespace PostalCodes
             }
 
             return this;
+        }
+
+        /// <summary>
+        /// Builds the default-format code of the current format from an already expanded short code, without parsing
+        /// it again. Gives the same result as <c>CreatePostalCode(expanded, false)</c>: every short format with an
+        /// expansion matches its own default format after expansion, and no format listed before it.
+        /// </summary>
+        /// <param name="expanded">The short code with the lowest or highest expansion appended.</param>
+        /// <returns>The expanded postal code.</returns>
+        private PostalCode CreateExpanded(string expanded)
+        {
+            var copy = (PostalCode)MemberwiseClone();
+            copy._allowConvertToShort = false;
+            copy._currentFormatType = FormatType.Default;
+            copy._backingPostalCode = AllowPostalCodeStringInterning ? String.Intern(expanded) : expanded;
+            copy._lowestExpandedPostalCode = copy._backingPostalCode;
+            copy._highestExpandedPostalCode = copy._backingPostalCode;
+            return copy;
         }
 
         /// <summary>
